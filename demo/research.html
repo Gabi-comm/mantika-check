@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MANTIKA CHECK · Research desk</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/app.css?v=2">
+</head>
+<body>
+  <div class="desk">
+    <aside class="side">
+      <svg width="36" height="36" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="6" fill="#F6F3EC"/><path d="M9 25 L16 8 L23 25" fill="none" stroke="#14213D" stroke-width="2.2"/><path d="M14.2 18.2 H22.2" stroke="#B07A2A" stroke-width="2.2"/></svg>
+      <strong style="display:block;margin:12px 0">MANTIKA CHECK</strong>
+      <a href="#overview">Overview</a>
+      <a href="#laboratory">ML laboratory</a>
+      <a href="#usability">Usability</a>
+      <a href="#pathway">Reference TPC</a>
+      <a href="index.html">Vendor prototype</a>
+      <p class="quiet">Research prototype. No forecast is shown to vendors.</p>
+    </aside>
+    <main class="main">
+      <p class="kicker">PJDSC 2026 · Team INNOV</p>
+      <h1 id="overview">Research overview</h1>
+      <p>Counts from the public Li (2020) run are filled in. Vendor and usability counts stay empty until those sessions exist.</p>
+
+      <div class="grid-2">
+        <section class="card">
+          <h2>1 · Public TPC dataset</h2>
+          <p>Source · Li (2020), Mendeley Data</p>
+          <p>Temperatures · 160 to 220 °C, 5 steps</p>
+          <p>Duration · 0 to 30 h · 155 rows</p>
+          <p>Oil type · Not specified by the CSV</p>
+          <p class="note">The files are separate: total polar compounds, acid value, and carbonyl value. They are not merged.</p>
+        </section>
+        <section class="card">
+          <h2>2 · Strip reader pilot</h2>
+          <p>Consenting stalls · [n] · target 15 to 25</p>
+          <p>Repeat observation vendors · [n] · target 5 to 8</p>
+          <p>Usability sessions · <span id="session-count">[n]</span> · minimum 5</p>
+          <p class="note">The vendor phone is a prototype sample, stall V-07. It is not a consented pilot record.</p>
+        </section>
+      </div>
+
+      <section class="card">
+        <h2>Methodology progress</h2>
+        <table>
+          <thead><tr><th>Step</th><th>Work</th><th>Status</th><th>Gate</th></tr></thead>
+          <tbody>
+            <tr><td>1–2</td><td>Download and audit Li (2020)</td><td class="done">Done</td><td>Units and separate outcome files checked in the model export</td></tr>
+            <tr><td>3</td><td>Forecasting experiment</td><td class="done">Run on public data</td><td>MAE and RMSE below, held-out time and leave-one-temperature-out</td></tr>
+            <tr><td>4</td><td>External validity write-up</td><td>Not started</td><td>Domain shift is not yet a vendor claim</td></tr>
+            <tr><td>5–6</td><td>Field pilot and strip images</td><td>Not started</td><td>Two phones and two lights, grouped by physical strip</td></tr>
+            <tr><td>7</td><td>Reference TPC validation</td><td class="blocked">Blocked</td><td>Needs a laboratory partner</td></tr>
+            <tr><td>8</td><td>Prototype and SUS review</td><td>Not started</td><td>At least 5 consented vendors</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="card" id="laboratory">
+        <h2>TPC over frying time</h2>
+        <p class="note">Curve fit to Li (2020), from the published coefficients in model export v3. Solid lines are that fit. This is not a vendor forecast.</p>
+        <div class="chart-wrap" id="chart"></div>
+        <p class="note">25% research benchmark · not Philippine law. Source: Li (2020), frying oil data, potato-chip frying under controlled heat. Oil type is not a column in the file.</p>
+        <h2>Observed time to 25% TPC</h2>
+        <p class="note">Taken from the dataset, or marked not reached. Model curves were not extended past 30 h to invent a time.</p>
+        <table>
+          <thead><tr><th>Temperature</th><th>Crossing</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td class="num">160 °C</td><td>not reached</td><td>Still under 25% at 30 h</td></tr>
+            <tr><td class="num">175 °C</td><td>not reached</td><td>Still under 25% at 30 h</td></tr>
+            <tr><td class="num">190 °C</td><td class="num">19.45 h</td><td>Observed</td></tr>
+            <tr><td class="num">205 °C</td><td class="num">15.49 h</td><td>Observed</td></tr>
+            <tr><td class="num">220 °C</td><td class="num">11.64 h</td><td>Observed</td></tr>
+          </tbody>
+        </table>
+        <h2>Error by model and validation</h2>
+        <p class="note">Proposal baselines only. Units are TPC percentage points. A later kinetic model in the same export is not shown to vendors and does not unlock an hours countdown.</p>
+        <table>
+          <thead><tr><th>Model</th><th>Validation</th><th class="num">MAE</th><th class="num">RMSE</th></tr></thead>
+          <tbody>
+            <tr><td>Curve fit</td><td>Held-out time</td><td class="num">0.394</td><td class="num">0.663</td></tr>
+            <tr><td>Regularized regression</td><td>Held-out time</td><td class="num">1.656</td><td class="num">1.898</td></tr>
+          </tbody>
+        </table>
+        <h2>Leave-one-temperature-out · MAE</h2>
+        <p class="note">Each number is the error when that temperature was left out of fitting. The curve fit uses the curves from the other temperatures. The regularized regression is refit without that temperature. This does not test other oils or foods.</p>
+        <table>
+          <thead>
+            <tr><th>Held-out temperature</th><th class="num">Curve fit</th><th class="num">Regularized regression</th></tr>
+          </thead>
+          <tbody>
+            <tr><td class="num">160 °C</td><td class="num">4.177</td><td class="num">2.429</td></tr>
+            <tr><td class="num">175 °C</td><td class="num">2.089</td><td class="num">1.934</td></tr>
+            <tr><td class="num">190 °C</td><td class="num">1.440</td><td class="num">1.470</td></tr>
+            <tr><td class="num">205 °C</td><td class="num">0.952</td><td class="num">0.476</td></tr>
+            <tr><td class="num">220 °C</td><td class="num">2.086</td><td class="num">2.135</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="card" id="usability">
+        <h2>Usability test · minimum 5 vendors</h2>
+        <p>The instrument is ready. No consented session is stored with this page until someone finishes it on a phone.</p>
+        <ol>
+          <li>Open the vendor prototype with <a href="index.html?study=1">study mode</a>.</li>
+          <li>Task success: update the oil log, save a strip reading, open yesterday’s reading.</li>
+          <li>Completion time: each task is timed from the moment it is shown.</li>
+          <li>System Usability Scale: ten questions, scored 0 to 100, immediately after.</li>
+        </ol>
+        <p id="usability-status">Usability review has not reached 5 consented vendors.</p>
+        <p class="note">Practice sessions stay on the phone and are not averaged. A mean is shown only after 5 sessions marked as consented vendors. That target is not a completed sample.</p>
+      </section>
+
+      <section class="card" id="pathway">
+        <h2>Limitations</h2>
+        <ul>
+          <li>Published curves come from potato-chip frying and demonstrate a method, not street-vendor oil life.</li>
+          <li>A phone reading of a strip is not a laboratory TPC measurement. Camera-to-human agreement is a different question from strip-to-laboratory TPC.</li>
+          <li>The 25% line is a research benchmark, not Philippine law.</li>
+          <li>The prototype does not detect pathogens, diagnose illness, or make a regulatory ruling.</li>
+          <li>Area summaries stay hidden below 5 consented stalls.</li>
+        </ul>
+        <h2>Future reference-TPC pathway</h2>
+        <ol>
+          <li>A partner laboratory measures TPC on oils that consenting stalls are actually using.</li>
+          <li>The same oils are measured again over time, with the strip photograph and the oil log beside each laboratory number.</li>
+          <li>Phone bands are compared with the human band, and both are compared with the laboratory TPC. Those are two separate results.</li>
+          <li>Until that local comparison is adequate, the vendor phone does not show hours remaining or a safety verdict.</li>
+        </ol>
+        <p class="note">This gate is blocked. Recording a single laboratory number in the API does not turn the countdown on.</p>
+        <p class="note">Li, Y. (2020). Frying oil data. doi:10.17632/4k7b395yxx.1<br>
+        Yongyod, R., &amp; Kerdsin, A. (2025). Foods, 14(9), 1572.<br>
+        Model export v3, Team INNOV. Held-out-time MAE and RMSE and the leave-one-temperature-out table are from that run.</p>
+      </section>
+    </main>
+  </div>
+  <script src="js/research.js"></script>
+</body>
+</html>

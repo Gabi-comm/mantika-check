@@ -1,0 +1,10 @@
+.venv/
+.reference/
+__pycache__/
+*.pyc
+.pytest_cache/
+*.db
+backend/storage/*
+!backend/storage/.gitkeep
+.pytest_cache/
+*.egg-info/
