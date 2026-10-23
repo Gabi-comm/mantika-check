@@ -1,0 +1,12 @@
+{
+  "name": "MANTIKA CHECK",
+  "short_name": "Mantika Check",
+  "description": "Research preview for visual cooking-oil strip colour analysis.",
+  "start_url": "/app",
+  "display": "standalone",
+  "background_color": "#f5f8f7",
+  "theme_color": "#11634a",
+  "icons": [
+    { "src": "/brand/mantika-check-app-icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ]
+}
