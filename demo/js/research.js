@@ -66,4 +66,18 @@
     const successes = consented.filter((item) => item.tasks && item.tasks.log && item.tasks.log.success && item.tasks.scan && item.tasks.scan.success && item.tasks.history && item.tasks.history.success).length;
     status.textContent = "Consented vendors: " + consented.length + ". Task success on all three tasks: " + successes + " of " + consented.length + ". Mean SUS: " + mean.toFixed(1) + ".";
   }
+
+  fetch("/api/v1/demo/usability").then(function (response) {
+    if (!response.ok) return null;
+    return response.json();
+  }).then(function (body) {
+    if (!body) return;
+    count.textContent = body.consented_sessions ? String(body.consented_sessions) : "[n]";
+    if (!body.finding) {
+      status.textContent = "Usability review has not reached 5 consented vendors. Consented sessions stored for the research desk: " + body.consented_sessions + ". Practice sessions are excluded.";
+    } else {
+      const tasks = body.task_success;
+      status.textContent = "Consented vendors: " + body.consented_sessions + ". Oil log success: " + tasks.log.success + " of " + tasks.log.of + ". Mean SUS: " + body.mean_sus + ".";
+    }
+  }).catch(function () { /* keep the browser copy when the API is not running */ });
 })();

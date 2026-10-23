@@ -18,6 +18,7 @@ from app.models import (
     LabReference,
     ModelEvaluation,
     OilSession,
+    UsabilitySession,
     Participant,
     ParticipantIdentity,
     Questionnaire,
@@ -30,6 +31,8 @@ from app.present import ensure_utc, iso, photo_out
 from app.services.datasets import DatasetError, describe, parse_csv
 from app.services.forecasting import evaluate_tpc
 from app.services.privacy import MINIMUM_STALLS, area_summary, split_report
+from app.services.published import PublishedRunError, published_catalog
+from app.services.usability import UsabilityError, UsabilityIn, record_session, summary as usability_summary
 
 router = APIRouter(prefix="/api/v1/lab", tags=["lab"])
 staff = require("researcher", "administrator")
@@ -477,6 +480,7 @@ def validation(user: User = Depends(staff), db: Session = Depends(get_db)) -> di
             "state": "present" if published else "missing",
             "detail": "Import the Li (2020) TPC file as published_laboratory. A simulated file does not fill this gate.",
         },
+        _published_gate(),
         {
             "id": "simulated_dataset",
             "state": "present" if simulated else "absent",
@@ -513,6 +517,53 @@ def validation(user: User = Depends(staff), db: Session = Depends(get_db)) -> di
         },
     ]
     return {"gates": gates, "vendor_specific_forecast": "disabled"}
+
+
+def _published_gate() -> dict:
+    try:
+        catalog = published_catalog()
+    except PublishedRunError as exc:
+        return {"id": "published_model_export", "state": "missing", "detail": exc.message}
+    return {
+        "id": "published_model_export",
+        "state": "present",
+        "version": catalog["version"],
+        "detail": "GET /api/v1/lab/published-run fills the ML laboratory, dataset audit, and reporting tables.",
+    }
+
+
+@router.get("/published-run")
+def published_run(user: User = Depends(staff)) -> dict:
+    try:
+        payload = published_catalog()
+    except PublishedRunError as exc:
+        fail(503, "published_run_missing", exc.message)
+    payload["viewer_role"] = user.role
+    return payload
+
+
+@router.get("/usability")
+def usability(user: User = Depends(staff), db: Session = Depends(get_db)) -> dict:
+    payload = usability_summary(db.query(UsabilitySession).all())
+    payload["viewer_role"] = user.role
+    return payload
+
+
+@router.post("/usability")
+def save_usability(
+    body: UsabilityIn,
+    user: User = Depends(staff),
+    db: Session = Depends(get_db),
+) -> dict:
+    try:
+        record_session(db, body.model_dump())
+    except UsabilityError as exc:
+        fail(422, exc.code, exc.message)
+    audit(db, user.id, "usability_recorded", "anonymous")
+    db.commit()
+    payload = usability_summary(db.query(UsabilitySession).all())
+    payload["viewer_role"] = user.role
+    return payload
 
 
 @router.post("/reference-measurements")

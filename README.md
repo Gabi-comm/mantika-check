@@ -32,7 +32,13 @@ Build the records and the rules, then let the web and mobile screens call them.
 - `client_mutation_id` is already accepted on logs and photos, so an offline queue can be added later without changing the contract.
 - OpenAPI is the handoff. The web app can be generated against `http://127.0.0.1:8000/docs` while layout is still moving.
 
-`GET /api/v1/meta` lists the flags the interface must not contradict. Two services stay separate: `strip_color` and `tpc_forecast`.
+`GET /api/v1/meta` lists the flags the interface must not contradict, and maps each screen on `design/mantika-check-refined-ui` to the route that fills it. Two services stay separate: `strip_color` and `tpc_forecast`.
+
+The design branch can call these without copying numbers into the HTML:
+
+- `GET /api/v1/lab/published-run` fills the overview, ML laboratory, dataset audit, and reporting tables from model export v3. The same payload is at `GET /api/v1/demo/published-run` before login exists.
+- `POST /api/v1/lab/datasets` accepts `models/data/frying_oil_long.csv` (`hour`) and the wide sheet `models/data/total_polar_compoents.csv`.
+- `POST /api/v1/demo/usability` stores task success, completion time, and the SUS score. `GET /api/v1/lab/usability` withholds the mean until 5 consented vendors.
 
 ## Run
 

@@ -11,7 +11,7 @@ VALUE_ALIASES = {
     "carbonyl_value": {"carbonyl_value", "cv", "carbonyl"},
 }
 TEMP_ALIASES = {"temperature_c", "temperature", "temp", "temp_c", "frying_temperature"}
-TIME_ALIASES = {"time_h", "time", "hours", "frying_time", "time_hours"}
+TIME_ALIASES = {"time_h", "time", "hour", "hours", "frying_time", "time_hours"}
 
 
 class DatasetError(Exception):
@@ -52,6 +52,10 @@ def parse_csv(content: bytes, declared_outcome: str) -> dict:
             if name in aliases:
                 return original
         return None
+
+    wide_columns = _wide_temperature_columns(reader.fieldnames)
+    if wide_columns is not None:
+        return _parse_wide_tpc(reader, wide_columns, declared_outcome)
 
     temp_col = pick(TEMP_ALIASES)
     time_col = pick(TIME_ALIASES)
@@ -114,22 +118,39 @@ def parse_csv(content: bytes, declared_outcome: str) -> dict:
     if not used:
         raise DatasetError("no_usable_rows", "No rows had temperature, time, and the declared outcome.")
 
+    warnings = list(warning_notes)
+    if ignored:
+        warnings.append(
+            "Other chemical columns were stored only as a note. They were not used as "
+            f"{declared_outcome}: {', '.join(ignored)}."
+        )
+    return _profile(used, rows_read, dropped_missing, duplicates, declared_outcome, ignored, warnings)
+
+
+def _profile(
+    used: list[dict],
+    rows_read: int,
+    dropped_missing: int,
+    duplicates: int,
+    declared_outcome: str,
+    ignored: list[str],
+    warnings: list[str],
+) -> dict:
     temperatures = sorted({row["temperature_c"] for row in used})
     times = [row["time_h"] for row in used]
     values = [row["measured_value"] for row in used]
-    warnings = list(warning_notes)
+    notes = list(warnings)
     unexpected = [temp for temp in temperatures if temp not in EXPECTED_TEMPERATURES]
     if unexpected:
-        warnings.append(
+        notes.append(
             "Some temperatures are outside 160, 175, 190, 205, and 220°C. Confirm the unit is Celsius."
         )
     if max(times) > 30 or min(times) < 0:
-        warnings.append("Li (2020) reports hours from 0 through 30. Confirm this time column is in hours.")
+        notes.append("Li (2020) reports hours from 0 through 30. Confirm this time column is in hours.")
     if declared_outcome == "tpc" and float(np.median(values)) <= 1:
-        warnings.append(
+        notes.append(
             "TPC in the published frying data is on a percent scale. These values look like fractions and were not rescaled."
         )
-
     operations = [
         "Normalized column headers.",
         "Coerced temperature, time, and the declared outcome to numbers.",
@@ -138,12 +159,6 @@ def parse_csv(content: bytes, declared_outcome: str) -> dict:
         "Did not copy acid value or carbonyl value into the TPC target.",
         "Did not convert units automatically.",
     ]
-    if ignored:
-        warnings.append(
-            "Other chemical columns were stored only as a note. They were not used as "
-            f"{declared_outcome}: {', '.join(ignored)}."
-        )
-
     return {
         "rows": used,
         "profile": {
@@ -154,16 +169,67 @@ def parse_csv(content: bytes, declared_outcome: str) -> dict:
             "temperatures_c": temperatures,
             "time_min_h": min(times),
             "time_max_h": max(times),
+            "value_min": min(values),
+            "value_max": max(values),
             "declared_outcome": declared_outcome,
             "ignored_columns": ignored,
-            "warnings": warnings,
+            "warnings": notes,
             "operations": operations,
+            "layout": "long",
             "secondary_outcomes_not_used_as_target": ["acid_value", "carbonyl_value"],
             "provenance_check": (
                 "The server records the citation you typed. It does not certify the Mendeley file."
             ),
         },
     }
+
+
+def _wide_temperature_columns(fieldnames: list[str]) -> list[tuple[str, float]] | None:
+    """Mendeley wide sheet: Tem_160, Tem_175, ... and no time column."""
+    columns: list[tuple[str, float]] = []
+    for name in fieldnames:
+        match = re.fullmatch(r"tem_(\d+)", norm_header(name))
+        if match is None:
+            return None
+        columns.append((name, float(match.group(1))))
+    return columns or None
+
+
+def _parse_wide_tpc(reader: csv.DictReader, columns: list[tuple[str, float]], declared_outcome: str) -> dict:
+    if declared_outcome != "tpc":
+        raise DatasetError(
+            "outcome_mismatch",
+            "The wide temperature sheet is a TPC table. Import acid value and carbonyl value from their own files.",
+        )
+    rows_read = 0
+    used: list[dict] = []
+    for hour, raw in enumerate(reader):
+        if raw is None or all((value or "").strip() == "" for value in raw.values()):
+            continue
+        rows_read += 1
+        for original, temperature in columns:
+            measured = _number(raw.get(original))
+            if measured is None:
+                continue
+            used.append(
+                {
+                    "temperature_c": temperature,
+                    "time_h": float(hour),
+                    "measured_value": measured,
+                }
+            )
+    if not used:
+        raise DatasetError("no_usable_rows", "No rows had a TPC value in the wide temperature sheet.")
+    parsed = _profile(used, rows_read, 0, 0, declared_outcome, [], [
+        "This file has no time column. Each row was read as the next hour, starting at 0. "
+        "That row order matches models/data/frying_oil_long.csv. A different order would assign the wrong hours."
+    ])
+    parsed["profile"]["operations"].insert(
+        0,
+        "Read wide temperature columns as separate series. Row order supplied the hour.",
+    )
+    parsed["profile"]["layout"] = "wide_temperature_columns"
+    return parsed
 
 
 def describe(rows: list[dict]) -> dict:

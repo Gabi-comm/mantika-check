@@ -807,6 +807,11 @@
     const all = JSON.parse(localStorage.getItem(STUDY_KEY) || "[]");
     all.push(record);
     localStorage.setItem(STUDY_KEY, JSON.stringify(all));
+    fetch("/api/v1/demo/usability", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ consented: record.consented, sus: record.sus, tasks: record.tasks }),
+    }).catch(function () { /* the phone copy remains if the desk is offline */ });
     study.saved = true;
     ui.toast = t("studySaved");
     ui.view = "home";

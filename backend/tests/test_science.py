@@ -103,6 +103,20 @@ def test_acid_value_is_not_accepted_as_tpc():
     assert caught.value.code == "outcome_mismatch"
 
 
+def test_repository_tpc_files_import_with_their_real_headers():
+    root = Path(__file__).resolve().parents[2]
+    long_form = parse_csv((root / "models" / "data" / "frying_oil_long.csv").read_bytes(), "tpc")
+    wide = parse_csv((root / "models" / "data" / "total_polar_compoents.csv").read_bytes(), "tpc")
+    assert long_form["profile"]["rows_used"] == 155
+    assert wide["profile"]["rows_used"] == 155
+    assert wide["profile"]["time_min_h"] == 0
+    assert wide["profile"]["time_max_h"] == 30
+    assert long_form["rows"][0]["measured_value"] == wide["rows"][0]["measured_value"]
+    with pytest.raises(DatasetError) as caught:
+        parse_csv((root / "models" / "data" / "total_polar_compoents.csv").read_bytes(), "acid_value")
+    assert caught.value.code == "outcome_mismatch"
+
+
 def test_long_headers_keep_tpc_and_ignore_acid_value():
     content = (SAMPLES / "simulated_not_li2020.csv").read_bytes()
     parsed = parse_csv(content, "tpc")

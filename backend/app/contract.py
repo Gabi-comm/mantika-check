@@ -1,4 +1,4 @@
-CONTRACT_VERSION = "1"
+CONTRACT_VERSION = "2"
 
 META = {
     "name": "MANTIKA CHECK",
@@ -35,4 +35,24 @@ META = {
         "Offline SQLite on the phone",
         "Background sync",
     ],
+    "design_branch": "design/mantika-check-refined-ui",
+    "screens": {
+        "v2-MHome": {"method": "GET", "path": "/api/v1/vendor/dashboard", "auth": "vendor"},
+        "v2-MTracker": {"method": "POST", "path": "/api/v1/vendor/sessions", "auth": "vendor"},
+        "v2-MScanner": {"method": "POST", "path": "/api/v1/vendor/strips", "auth": "vendor"},
+        "v2-MResults": {"method": "POST", "path": "/api/v1/vendor/strips/{photo_id}/correction", "auth": "vendor"},
+        "v2-MHistory": {"method": "GET", "path": "/api/v1/vendor/history", "auth": "vendor"},
+        "v2-MStates": {"method": "GET", "path": "/api/v1/vendor/guide", "auth": "vendor"},
+        "v2-WOverview": {"method": "GET", "path": "/api/v1/lab/published-run", "auth": "researcher"},
+        "v2-WMLLab": {"method": "GET", "path": "/api/v1/lab/published-run", "auth": "researcher"},
+        "v2-WDataset": {"method": "POST", "path": "/api/v1/lab/datasets", "auth": "researcher"},
+        "v2-WStrip": {"method": "GET", "path": "/api/v1/lab/strips/agreement", "auth": "researcher"},
+        "v2-WVendors": {"method": "GET", "path": "/api/v1/lab/pilot-summary", "auth": "researcher"},
+        "v2-WReporting": {"method": "GET", "path": "/api/v1/lab/usability", "auth": "researcher"},
+    },
+    "prototype_without_accounts": {
+        "analyze": "POST /api/v1/demo/analyze",
+        "published_run": "GET /api/v1/demo/published-run",
+        "usability": "POST /api/v1/demo/usability",
+    },
 }

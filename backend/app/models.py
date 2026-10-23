@@ -201,6 +201,19 @@ class LabReference(Base):
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow)
 
 
+class UsabilitySession(Base):
+    """Anonymous task timing and SUS. Not linked to a stall identity."""
+
+    __tablename__ = "usability_sessions"
+
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=new_id)
+    consented: Mapped[bool] = mapped_column(Boolean, default=False)
+    practice: Mapped[bool] = mapped_column(Boolean, default=True)
+    sus: Mapped[float] = mapped_column(Float)
+    tasks_json: Mapped[dict] = mapped_column(JSON)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow)
+
+
 class AuditLog(Base):
     __tablename__ = "audit_logs"
 

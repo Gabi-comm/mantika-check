@@ -38,11 +38,80 @@ def test_demo_analyze_needs_no_account(client):
     assert "hours_remaining" not in walk_keys(body)
 
 
+def test_published_run_is_the_v3_export_and_not_a_vendor_forecast(client):
+    response = client.get("/api/v1/demo/published-run")
+    assert response.status_code == 200, response.text
+    body = response.json()
+    assert body["version"] == 3
+    assert body["rows"] == 155
+    assert body["oil_type"] == "Not specified by the source"
+    assert body["threshold_is_philippine_law"] is False
+    assert body["vendor_hours_remaining"] is False
+    assert body["selected_model"]["shown_to_vendors"] is False
+    text = response.text
+    assert "Safe to use" not in text
+    assert "Do not use" not in text
+    assert "hours_remaining" not in walk_keys(body)
+    held = {
+        item["model_key"]: item
+        for item in body["metrics"]
+        if item["validation"] == "held_out_time" and item["proposal_baseline"]
+    }
+    assert abs(held["A_curve_fit"]["mae"] - 0.39417348651348494) < 1e-12
+    assert abs(held["B_ridge_poly"]["mae"] - 1.656160377489549) < 1e-12
+    crossings = {item["temperature_c"]: item for item in body["crossings"]}
+    assert crossings[160]["status"] == "not_reached"
+    assert crossings[160]["observed_h"] is None
+    assert crossings[190]["status"] == "observed"
+    series = {item["temperature_c"]: item for item in body["chart"]["series"]}
+    assert abs(series[160]["points"][0]["tpc"] - 11.063955278592376) < 1e-9
+    assert series[160]["points"][-1]["tpc"] < 25
+    assert body["dataset_audit"]["missing_values"] == 0
+    staff = login(client, "researcher@mantika.local", "researcher-demo")
+    assert client.get("/api/v1/lab/published-run", headers=staff).status_code == 200
+    assert client.get("/api/v1/lab/published-run").status_code == 401
+
+
+def _usability(sus, consented=True):
+    return {
+        "consented": consented,
+        "sus": sus,
+        "tasks": {
+            "log": {"success": True, "seconds": 10},
+            "scan": {"success": True, "seconds": 12},
+            "history": {"success": True, "seconds": 9},
+        },
+    }
+
+
+def test_usability_mean_waits_for_five_consented_vendors(client):
+    for score in (40, 50, 60, 70):
+        saved = client.post("/api/v1/demo/usability", json=_usability(score))
+        assert saved.status_code == 200, saved.text
+        assert saved.json()["mean_sus"] is None
+        assert saved.json()["finding"] is False
+    practice = client.post("/api/v1/demo/usability", json=_usability(100, consented=False))
+    assert practice.json()["practice_sessions_excluded"] == 1
+    assert practice.json()["consented_sessions"] == 4
+    assert practice.json()["mean_sus"] is None
+    ready = client.post("/api/v1/demo/usability", json=_usability(80))
+    body = ready.json()
+    assert body["finding"] is True
+    assert body["consented_sessions"] == 5
+    assert body["mean_sus"] == 60.0
+    assert body["task_success"]["log"] == {"success": 5, "of": 5}
+    hidden = client.get("/api/v1/lab/usability")
+    assert hidden.status_code == 401
+
+
 def test_meta_locks_the_scientific_flags(client):
     body = client.get("/api/v1/meta").json()
     assert body["flags"]["vendor_hours_remaining"] is False
     assert body["flags"]["strip_photograph_is_tpc"] is False
     assert body["services_are_separate"] == ["strip_color", "tpc_forecast"]
+    assert body["contract_version"] == "2"
+    assert body["screens"]["v2-WMLLab"]["path"] == "/api/v1/lab/published-run"
+    assert body["screens"]["v2-MHome"]["path"] == "/api/v1/vendor/dashboard"
 
 
 def test_vendor_log_is_idempotent_and_has_no_forecast(client):
