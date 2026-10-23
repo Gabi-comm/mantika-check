@@ -49,6 +49,13 @@ export function hoursUntil(threshold: number, tpc: number, tempC: number): numbe
   return Math.max(0, eqHours(threshold, tempC) - eqHours(tpc, tempC));
 }
 
+const MANILA_DAY = new Intl.DateTimeFormat("en-CA", { timeZone: "Asia/Manila" });
+
+export function manilaDay(date: string): string {
+  const t = Date.parse(date);
+  return Number.isNaN(t) ? date.slice(0, 10) : MANILA_DAY.format(t);
+}
+
 export function isBeyondData(totalHours: number): boolean {
   return totalHours > DATA_MAX_HOURS;
 }
@@ -88,7 +95,7 @@ export function computeState(batch: OilBatch, sessions: Session[], topUps: TopUp
       hoursUsed += event.session.hours;
       lastTempC = tempC;
       lastHeat = event.session.heat;
-      days.add(event.session.date.slice(0, 10));
+      days.add(manilaDay(event.session.date));
     } else {
       tpc = topUp(tpc, volume, event.topUp.litres);
       volume += event.topUp.litres;

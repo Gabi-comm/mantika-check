@@ -73,7 +73,7 @@ function History() {
                   type="button"
                   aria-pressed={selected === "all"}
                   onClick={() => setBatchId("all")}
-                  className={cx("min-h-12 w-full rounded-[var(--radius-s)] border px-4 text-left font-semibold", selected === "all" ? "border-forest bg-forest text-white" : "border-line bg-white text-ink hover:border-green")}
+                  className={cx("min-h-12 w-full rounded-[var(--radius-s)] border px-4 text-left font-semibold", selected === "all" ? "border-forest bg-forest text-white" : "border-line bg-surface text-ink hover:border-green")}
                 >
                   {copy.history.all} <span className="font-mono text-[0.8rem] opacity-70">({state.batches.length})</span>
                 </button>
@@ -88,7 +88,7 @@ function History() {
                       type="button"
                       aria-pressed={on}
                       onClick={() => setBatchId(b.id)}
-                      className={cx("w-full rounded-[var(--radius-m)] border p-4 text-left transition-colors", on ? "border-green bg-mint/60" : "border-line bg-white hover:border-line-strong")}
+                      className={cx("w-full rounded-[var(--radius-m)] border p-4 text-left transition-colors", on ? "border-green bg-tint/60" : "border-line bg-surface hover:border-line-strong")}
                     >
                       <span className="flex items-center justify-between gap-2">
                         <span className="font-display font-bold text-ink">{b.label}</span>
@@ -132,7 +132,7 @@ function History() {
                   value={q}
                   onChange={(e) => setQ(e.target.value)}
                   placeholder="Search food, sign, reason…"
-                  className="h-12 w-full rounded-[var(--radius-s)] border border-line-strong bg-white pr-3 pl-9"
+                  className="h-12 w-full rounded-[var(--radius-s)] border border-line-strong bg-surface pr-3 pl-9"
                 />
               </label>
               <div className="flex flex-wrap gap-2" role="group" aria-label="Event types">
@@ -152,7 +152,7 @@ function History() {
                     setKinds([]);
                     setQ("");
                   }}
-                  className="inline-flex min-h-11 items-center gap-1 font-medium text-green"
+                  className="inline-flex min-h-11 items-center gap-1 font-medium text-accent"
                 >
                   <X className="size-3.5" aria-hidden="true" /> Clear filters
                 </button>

@@ -4,16 +4,15 @@ import Link from "next/link";
 import { Timer, ClipboardCheck, Droplets, RefreshCw, Ban, ArrowRight, Eye } from "lucide-react";
 import { useOilStatus } from "@/vendor/useOilStatus";
 import { copy } from "@/vendor/copy";
-import { HEAT_WEIGHT } from "@/vendor/adapter";
-import { hoursByDay, latestCheck, sortedEvents } from "@/vendor/selectors";
-import type { StatusResult } from "@/vendor/types";
-import { daysBetween, fmtDate, fmtDateTime, fmtLitres, cx } from "@/frontend/format";
+import { heatSimulation } from "@/lib/simulator";
+import { hoursByDay, latestCheck, sessionsOf, sortedEvents } from "@/vendor/selectors";
+import type { Batch, StatusResult } from "@/vendor/types";
+import { daysBetween, fmtDate, fmtDateTime, fmtLitres, fmtPhp, cx } from "@/frontend/format";
 import { LinkButton, Metric, Panel, PanelHead, Tag } from "@/components/ui";
 import { AdvicePanel, ForecastPanel, StatusPanel, WarningBanner, WhyPanel } from "@/components/vendor/status";
 import { FoodBars, HeatLegend, HeatSplit, UsageChart } from "@/components/vendor/charts";
 import { Timeline } from "@/components/vendor/timeline";
 import { Flash, NoBatch, WorkspaceSkeleton } from "@/components/vendor/states";
-import type { Totals } from "@/vendor/selectors";
 
 export default function DashboardPage() {
   const { hydrated, state, batch, totals, result, advice, adviceLoading } = useOilStatus();
@@ -26,7 +25,6 @@ export default function DashboardPage() {
   const check = latestCheck(batch);
   const recent = sortedEvents(batch).slice(0, 5);
   const closed = state.batches.filter((b) => b.endedAt).slice(0, 3);
-  const isDemo = batch.origin === "demo";
 
   return (
     <div className="space-y-5">
@@ -55,16 +53,6 @@ export default function DashboardPage() {
       </header>
 
       <Flash />
-      {isDemo && (
-        <p className="flex flex-wrap items-center gap-x-2 gap-y-1 text-[0.85rem] text-gray">
-          <Tag tone="neutral">{copy.demo.badge}</Tag>
-          <span className="hidden sm:inline">{copy.demo.note}</span>
-          <span className="sm:hidden">Fictional records for exploration.</span>
-          <Link href="/app/settings#data" className="inline-flex min-h-11 items-center font-medium text-green underline-offset-2 hover:underline">
-            Manage demo data
-          </Link>
-        </p>
-      )}
 
       <div className="grid gap-5 xl:grid-cols-[minmax(0,1.65fr)_minmax(0,1fr)]">
         {/* primary column */}
@@ -114,7 +102,7 @@ export default function DashboardPage() {
               title="Recent activity"
               eyebrow="Timeline"
               action={
-                <Link href="/app/history" className="inline-flex min-h-11 items-center gap-1 text-[0.88rem] font-medium text-green">
+                <Link href="/app/history" className="inline-flex min-h-11 items-center gap-1 text-[0.88rem] font-medium text-accent">
                   {copy.actions.viewHistory} <ArrowRight className="size-4" aria-hidden="true" />
                 </Link>
               }
@@ -167,17 +155,17 @@ export default function DashboardPage() {
                   status.noTopUp ? "border-st-replace/40 bg-st-replace-bg text-st-replace" : "border-line-strong text-ink hover:border-green"
                 )}
               >
-                {status.noTopUp ? <Ban className="size-5" aria-hidden="true" /> : <Droplets className="size-5 text-green" aria-hidden="true" />}
+                {status.noTopUp ? <Ban className="size-5" aria-hidden="true" /> : <Droplets className="size-5 text-accent" aria-hidden="true" />}
                 <span>{status.noTopUp ? "Do Not Top Up" : copy.actions.topUp}</span>
               </Link>
               <Link href="/app/replace" className="flex min-h-20 flex-col justify-between rounded-[var(--radius-s)] border border-line-strong p-3 text-[0.92rem] font-semibold text-ink hover:border-green">
-                <RefreshCw className="size-5 text-green" aria-hidden="true" />
+                <RefreshCw className="size-5 text-accent" aria-hidden="true" />
                 <span>{copy.actions.replace}</span>
               </Link>
             </div>
           </Panel>
 
-          <HeatComparison result={result} totals={totals} />
+          <HeatComparison result={result} batch={batch} />
 
           <Panel aria-labelledby="batches-h">
             <PanelHead id="batches-h" title="Previous batches" eyebrow="History" />
@@ -210,14 +198,23 @@ export default function DashboardPage() {
   );
 }
 
-/** Demonstrates the heuristic's heat weighting using this batch's own hours. Never shown over a warning. */
-function HeatComparison({ result, totals }: { result: StatusResult; totals: Totals }) {
-  const blocked = !!result.status.hardRule || result.status.action === "change_now";
-  const high = totals.hoursByHeat.high;
-  const diff = Math.round(high * (HEAT_WEIGHT.high - HEAT_WEIGHT.medium) * 10) / 10;
+/** Engine heat simulator for this batch. Never shown over a warning. */
+function HeatComparison({ result, batch }: { result: StatusResult; batch: Batch }) {
+  const st = result.status;
+  const blocked = !!st.hardRule || st.action === "change_now";
+  const last = sessionsOf(batch).sort((a, b) => (a.at < b.at ? 1 : -1))[0];
+  const currentHeat = last?.heat ?? "medium";
+  const sim = heatSimulation({
+    tpcHigh: st.tpc.high,
+    hoursUsed: st.hoursUsed,
+    fryingDays: st.fryingDays,
+    litres: batch.volumeL,
+    currentHeat,
+    ...(batch.pricePerL !== undefined ? { pricePerL: batch.pricePerL } : {}),
+  });
   return (
     <Panel aria-labelledby="hc-h">
-      <PanelHead id="hc-h" title={copy.heatCompare.title} eyebrow="Demo heuristic" action={<Tag tone="outline">{copy.illustrative}</Tag>} />
+      <PanelHead id="hc-h" title={copy.heatCompare.title} eyebrow="Engine" action={<Tag tone="outline">{copy.illustrative}</Tag>} />
       <div className="space-y-3 p-5">
         {blocked ? (
           <p className="text-[0.92rem] font-medium text-st-replace">{copy.heatCompare.blocked}</p>
@@ -225,25 +222,26 @@ function HeatComparison({ result, totals }: { result: StatusResult; totals: Tota
           <>
             <p className="text-[0.92rem] text-gray">{copy.heatCompare.lead}</p>
             <dl className="grid grid-cols-3 gap-2">
-              {(["low", "medium", "high"] as const).map((h) => (
-                <div key={h} className="rounded-[var(--radius-s)] border border-line px-3 py-2">
-                  <dt className="text-[0.75rem] text-gray">1 h {copy.heat[h]}</dt>
-                  <dd className="font-mono text-[1rem] font-medium text-ink tabular">×{HEAT_WEIGHT[h].toFixed(1)}</dd>
+              {sim.options.map((o) => (
+                <div key={o.heat} className={cx("rounded-[var(--radius-s)] border px-3 py-2", o.heat === currentHeat ? "border-green" : "border-line")}>
+                  <dt className="text-[0.75rem] text-gray">
+                    {copy.heat[o.heat]} · {o.tempC} °C{o.heat === currentHeat ? ` · ${copy.heatCompare.current}` : ""}
+                  </dt>
+                  <dd className="font-mono text-[1rem] font-medium text-ink tabular">
+                    {o.beyondData ? "30+ h" : `${Math.round(o.hoursLeft * 10) / 10} h`}
+                  </dd>
+                  <dd className="text-[0.72rem] text-gray">{copy.heatCompare.hoursLeft}</dd>
+                  {o.pesoSavedPerWeek !== undefined && o.heat !== currentHeat && sim.weeklyHours > 0 && (
+                    <dd className="mt-1 text-[0.75rem] text-ink">
+                      {fmtPhp(Math.round(Math.abs(o.pesoSavedPerWeek)))} {o.pesoSavedPerWeek >= 0 ? copy.heatCompare.savedWeek : copy.heatCompare.extraWeek}
+                    </dd>
+                  )}
                 </div>
               ))}
             </dl>
-            <p className="text-[0.9rem] text-ink">
-              {high > 0 ? (
-                <>
-                  This batch has <b>{high} h</b> at high heat. At medium heat the same hours would add <b>{diff}</b> fewer points to the demo index.
-                </>
-              ) : (
-                "No high-heat hours logged on this batch."
-              )}
-            </p>
+            {batch.pricePerL === undefined && <p className="text-[0.85rem] text-gray">{copy.heatCompare.noPrice}</p>}
           </>
         )}
-        {!blocked && <p className="text-[0.85rem] text-ink">Weekly peso savings: <span className="text-gray">not available until a validated engine is connected.</span></p>}
         <p className="text-[0.78rem] text-gray">{copy.heatCompare.note}</p>
       </div>
     </Panel>

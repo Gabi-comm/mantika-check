@@ -51,29 +51,31 @@ function outputSets({ keep, monitor, soon, now }: FuzzyParams["output"]): Record
   };
 }
 
+const CORE_RULE_COUNT = 3;
+
 function rules({ R4, R5 }: FuzzyParams["weights"]): Rule[] {
   return [
-    { if: [["tpc", "good"]], then: "keep", weight: 1, label: "Maayos pa ang tantiyang TPC (< 20%)", source: "[S2][S3]" },
+    { if: [["tpc", "good"]], then: "keep", weight: 1, label: "Estimated TPC is still fine (< 20%)", source: "[S2][S3]" },
     {
       if: [["tpc", "approaching"]],
       then: "soon",
       weight: 1,
-      label: "Malapit na sa limit (20–24% TPC): magplano ng palit o mag-filter",
+      label: "Close to the limit (20–24% TPC): plan a change or filter the oil",
       source: "[S2][S3][S4]",
     },
-    { if: [["tpc", "critical"]], then: "now", weight: 1, label: "Lampas na sa limit na 24–25% TPC", source: "[S2][S5][S6][S7]" },
+    { if: [["tpc", "critical"]], then: "now", weight: 1, label: "Past the 24–25% TPC limit", source: "[S2][S5][S6][S7]" },
     {
       if: [["tpc", "good"], ["breaded", "high"]],
       then: "monitor",
       weight: R4,
-      label: "Madalas mag-prito ng may breading/batter: mas mabilis masira ang mantika",
+      label: "Frequent battered/breaded frying: the oil breaks down faster",
       source: "[S14][S15]",
     },
     {
       if: [["tpc", "good"], ["cox", "less_stable"]],
       then: "monitor",
       weight: R5,
-      label: "Mas madaling masira ang ganitong klase ng mantika (mataas sa PUFA)",
+      label: "This type of oil breaks down more easily (high in PUFA)",
       source: "[S10][S12][S13]",
     },
   ];
@@ -87,6 +89,10 @@ export function ruleBase(params: FuzzyParams = DEFAULT_FUZZY_PARAMS) {
   };
 }
 
+export function coreRules(all: Rule[]): Rule[] {
+  return all.slice(0, CORE_RULE_COUNT);
+}
+
 export interface OilInputs {
   tpc: number;
   breaded: number;
@@ -95,7 +101,9 @@ export interface OilInputs {
 
 export function inferUrgency(inputs: OilInputs, params: FuzzyParams = DEFAULT_FUZZY_PARAMS): InferResult {
   const { vars, outputs, rules: rs } = ruleBase(params);
-  return infer({ ...inputs }, vars, outputs, rs);
+  const full = infer({ ...inputs }, vars, outputs, rs);
+  const base = infer({ ...inputs }, vars, outputs, coreRules(rs));
+  return { urgency: Math.max(base.urgency, full.urgency), fired: full.fired };
 }
 
 // [X]

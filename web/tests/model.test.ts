@@ -95,6 +95,15 @@ describe("computeState", () => {
     expect(computeState(batch, sessions, []).fryingDays).toBe(2);
   });
 
+  it("counts frying days by Asia/Manila calendar day", () => {
+    const sessions: Session[] = [
+      { batchId: "b1", date: "2026-10-01T10:00:00Z", hours: 2, heat: "medium", foods: [] },
+      { batchId: "b1", date: "2026-10-01T23:30:00Z", hours: 2, heat: "medium", foods: [] },
+      { batchId: "b1", date: "2026-10-02T07:00:00+08:00", hours: 2, heat: "medium", foods: [] },
+    ];
+    expect(computeState(batch, sessions, []).fryingDays).toBe(2);
+  });
+
   it("ignores events from other batches", () => {
     const sessions: Session[] = [{ batchId: "other", date: "2026-10-01", hours: 10, heat: "high", foods: [] }];
     expect(computeState(batch, sessions, []).est).toBe(MODEL.c0);

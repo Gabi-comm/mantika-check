@@ -29,33 +29,40 @@ export default function CheckPage() {
       title={copy.check.title}
       lead={copy.check.lead}
       aside={
-        <>
-          <InlineNote>{copy.check.note}</InlineNote>
-          {prev && (
-            <Panel className="p-5">
-              <p className="eyebrow">Previous check</p>
-              <p className="mt-1 font-mono text-[0.8rem] text-gray">{fmtDateTime(prev.at)}</p>
-              <p className="mt-1 text-[0.92rem] text-ink">{eventDetail(prev)}</p>
-            </Panel>
-          )}
-        </>
+        prev && (
+          <Panel className="p-5">
+            <p className="eyebrow">Previous check</p>
+            <p className="mt-1 font-mono text-[0.8rem] text-gray">{fmtDateTime(prev.at)}</p>
+            <p className="mt-2 text-[0.92rem] leading-snug text-ink">{eventDetail(prev)}</p>
+          </Panel>
+        )
       }
     >
-      <div role="group" aria-label="Warning signs" className="grid gap-2.5 md:grid-cols-2">
-        {SIGNS.map((s) => (
-          <CheckTile key={s} checked={signs.includes(s)} onToggle={() => toggle(s)} title={copy.signs[s].title} desc={copy.signs[s].desc} critical />
-        ))}
-      </div>
-      {signs.length > 0 && (
-        <div className="mt-3">
-          <InlineNote tone="error">{copy.check.signConfirm}</InlineNote>
+      <section aria-labelledby="signs-h">
+        <h2 id="signs-h" className="text-[1.05rem] font-bold text-ink">
+          {copy.check.signsTitle}
+        </h2>
+        <p className="mt-0.5 mb-3 text-[0.92rem] text-gray">{copy.check.lead}</p>
+        <div role="group" aria-labelledby="signs-h" className="grid gap-2.5 sm:grid-cols-2">
+          {SIGNS.map((s) => (
+            <CheckTile key={s} checked={signs.includes(s)} onToggle={() => toggle(s)} title={copy.signs[s].title} desc={copy.signs[s].desc} critical />
+          ))}
         </div>
-      )}
-      <Panel className="mt-5 divide-y divide-line px-5">
-        <p className="pt-4 pb-1 font-semibold text-ink">{copy.check.habits}</p>
-        <Switch id="filtered" label={copy.check.filtered} checked={filtered} onChange={setFiltered} />
-        <Switch id="covered" label={copy.check.covered} checked={covered} onChange={setCovered} />
-      </Panel>
+        {signs.length > 0 && (
+          <div className="fade-up mt-3">
+            <InlineNote tone="error">{copy.check.signConfirm}</InlineNote>
+          </div>
+        )}
+      </section>
+      <section aria-labelledby="habits-h" className="mt-7">
+        <h2 id="habits-h" className="mb-3 text-[1.05rem] font-bold text-ink">
+          {copy.check.habits}
+        </h2>
+        <Panel className="divide-y divide-line px-5">
+          <Switch id="filtered" label={copy.check.filtered} checked={filtered} onChange={setFiltered} />
+          <Switch id="covered" label={copy.check.covered} checked={covered} onChange={setCovered} />
+        </Panel>
+      </section>
       {save.failed && (
         <div className="mt-4">
           <SaveError />

@@ -9,9 +9,9 @@ const base =
   "inline-flex items-center justify-center gap-2 rounded-[var(--radius-s)] font-semibold whitespace-nowrap transition-colors select-none disabled:cursor-not-allowed disabled:opacity-45";
 const variants: Record<Variant, string> = {
   primary: "bg-green text-white hover:bg-forest active:bg-forest",
-  secondary: "border border-line-strong bg-white text-ink hover:border-green hover:text-green",
-  ghost: "text-green hover:bg-pale",
-  danger: "border border-st-replace/40 bg-white text-st-replace hover:bg-st-replace-bg",
+  secondary: "border border-line-strong bg-surface text-ink hover:border-green hover:text-accent",
+  ghost: "text-accent hover:bg-pale",
+  danger: "border border-st-replace/40 bg-surface text-st-replace hover:bg-st-replace-bg",
   inverse: "bg-white text-forest hover:bg-mint",
 };
 const sizes: Record<Size, string> = { md: "min-h-11 px-4 text-[0.92rem]", lg: "min-h-12 px-5 text-[0.98rem]" };
@@ -35,7 +35,7 @@ export function LinkButton({
 /** Bordered surface. Square-ish corners keep it instrument-like rather than bubbly. */
 export function Panel({ children, className, as: As = "section", ...rest }: HTMLAttributes<HTMLElement> & { as?: "section" | "div" | "article" | "aside" }) {
   return (
-    <As className={cx("rounded-[var(--radius-m)] border border-line bg-white", className)} {...rest}>
+    <As className={cx("rounded-[var(--radius-m)] border border-line bg-surface", className)} {...rest}>
       {children}
     </As>
   );
@@ -57,17 +57,28 @@ export function PanelHead({ title, eyebrow, action, id }: { title: ReactNode; ey
 
 type Tone = "neutral" | "green" | "amber" | "orange" | "red" | "ink" | "outline";
 const tones: Record<Tone, string> = {
-  neutral: "bg-pale text-teal",
-  green: "bg-st-continue-bg text-st-continue",
-  amber: "bg-st-monitor-bg text-st-monitor",
-  orange: "bg-st-recommend-bg text-st-recommend",
-  red: "bg-st-replace-bg text-st-replace",
-  ink: "bg-ink text-white",
-  outline: "border border-line-strong text-gray",
+  neutral: "bg-pale text-teal ring-line",
+  green: "bg-st-continue-bg text-st-continue ring-st-continue/30",
+  amber: "bg-st-monitor-bg text-st-monitor ring-st-monitor/30",
+  orange: "bg-st-recommend-bg text-st-recommend ring-st-recommend/30",
+  red: "bg-st-replace-bg text-st-replace ring-st-replace/30",
+  ink: "bg-night text-white ring-transparent",
+  outline: "text-gray ring-line-strong",
 };
+const DOT: ReadonlySet<Tone> = new Set(["green", "amber", "orange", "red"]);
+
+/** Small label pill. Status tones lead with a dot so the label still reads without colour. */
 export function Tag({ children, tone = "neutral", className, title }: { children: ReactNode; tone?: Tone; className?: string; title?: string }) {
   return (
-    <span title={title} className={cx("inline-flex items-center gap-1 rounded-[4px] px-1.5 py-0.5 font-mono text-[0.68rem] font-medium uppercase tracking-[0.08em]", tones[tone], className)}>
+    <span
+      title={title}
+      className={cx(
+        "inline-flex w-fit items-center gap-1.5 whitespace-nowrap rounded-full px-2.5 py-[0.2rem] text-[0.72rem] font-semibold leading-tight ring-1 ring-inset",
+        tones[tone],
+        className
+      )}
+    >
+      {DOT.has(tone) && <span className="size-1.5 shrink-0 rounded-full bg-current" aria-hidden="true" />}
       {children}
     </span>
   );
@@ -86,13 +97,12 @@ export function Metric({ label, value, unit, note }: { label: string; value: Rea
   );
 }
 
-export function PageHeader({ eyebrow, title, lead, actions }: { eyebrow?: ReactNode; title: string; lead?: ReactNode; actions?: ReactNode }) {
+export function PageHeader({ eyebrow, title, actions }: { eyebrow?: ReactNode; title: string; lead?: ReactNode; actions?: ReactNode }) {
   return (
     <header className="flex flex-wrap items-end justify-between gap-4">
       <div className="min-w-0 max-w-2xl">
         {eyebrow && <div className="eyebrow mb-1.5">{eyebrow}</div>}
         <h1 className="text-[1.75rem] font-extrabold text-ink sm:text-[2.1rem]">{title}</h1>
-        {lead && <p className="mt-1.5 text-gray">{lead}</p>}
       </div>
       {actions && <div className="flex flex-wrap gap-2">{actions}</div>}
     </header>

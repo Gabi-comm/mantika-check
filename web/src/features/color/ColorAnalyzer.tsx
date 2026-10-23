@@ -102,10 +102,6 @@ export function ColorAnalyzer() {
         title="Color Analyzer"
         lead="Measures the average color of a region you select in a photo and compares it with three printed reference swatches. Everything runs in your browser."
       />
-      <InlineNote tone="warn">
-        <b>Experimental and isolated.</b> Photo color is affected by lighting and camera settings. It is not an oil-quality or chemical measurement and is never used
-        for the monitoring status.
-      </InlineNote>
 
       <div className="grid gap-5 xl:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]">
         <Panel aria-labelledby="img-h">
@@ -159,7 +155,7 @@ export function ColorAnalyzer() {
               </div>
             ) : display ? (
               <>
-                <div className="relative mx-auto max-h-[60vh] w-fit overflow-hidden rounded-[var(--radius-s)] bg-ink">
+                <div className="relative mx-auto max-h-[60vh] w-fit overflow-hidden rounded-[var(--radius-s)] bg-night">
                   {/* eslint-disable-next-line @next/next/no-img-element -- local object URL rendered from canvas */}
                   <img src={display.url} alt="Your upload, rotated as shown" className="block max-h-[60vh] w-auto" width={display.w} height={display.h} />
                   <RoiOverlay roi={roi} onChange={setRoi} />

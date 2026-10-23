@@ -1,5 +1,5 @@
 import { demoState } from "@/vendor/seed";
-import { demoAdapter } from "@/vendor/adapter";
+import { engineAdapter } from "@/vendor/adapter";
 import { activeBatchOf, batchTotals, hoursByDay, latestCheck, sortedEvents } from "@/vendor/selectors";
 
 /** Website previews render the same deterministic demo dataset the workspace starts with. */
@@ -16,6 +16,6 @@ export function demoSnapshot() {
     days: hoursByDay(batch),
     check: latestCheck(batch),
     events: sortedEvents(batch),
-    result: demoAdapter.computeStatus(batch),
+    result: engineAdapter.computeStatus(batch),
   };
 }

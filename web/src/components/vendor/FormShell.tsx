@@ -10,12 +10,12 @@ import { useOilStatus } from "@/vendor/useOilStatus";
 import { InlineNote, WarningBanner } from "./status";
 import { NoBatch, WorkspaceSkeleton } from "./states";
 
-export function FormShell({ title, lead, children, aside, requireBatch = true }: { title: string; lead: string; children: ReactNode; aside?: ReactNode; requireBatch?: boolean }) {
+export function FormShell({ title, children, aside, requireBatch = true }: { title: string; lead?: string; children: ReactNode; aside?: ReactNode; requireBatch?: boolean }) {
   const { hydrated, batch, result, state } = useOilStatus();
   return (
     <div className="space-y-5">
       {result?.status.hardRule && <WarningBanner text={result.status.hardRule} />}
-      <Link href="/app" className="inline-flex min-h-11 items-center gap-1.5 text-[0.9rem] font-medium text-green">
+      <Link href="/app" className="inline-flex min-h-11 items-center gap-1.5 text-[0.9rem] font-medium text-accent">
         <ArrowLeft className="size-4" aria-hidden="true" /> {copy.actions.back}
       </Link>
       <header className="max-w-2xl">
@@ -25,15 +25,14 @@ export function FormShell({ title, lead, children, aside, requireBatch = true }:
           </p>
         )}
         <h1 className="mt-1 text-[1.65rem] font-extrabold text-ink sm:text-[2rem]">{title}</h1>
-        <p className="mt-1 text-gray">{lead}</p>
       </header>
       {!hydrated ? (
         <WorkspaceSkeleton />
       ) : requireBatch && !batch ? (
         <NoBatch hasHistory={!!state?.batches.length} />
       ) : (
-        <div className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_320px]">
-          <div className="min-w-0 max-w-2xl">{children}</div>
+        <div className="grid items-start gap-5 lg:grid-cols-[minmax(0,42rem)_320px] xl:gap-8">
+          <div className="min-w-0">{children}</div>
           {aside && <aside className="min-w-0 space-y-4">{aside}</aside>}
         </div>
       )}

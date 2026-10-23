@@ -24,20 +24,17 @@ export const copy = {
   } satisfies Record<Action, string>,
 
   source: {
-    "demo-heuristic": "Demo heuristic",
     engine: "Engine",
   } satisfies Record<StatusSource, string>,
   sourceDetail: {
-    "demo-heuristic": "Calculated in your browser from logged hours and heat levels using placeholder weights. Not validated.",
-    engine: "Returned by the MANTIKA CHECK engine.",
+    engine: "Calculated in your browser from your logs: TPC model trained on lab frying data, FSSAI safety rules and fuzzy rules. An estimate, not a lab test.",
   } satisfies Record<StatusSource, string>,
-  illustrative: "Illustrative",
-  estimateLabel: "Estimate, not a lab test",
+  illustrative: "Model estimate",
 
   warning: {
     title: "Critical warning recorded",
     body: (signs: string) => `You reported: ${signs}. Replace the oil before the next session, regardless of any other indicator.`,
-    footer: "Conservative prototype rule: any reported warning sign triggers replacement. It is based on your observation, not a chemical measurement.",
+    footer: "FSSAI guidance: smoke, thick foam, dark and murky, or thickened oil means the oil should be discarded. Based on your observation, not a chemical measurement.",
   },
 
   why: "Why this status?",
@@ -72,7 +69,6 @@ export const copy = {
 
   heat: { low: "Low", medium: "Medium", high: "High" } satisfies Record<Heat, string>,
   heatHint: { low: "about 160 °C", medium: "about 175 °C", high: "about 190 °C" } satisfies Record<Heat, string>,
-  heatHintNote: "Approximate temperatures are illustrative assumptions for each heat level, not readings from your equipment.",
 
   foods: {
     banana_cue: "Banana cue / Turon",
@@ -125,7 +121,7 @@ export const copy = {
   check: {
     title: "Quick condition check",
     lead: "Select anything you notice right now.",
-    note: "An empty checklist does not mean the oil is fine. It only records that none of these signs were noticed.",
+    signsTitle: "Warning signs",
     habits: "Handling",
     filtered: "Filtered today",
     covered: "Covered overnight",
@@ -142,7 +138,7 @@ export const copy = {
     volumeError: "Enter a volume between 0.5 and 30 litres.",
     heatSource: "Heat source",
     cost: "Oil price per liter",
-    costHint: "Optional. Stored for your records only; no savings are calculated.",
+    costHint: "Optional. Used to estimate weekly peso savings in the heat simulator.",
     oilRequired: "Choose an oil type.",
     costError: "Enter an amount greater than 0, or leave it blank.",
     date: "Start date",
@@ -177,9 +173,14 @@ export const copy = {
     empty: "No batches yet.",
   },
   heatCompare: {
-    title: "Heat comparison",
-    lead: "How the demo heuristic weights one hour at each heat level.",
-    note: "Placeholder weights for demonstration. Not a measured effect on oil life, and it never overrides a recorded warning.",
+    title: "Heat simulator",
+    lead: "Model estimate of how long this oil lasts at each heat level, and what frying at a lower heat saves.",
+    note: "Estimates from the TPC model (lab frying data). Savings assume you fry every day at your average logged hours. Never overrides a recorded warning.",
+    noPrice: "Add an oil price per liter in Setup to see peso savings.",
+    savedWeek: "saved per week",
+    extraWeek: "extra cost per week",
+    current: "Current",
+    hoursLeft: "hours left",
     blocked: "Not shown while a critical warning or a Replace Oil status is active.",
   },
   states: {
@@ -221,11 +222,10 @@ export const forecastCopy = {
   remainingLower: "At lower heat",
   tpc: "Polar compounds (TPC)",
   unavailable: "Unavailable",
-  unavailableWhy: "No validated engine is connected, so no forecast is shown.",
+  unavailableWhy: "Log a frying session to see a forecast.",
   beyond: "30+ h",
   beyondWhy: "The forecast extends beyond the data the model was built on, so no exact number is shown.",
   warningWhy: "Not shown while a critical warning is active.",
-  tpcWhy: "Not measured. Shown only when a validated engine supplies an estimate.",
   modelEstimate: "Model estimate",
 };
 

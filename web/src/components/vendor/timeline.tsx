@@ -52,7 +52,7 @@ export function Timeline({ events, showDate = true, dense = false }: { events: B
             <span
               className={cx(
                 "relative z-[1] grid size-8 shrink-0 place-items-center rounded-full border",
-                critical ? "border-st-replace bg-st-replace-bg text-st-replace" : flagged ? "border-st-monitor/40 bg-st-monitor-bg text-st-monitor" : "border-line bg-white text-teal"
+                critical ? "border-st-replace bg-st-replace-bg text-st-replace" : flagged ? "border-st-monitor/40 bg-st-monitor-bg text-st-monitor" : "border-line bg-surface text-teal"
               )}
             >
               <Icon className="size-4" aria-hidden="true" />

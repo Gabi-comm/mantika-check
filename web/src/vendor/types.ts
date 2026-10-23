@@ -1,52 +1,16 @@
 /**
  * Data contract for the vendor workspace.
  *
- * ENGINE CONTRACT (owned by Gabriel). Mirrored from the revised MANTIKA_CHECK_UI_Plan because no
- * shared `web/src/lib/types.ts` exists in the repository yet. When the engine's shared types land,
- * import them from there, delete this block, and report any mismatch rather than editing his file.
- * Field names (including `messageTaglish`) are kept exactly as specified; the UI only ever renders
- * English, through the presentation layer in copy.ts / adapter.ts.
+ * ENGINE CONTRACT (owned by Gabriel) is imported from `@/lib/types`; do not redefine it here.
+ * Field names (including `messageTaglish`) are fixed by that contract; the UI only ever renders English.
  *
  * UI RECORDS (owned by the UI). Batches, events and settings stored on this device.
  */
 
-// ---------------- engine contract (mirror) ----------------
-export type Action = "keep" | "monitor" | "change_soon" | "change_now";
-export type Heat = "low" | "medium" | "high";
-export type Sign = "smoke" | "foam" | "dark_murky" | "thick";
-export type FoodId = "banana_cue" | "fishball" | "lumpia" | "chicken_pork" | "battered_breaded";
-export type OilType = "coconut" | "palm_olein" | "generic" | "soybean" | "corn" | "sunflower";
+import type { Advice, Food, Heat, OilStatus, OilType, Sign } from "@/lib/types";
 
-export interface OilStatus {
-  action: Action;
-  /** 0 to 100, presentation only */
-  urgency: number;
-  /** Model TPC estimate and range. `null` until a validated engine supplies it; the UI never invents one. */
-  tpc: { est: number; low: number; high: number } | null;
-  hoursUsed: number;
-  /** Remaining-hours forecasts. `null` when the source cannot substantiate them. */
-  hoursLeftNow: number | null;
-  hoursLeftLowerHeat: number | null;
-  /** Distinct calendar days with at least one logged session */
-  fryingDays: number;
-  /** True when the remaining-hours forecast exceeds the model data range; shown as "30+ h" instead of a number */
-  beyondData: boolean;
-  /** Up to three short reasons, already decided by the engine */
-  reasons: string[];
-  /** Present when a hard rule fired. Always shown first and overrides everything else. */
-  hardRule?: string;
-  noTopUp: boolean;
-  /** Tip ids */
-  tips: string[];
-}
-
-export interface Advice {
-  headline: string;
-  /** Field name fixed by the engine contract. In this UI its content is always English. */
-  messageTaglish: string;
-  tips: { id: string; text: string }[];
-  source: "llm" | "template";
-}
+export type { Action, Advice, Heat, OilStatus, OilType, Sign } from "@/lib/types";
+export type FoodId = Food;
 
 // ---------------- UI-owned records ----------------
 export type HeatSource = "lpg" | "charcoal" | "electric";
@@ -102,14 +66,13 @@ export interface VendorState {
   demoScenario: DemoScenario | null;
 }
 
-export type StatusSource = "demo-heuristic" | "engine";
+export type StatusSource = "engine";
 
 /** What the UI receives from useOilStatus(). */
 export interface StatusResult {
   status: OilStatus;
   source: StatusSource;
-  /** "illustrative" until an engine reports validated output. */
-  validation: "illustrative" | "validated";
+  validation: "illustrative" | "validated" | "model-estimate";
 }
 
 export interface AdviceResult {

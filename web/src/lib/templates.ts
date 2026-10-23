@@ -2,35 +2,34 @@ import { isTipId, type TipId } from "./tips";
 import type { Action, Advice, OilStatus } from "./types";
 
 export const TIP_TEXT: Record<TipId, string> = {
-  filter_daily: "Salain ang mantika araw-araw para matanggal ang mga tutong.",
-  cover_overnight: "Takpan ang mantika sa gabi para hindi mapasukan ng hangin at dumi.",
-  lower_heat: "Magprito sa katamtamang apoy imbes na malakas para tumagal ang mantika.",
-  check_heat: "Silipin ang apoy — ang bula ay puwedeng dahil sa sobrang init o frozen na pagkain.",
-  top_up: "Dagdagan ng bagong mantika para mapahaba ang gamit.",
-  change_oil: "Palitan na ang mantika ngayon.",
-  dont_top_up: "Huwag nang dagdagan ang mantikang dapat nang palitan.",
+  filter_daily: "Filter the oil every day to remove burnt bits.",
+  cover_overnight: "Cover the oil when not in use to keep out air and dirt.",
+  lower_heat: "Fry one heat level lower to make the oil last longer.",
+  top_up: "Top up with fresh oil to bring the TPC down.",
+  change_oil: "Change the oil now.",
+  dont_top_up: "Don't top up this oil — replace it instead.",
 };
 
 const COPY: Record<Action, { headline: string; intro: string; close: string }> = {
   keep: {
-    headline: "Ayos pa ang mantika mo",
-    intro: "Puwede mo pang gamitin ang mantika.",
-    close: "Ituloy lang ang tamang pag-aalaga.",
+    headline: "Your oil is still good",
+    intro: "You can keep using this oil.",
+    close: "Keep up the good care.",
   },
   monitor: {
-    headline: "Bantayan ang mantika",
-    intro: "Ayos pa, pero bantayan ang mantika.",
-    close: "Silipin ang kulay, amoy at usok habang nagluluto.",
+    headline: "Keep an eye on the oil",
+    intro: "Still usable, but watch the oil closely.",
+    close: "Check its colour and smoke while frying.",
   },
   change_soon: {
-    headline: "Maghanda nang palitan ang mantika",
-    intro: "Malapit nang kailangang palitan ang mantika.",
-    close: "Maghanda na ng bagong mantika.",
+    headline: "Get ready to change the oil",
+    intro: "The oil will need changing soon.",
+    close: "Have fresh oil ready.",
   },
   change_now: {
-    headline: "Palitan na ang mantika",
-    intro: "Kailangan nang palitan ang mantika.",
-    close: "Huwag na itong gamitin sa susunod na prito.",
+    headline: "Change the oil now",
+    intro: "This oil needs to be changed.",
+    close: "Don't use it for the next batch.",
   },
 };
 
@@ -42,7 +41,7 @@ export function tipsFor(ids: string[]): Advice["tips"] {
 
 export function templateAdvice(status: OilStatus): Advice {
   const copy = COPY[status.action];
-  const reasons = status.reasons.slice(0, TEMPLATE_REASONS).map((r) => `${r}.`);
+  const reasons = status.reasons.slice(0, TEMPLATE_REASONS).map((r) => `${r.replace(/[.!?]+$/, "")}.`);
   return {
     headline: copy.headline,
     messageTaglish: [copy.intro, ...reasons, copy.close].join(" "),

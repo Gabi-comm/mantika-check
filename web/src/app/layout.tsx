@@ -1,7 +1,9 @@
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import "@/styles/globals.css";
-import { SettingsProvider, settingsBootScript } from "@/frontend/settings";
+import { SettingsProvider } from "@/frontend/settings";
+import { Intro } from "@/components/motion/Intro";
+import { bootScript } from "@/frontend/boot";
 
 // Self-hosted (fontsource builds) so builds and offline use never depend on a font CDN.
 const jakarta = localFont({
@@ -40,16 +42,19 @@ export const metadata: Metadata = {
   manifest: "/manifest.webmanifest",
 };
 
-export const viewport: Viewport = { themeColor: "#11634A", width: "device-width", initialScale: 1 };
+export const viewport: Viewport = { themeColor: "#101012", width: "device-width", initialScale: 1 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${jakarta.variable} ${inter.variable} ${mono.variable}`} suppressHydrationWarning>
+    <html lang="en" data-theme="dark" data-scroll-behavior="smooth" className={`${jakarta.variable} ${inter.variable} ${mono.variable}`} suppressHydrationWarning>
       <head>
-        <script dangerouslySetInnerHTML={{ __html: settingsBootScript }} />
+        <script dangerouslySetInnerHTML={{ __html: bootScript }} />
       </head>
       <body>
-        <SettingsProvider>{children}</SettingsProvider>
+        <SettingsProvider>
+          <Intro />
+          {children}
+        </SettingsProvider>
       </body>
     </html>
   );

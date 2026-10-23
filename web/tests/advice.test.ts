@@ -11,11 +11,11 @@ const status = MOCKS.monitor.status;
 const facts = buildFacts(status);
 
 const good: AdviceReply = {
-  headline: "Bantayan ang mantika",
+  headline: "Keep an eye on the oil",
   action: "monitor",
-  reasons: ["Papalapit na sa limitasyon ang TPC"],
-  tipIds: ["filter_daily", "lower_heat"],
-  messageTaglish: `Papalapit na ang TPC, mga ${facts.estRange[0]}–${facts.estRange[1]}%. Mga ${facts.hoursLeftNow} oras pa bago umabot ng 25%.`,
+  reasons: ["TPC is getting close to the limit"],
+  tipIds: ["filter_daily", "cover_overnight"],
+  messageTaglish: `TPC is around ${facts.estRange[0]}–${facts.estRange[1]}%. About ${facts.hoursLeftNow} hours left before it reaches 25%.`,
 };
 
 function chatReturning(content: string) {
@@ -34,7 +34,7 @@ describe("buildFacts", () => {
     expect(f.estRange).toEqual([14.5, 20.4]);
     expect(f.hoursLeftNow).toBe(6.4);
     expect(Object.keys(f).sort()).toEqual(
-      ["action", "allowedTips", "estRange", "hoursLeftLowerHeat", "hoursLeftNow", "reasons", "thresholdTpc", "urgency"].sort(),
+      ["action", "allowedTips", "beyondData", "estRange", "hoursLeftLowerHeat", "hoursLeftNow", "reasons", "thresholdTpc", "urgency"].sort(),
     );
   });
 });
@@ -44,7 +44,7 @@ describe("validateReply", () => {
   it("rejects a wrong action", () => expect(validateReply({ ...good, action: "keep" }, facts).ok).toBe(false));
   it("rejects an unknown tip", () => expect(validateReply({ ...good, tipIds: ["change_oil"] }, facts).ok).toBe(false));
   it("rejects a made-up number", () =>
-    expect(validateReply({ ...good, messageTaglish: "Mga 42 oras pa ang natitira." }, facts).ok).toBe(false));
+    expect(validateReply({ ...good, messageTaglish: "About 42 hours left." }, facts).ok).toBe(false));
   it("rejects a schema violation", () => {
     expect(validateReply({ ...good, headline: "x".repeat(61) }, facts).ok).toBe(false);
     expect(validateReply("not json", facts).ok).toBe(false);
@@ -59,7 +59,7 @@ describe("templateAdvice", () => {
     expect(advice.messageTaglish.length).toBeGreaterThan(0);
   });
 
-  it("maps every tip id to Taglish text", () => {
+  it("maps every tip id to English text", () => {
     const advice = templateAdvice(status);
     expect(advice.tips.map((t) => t.id)).toEqual(status.tips);
     for (const t of advice.tips) expect(t.text).toBe(TIP_TEXT[t.id as keyof typeof TIP_TEXT]);
@@ -96,5 +96,16 @@ describe("mocks", () => {
     expect(OilStatusSchema.safeParse(s).success).toBe(true);
     expect(s.tips.every(isTipId)).toBe(true);
     expect(mock.advice.tips.every((t) => isTipId(t.id))).toBe(true);
+  });
+});
+
+describe("mock states", () => {
+  it("each mock has the action its name says", () => {
+    expect(MOCKS.keep.status.action).toBe("keep");
+    expect(MOCKS.monitor.status.action).toBe("monitor");
+    expect(MOCKS.change_soon.status.action).toBe("change_soon");
+    expect(MOCKS.change_now.status.action).toBe("change_now");
+    expect(MOCKS.hard_rule_smoke.status.action).toBe("change_now");
+    expect(MOCKS.hard_rule_smoke.status.hardRule).toBeDefined();
   });
 });

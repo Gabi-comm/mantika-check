@@ -46,7 +46,7 @@ export function Segmented<T extends string | number>({
             onClick={() => onChange(o.value)}
             className={cx(
               "flex min-h-14 flex-col items-center justify-center rounded-[var(--radius-s)] border px-1 py-2 transition-colors disabled:cursor-not-allowed disabled:opacity-45",
-              on ? "border-forest bg-forest text-white" : "border-line-strong bg-white text-ink hover:border-green"
+              on ? "border-forest bg-forest text-white" : "border-line-strong bg-surface text-ink hover:border-green"
             )}
           >
             <span className="font-display text-[1.15rem] font-bold leading-none">{o.label}</span>
@@ -66,7 +66,7 @@ export function ChipToggle({ on, onClick, children }: { on: boolean; onClick: ()
       onClick={onClick}
       className={cx(
         "inline-flex min-h-12 items-center gap-1.5 rounded-full border px-4 text-[0.92rem] font-medium transition-colors",
-        on ? "border-green bg-mint text-forest" : "border-line-strong bg-white text-ink hover:border-green"
+        on ? "border-green bg-tint text-heading" : "border-line-strong bg-surface text-ink hover:border-green"
       )}
     >
       {on && <Check className="size-4" aria-hidden="true" />}
@@ -84,21 +84,21 @@ export function CheckTile({ checked, onToggle, title, desc, critical }: { checke
       onClick={onToggle}
       className={cx(
         "flex min-h-[4.75rem] w-full items-center gap-4 rounded-[var(--radius-m)] border-2 px-4 py-3 text-left transition-colors",
-        checked ? (critical ? "border-st-replace bg-st-replace-bg" : "border-green bg-mint") : "border-line bg-white hover:border-line-strong"
+        checked ? (critical ? "border-st-replace bg-st-replace-bg" : "border-green bg-tint") : "border-line bg-surface hover:border-line-strong"
       )}
     >
       <span
         className={cx(
           "grid size-8 shrink-0 place-items-center rounded-[var(--radius-s)] border-2",
-          checked ? (critical ? "border-st-replace bg-st-replace text-white" : "border-green bg-green text-white") : "border-line-strong bg-white"
+          checked ? (critical ? "border-st-replace bg-st-replace text-white" : "border-green bg-green text-white") : "border-line-strong bg-surface"
         )}
         aria-hidden="true"
       >
         {checked && <Check className="size-5" />}
       </span>
       <span className="min-w-0">
-        <span className="block font-semibold text-ink">{title}</span>
-        <span className="block text-[0.85rem] text-gray">{desc}</span>
+        <span className="block font-semibold leading-snug text-ink">{title}</span>
+        <span className="mt-0.5 block text-[0.85rem] leading-snug text-gray">{desc}</span>
       </span>
     </button>
   );
@@ -127,8 +127,8 @@ export function Switch({ id, label, desc, checked, onChange }: { id: string; lab
         onClick={() => onChange(!checked)}
         className={cx("relative h-8 w-14 shrink-0 rounded-full transition-colors before:absolute before:-inset-2 before:content-['']", checked ? "bg-green" : "bg-line-strong")}
       >
-        <span className={cx("absolute top-1 left-1 grid size-6 place-items-center rounded-full bg-white shadow-sm transition-transform", checked && "translate-x-6")}>
-          {checked && <Check className="size-3.5 text-green" aria-hidden="true" />}
+        <span className={cx("absolute top-1 left-1 grid size-6 place-items-center rounded-full bg-surface shadow-sm transition-transform", checked && "translate-x-6")}>
+          {checked && <Check className="size-3.5 text-accent" aria-hidden="true" />}
         </span>
       </button>
     </div>
@@ -159,7 +159,7 @@ export function TextField({
           aria-invalid={!!error}
           aria-describedby={[hint && `${id}-h`, error && `${id}-e`].filter(Boolean).join(" ") || undefined}
           className={cx(
-            "h-12 w-full rounded-[var(--radius-s)] border bg-white px-3 text-ink tabular placeholder:text-gray/70",
+            "h-12 w-full rounded-[var(--radius-s)] border bg-surface px-3 text-ink tabular placeholder:text-gray/70",
             suffix && "pr-14",
             error ? "border-st-replace" : "border-line-strong focus:border-green"
           )}
@@ -185,10 +185,10 @@ export function OptionCard({ on, onClick, title, sub }: { on: boolean; onClick: 
       onClick={onClick}
       className={cx(
         "relative flex min-h-14 flex-col items-start justify-center rounded-[var(--radius-s)] border px-3.5 py-2.5 text-left transition-colors",
-        on ? "border-green bg-mint ring-1 ring-green" : "border-line-strong bg-white hover:border-green"
+        on ? "border-green bg-tint ring-1 ring-green" : "border-line-strong bg-surface hover:border-green"
       )}
     >
-      <span className={cx("pr-6 text-[0.94rem] font-semibold", on ? "text-forest" : "text-ink")}>{title}</span>
+      <span className={cx("pr-6 text-[0.94rem] font-semibold", on ? "text-heading" : "text-ink")}>{title}</span>
       {sub && <span className="text-[0.75rem] text-gray">{sub}</span>}
       <span className={cx("absolute top-1/2 right-3 grid size-5 -translate-y-1/2 place-items-center rounded-full border", on ? "border-green bg-green text-white" : "border-line-strong")} aria-hidden="true">
         {on && <Check className="size-3.5" />}

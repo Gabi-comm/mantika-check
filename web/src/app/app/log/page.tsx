@@ -43,7 +43,7 @@ export default function LogPage() {
             <p className="mt-1 font-display text-2xl font-bold text-ink tabular">
               {totals.hours} h <span className="text-base font-medium text-gray">· {totals.sessions} sessions</span>
             </p>
-            {hours && <p className="mt-1 text-[0.88rem] text-green">After saving: {totals.hours + hours} h</p>}
+            {hours && <p className="mt-1 text-[0.88rem] text-accent">After saving: {totals.hours + hours} h</p>}
             <div className="-mx-5 mt-3 border-t border-line">
               <Timeline events={recentSessions} dense />
             </div>
@@ -57,7 +57,6 @@ export default function LogPage() {
         </Fieldset>
         <Fieldset legend={copy.log.heat}>
           <Segmented options={(["low", "medium", "high"] as Heat[]).map((h) => ({ value: h, label: copy.heat[h], sub: copy.heatHint[h] }))} value={heat} onChange={setHeat} />
-          <p className="mt-2 text-[0.78rem] text-gray">{copy.heatHintNote}</p>
         </Fieldset>
         <Fieldset legend={copy.log.foods} hint={copy.log.foodsHint}>
           <div className="flex flex-wrap gap-2">
@@ -78,7 +77,7 @@ export default function LogPage() {
                 <label htmlFor="when" className="sr-only">
                   Session date and time
                 </label>
-                <input id="when" type="datetime-local" className="h-12 w-full rounded-[var(--radius-s)] border border-line-strong bg-white px-3" value={when} max={toLocalInput(now)} onChange={(e) => setWhen(e.target.value)} />
+                <input id="when" type="datetime-local" className="h-12 w-full rounded-[var(--radius-s)] border border-line-strong bg-surface px-3" value={when} max={toLocalInput(now)} onChange={(e) => setWhen(e.target.value)} />
                 {whenErr && <p className="mt-1.5 text-[0.85rem] font-medium text-st-replace">{whenErr}</p>}
               </div>
             ) : (

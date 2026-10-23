@@ -3,7 +3,7 @@ import type { Batch, BatchEvent, DemoScenario, FoodId, Heat, Sign, VendorState }
 /**
  * Deterministic demo datasets, one per monitoring scenario. Fictional stall, fixed dates
  * (Asia/Manila), no random values. Every total on screen is derived from these events, and the
- * status each dataset produces comes from the same demo heuristic used for user records.
+ * status each dataset produces comes from the same engine used for user records (tests/seed.test.ts).
  *
  * Each dataset has one closed batch (in history) and one active batch that starts after it.
  * No laboratory values, no TPC readings, no field-study claims.
@@ -42,9 +42,9 @@ function build(id: string, spec: Spec, oil: Batch["oilType"], volumeL: number, p
 
 const F = { b: "banana_cue", f: "fishball", l: "lumpia", c: "chicken_pork", x: "battered_breaded" } as const;
 
-/** Active-batch session plans. Statuses come from the demo heuristic (see adapter.ts THRESHOLDS). */
+/** Active-batch session plans. Statuses come from the engine (`@/lib/engine`); tests/seed.test.ts checks each one. */
 const ACTIVE: Record<DemoScenario, Spec> = {
-  // 2 days, 5 h, index 4.6 -> Continue Monitoring
+  // 2 days, 5 h -> Continue Monitoring
   keep: {
     label: "Batch 08",
     days: [
@@ -52,47 +52,47 @@ const ACTIVE: Record<DemoScenario, Spec> = {
       { off: 0, s: [2, "low", [F.b]], check: { signs: [], filtered: true, covered: true } },
     ],
   },
-  // 6 days, 19 h, index 21.0 -> Monitor Closely
+  // 6 days, 15 h -> Monitor Closely
   monitor: {
     label: "Batch 08",
     days: [
       { off: 5, s: [3, "medium", [F.f, F.b]] },
-      { off: 4, s: [4, "high", [F.f, F.l]] },
-      { off: 3, s: [3, "medium", [F.b, F.l]], topup: 0.5 },
+      { off: 4, s: [3, "high", [F.f, F.l]] },
+      { off: 3, s: [2, "medium", [F.b, F.l]], topup: 0.5 },
       { off: 2, s: [2, "low", [F.b]], check: { signs: [], filtered: true, covered: true } },
-      { off: 1, s: [4, "high", [F.c, F.x], 186], topup: 0.5 },
-      { off: 0, s: [3, "medium", [F.f, F.x]], check: { signs: [], filtered: false, covered: true } },
+      { off: 1, s: [3, "medium", [F.c, F.x], 176], topup: 0.5 },
+      { off: 0, s: [2, "medium", [F.f, F.x]], check: { signs: [], filtered: false, covered: true } },
     ],
   },
-  // 7 days, 26 h, index 32.0 -> Replacement Recommended
+  // 7 days, 18 h -> Replacement Recommended
   change_soon: {
     label: "Batch 08",
     days: [
-      { off: 6, s: [4, "high", [F.f, F.x]] },
-      { off: 5, s: [4, "high", [F.f, F.l]] },
+      { off: 6, s: [2, "high", [F.f, F.x]] },
+      { off: 5, s: [2, "high", [F.f, F.l]] },
       { off: 4, s: [3, "medium", [F.b, F.l]], topup: 0.5 },
-      { off: 3, s: [4, "high", [F.c, F.x], 191], check: { signs: [], filtered: true, covered: true } },
-      { off: 2, s: [4, "high", [F.f, F.x]] },
-      { off: 1, s: [3, "medium", [F.b]], topup: 0.5 },
-      { off: 0, s: [4, "high", [F.c, F.x]], check: { signs: [], filtered: false, covered: true } },
+      { off: 3, s: [3, "high", [F.c, F.x], 191], check: { signs: [], filtered: true, covered: true } },
+      { off: 2, s: [3, "high", [F.f, F.x]] },
+      { off: 1, s: [2, "medium", [F.b]], topup: 0.5 },
+      { off: 0, s: [3, "high", [F.c, F.x]], check: { signs: [], filtered: false, covered: true } },
     ],
   },
-  // 9 days, 36 h, index 44.4 -> Replace Oil; usage exceeds the 30 h of reference data (stated as a reason)
+  // 9 days, 25 h -> Replace Oil (TPC past the 24% limit, no warning sign)
   change_now: {
     label: "Batch 08",
     days: [
-      { off: 8, s: [4, "high", [F.f, F.x]] },
-      { off: 7, s: [4, "high", [F.f, F.l]] },
-      { off: 6, s: [4, "medium", [F.b, F.l]], topup: 0.5 },
-      { off: 5, s: [4, "high", [F.c, F.x]] },
-      { off: 4, s: [4, "high", [F.f, F.x]], check: { signs: [], filtered: true, covered: true } },
-      { off: 3, s: [4, "high", [F.c, F.x]], topup: 0.5 },
-      { off: 2, s: [4, "medium", [F.b, F.f]] },
-      { off: 1, s: [4, "high", [F.f, F.x]], topup: 0.5 },
-      { off: 0, s: [4, "high", [F.c, F.x]], check: { signs: [], filtered: false, covered: false } },
+      { off: 8, s: [3, "high", [F.f, F.x]] },
+      { off: 7, s: [3, "high", [F.f, F.l]] },
+      { off: 6, s: [3, "medium", [F.b, F.l]], topup: 0.5 },
+      { off: 5, s: [3, "high", [F.c, F.x]] },
+      { off: 4, s: [3, "high", [F.f, F.x]], check: { signs: [], filtered: true, covered: true } },
+      { off: 3, s: [3, "high", [F.c, F.x]], topup: 0.5 },
+      { off: 2, s: [3, "medium", [F.b, F.f]] },
+      { off: 1, s: [2, "high", [F.f, F.x]], topup: 0.5 },
+      { off: 0, s: [2, "high", [F.c, F.x]], check: { signs: [], filtered: false, covered: false } },
     ],
   },
-  // 4 days, 12 h, moderate usage, but the latest check reports smoke and dark oil -> Critical warning
+  // 4 days, 12 h, moderate usage, but the latest check reports smoke and dark oil -> FSSAI hard rule
   warning: {
     label: "Batch 08",
     days: [

@@ -26,7 +26,6 @@ export function useVendorState(): VendorState | null {
 
 /**
  * THE single entry point for monitoring status on every screen.
- * Swap ACTIVE_ADAPTER in adapter.ts to move from the demo heuristic to the engine.
  */
 export function useOilStatus() {
   const state = useVendorState();
@@ -37,7 +36,7 @@ export function useOilStatus() {
     () => (batch ? ACTIVE_ADAPTER.computeStatus(batch) : null),
     [batch]
   );
-  const key = result ? `${result.source}|${result.status.action}|${result.status.hardRule ?? ""}|${online}` : "none";
+  const key = result && batch ? `${result.source}|${batch.id}|${batch.events.length}|${result.status.action}|${result.status.hardRule ?? ""}|${online}` : "none";
   const [advice, setAdvice] = useState<{ key: string; value: AdviceResult } | null>(null);
 
   useEffect(() => {

@@ -1,7 +1,9 @@
 import { CircleCheck, Eye, Clock3, OctagonAlert, TriangleAlert, Info, Loader2, FileText } from "lucide-react";
 import type { Action, AdviceResult, StatusResult } from "@/vendor/types";
+import { DATA_RANGE_HOURS } from "@/vendor/adapter";
 import { adviceCopy, copy, forecastCopy } from "@/vendor/copy";
 import { cx } from "@/frontend/format";
+import { Ollie } from "@/components/Ollie";
 import { Panel, PanelHead, Tag } from "@/components/ui";
 
 export const STATUS_ICON = { keep: CircleCheck, monitor: Eye, change_soon: Clock3, change_now: OctagonAlert } satisfies Record<Action, unknown>;
@@ -32,16 +34,6 @@ export function WarningBanner({ text }: { text: string }) {
   );
 }
 
-export function SourceLine({ result }: { result: StatusResult }) {
-  return (
-    <p className="flex flex-wrap items-center gap-1.5 text-[0.8rem] text-gray">
-      <Tag tone="outline">{copy.source[result.source]}</Tag>
-      <Tag tone="outline">{result.validation === "validated" ? "Validated" : copy.illustrative}</Tag>
-      <span>{copy.sourceDetail[result.source]}</span>
-    </p>
-  );
-}
-
 /** Four-step scale with the current state marked. Position, icon and word carry meaning; colour is a fourth cue. */
 export function StatusScale({ action, compact }: { action: Action; compact?: boolean }) {
   const i = ORDER.indexOf(action);
@@ -64,21 +56,21 @@ export function StatusPanel({ result, batchLabel }: { result: StatusResult; batc
   return (
     <Panel aria-labelledby="status-word" className={cx("overflow-hidden", hardRule && "border-st-replace")}>
       <div className={cx("flex items-start gap-4 p-5", tone.bg)}>
-        <span className={cx("grid size-14 shrink-0 place-items-center rounded-[var(--radius-m)] bg-white", tone.text)}>
-          <Icon className="size-7" aria-hidden="true" />
+        <span className="grid size-20 shrink-0 place-items-center rounded-[var(--radius-m)] bg-ollie-night">
+          <Ollie state={action} size={44} title={`Ollie: ${copy.status[action]}`} />
         </span>
         <div className="min-w-0 flex-1">
-          <p className="eyebrow">Monitoring status{batchLabel ? ` · ${batchLabel}` : ""}</p>
+          <p className="eyebrow flex items-center gap-1.5">
+            <Icon className={cx("size-3.5", tone.text)} aria-hidden="true" /> Monitoring status{batchLabel ? ` · ${batchLabel}` : ""}
+          </p>
           <h2 id="status-word" className={cx("mt-0.5 text-[1.6rem] font-extrabold sm:text-[1.9rem]", tone.text)}>
             {copy.status[action]}
           </h2>
           <p className="mt-1 max-w-prose text-ink/80">{copy.statusDetail[action]}</p>
         </div>
       </div>
-      <div className="space-y-4 px-5 py-4">
+      <div className="px-5 py-4">
         <StatusScale action={action} />
-        <p className="text-[0.85rem] font-semibold text-ink">{copy.estimateLabel}</p>
-        <SourceLine result={result} />
       </div>
     </Panel>
   );
@@ -163,10 +155,11 @@ export function AdvicePanel({ advice, loading, idx = "" }: { advice: AdviceResul
 /** Usage figures and forecast slots. Forecasts render only when the source can substantiate them. */
 export function ForecastPanel({ result }: { result: StatusResult }) {
   const st = result.status;
-  const canForecast = !st.hardRule && result.validation === "validated";
+  const canForecast = !st.hardRule && result.validation !== "illustrative";
   const blockedWhy = st.hardRule ? forecastCopy.warningWhy : forecastCopy.unavailableWhy;
+  const nowBeyond = st.hoursUsed + st.hoursLeftNow > DATA_RANGE_HOURS;
   const val = (v: number | null, unit: string) =>
-    canForecast && st.beyondData ? (
+    canForecast && nowBeyond ? (
       <span title={forecastCopy.beyondWhy}>{forecastCopy.beyond}</span>
     ) : canForecast && v !== null ? (
       <span>
@@ -206,9 +199,7 @@ export function ForecastPanel({ result }: { result: StatusResult }) {
           </dd>
         </div>
       </dl>
-      <p className="border-t border-line px-5 py-3 text-[0.8rem] text-gray">
-        {canForecast ? forecastCopy.tpcWhy : blockedWhy} {!canForecast && !st.hardRule ? forecastCopy.tpcWhy : ""}
-      </p>
+      {!canForecast && <p className="border-t border-line px-5 py-3 text-[0.8rem] text-gray">{blockedWhy}</p>}
     </Panel>
   );
 }

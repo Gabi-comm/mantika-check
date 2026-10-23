@@ -18,7 +18,7 @@ export const ADVICE_REPLY_JSON_SCHEMA = z.toJSONSchema(AdviceReply);
 
 export const SYSTEM_RULES =
   "You explain a decision already made by a rule engine. Use only the facts given. Never change the action. " +
-  "No health or medical claims. Do not add new numbers. At most 3 sentences. Write in Taglish. Reply only with the JSON.";
+  "No health or medical claims. Do not add new numbers. At most 3 sentences. Write in plain English. Reply only with the JSON.";
 
 export interface AdviceFacts {
   action: Action;
@@ -26,6 +26,7 @@ export interface AdviceFacts {
   estRange: [number, number];
   hoursLeftNow: number;
   hoursLeftLowerHeat: number;
+  beyondData: boolean;
   thresholdTpc: number;
   reasons: string[];
   allowedTips: string[];
@@ -42,6 +43,7 @@ export function buildFacts(status: OilStatus): AdviceFacts {
     estRange: [round1(status.tpc.low), round1(status.tpc.high)],
     hoursLeftNow: round1(status.hoursLeftNow),
     hoursLeftLowerHeat: round1(status.hoursLeftLowerHeat),
+    beyondData: status.beyondData,
     thresholdTpc: TPC_LIMIT,
     reasons: status.reasons,
     allowedTips: status.tips,

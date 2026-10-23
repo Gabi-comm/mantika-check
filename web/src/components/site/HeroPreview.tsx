@@ -22,14 +22,14 @@ export function HeroPreview() {
   return (
     <figure className="relative" aria-label="Preview of the MANTIKA CHECK dashboard using fictional demo data">
       {/* main window */}
-      <div className="relative z-10 overflow-hidden rounded-[var(--radius-l)] border border-line-strong/70 bg-white shadow-[0_24px_60px_-28px_rgba(11,61,46,0.45)]">
+      <div className="relative z-10 overflow-hidden rounded-[var(--radius-l)] border border-line-strong/70 bg-surface shadow-[0_24px_60px_-28px_rgba(11,61,46,0.45)]">
         <div className="flex items-center justify-between border-b border-line bg-pale/70 px-4 py-2">
           <span className="font-mono text-[0.7rem] text-gray">mantika-check / dashboard</span>
           <Tag tone="outline">Demo data</Tag>
         </div>
         <div className="flex">
           <div className="hidden w-12 shrink-0 flex-col items-center gap-3 border-r border-line py-4 text-gray sm:flex" aria-hidden="true">
-            <LayoutDashboard className="size-4 text-green" />
+            <LayoutDashboard className="size-4 text-accent" />
             <Timer className="size-4" />
             <ClipboardCheck className="size-4" />
             <History className="size-4" />
@@ -50,7 +50,7 @@ export function HeroPreview() {
 
             <div className="rounded-[var(--radius-m)] border border-line">
               <div className="flex items-center gap-3 bg-st-monitor-bg px-4 py-3">
-                <span className="grid size-9 place-items-center rounded-[var(--radius-s)] bg-white text-st-monitor">
+                <span className="grid size-9 place-items-center rounded-[var(--radius-s)] bg-surface text-st-monitor">
                   <Eye className="size-5" aria-hidden="true" />
                 </span>
                 <div className="min-w-0">
@@ -86,7 +86,7 @@ export function HeroPreview() {
 
       {/* layered cards (desktop) */}
       <div className="relative z-20 mt-4 grid gap-4 sm:grid-cols-2 lg:absolute lg:-bottom-14 lg:-left-16 lg:mt-0 lg:block lg:w-64">
-        <div className="rounded-[var(--radius-m)] border border-line bg-white p-4 shadow-[0_18px_40px_-24px_rgba(20,37,54,0.5)]">
+        <div className="rounded-[var(--radius-m)] border border-line bg-surface p-4 shadow-[0_18px_40px_-24px_rgba(20,37,54,0.5)]">
           <p className="font-mono text-[0.66rem] uppercase tracking-[0.12em] text-teal">Latest quick check</p>
           <p className="mt-0.5 text-[0.75rem] text-gray">{check && fmtDate(check.at)} · reported by vendor</p>
           <ul className="mt-2 space-y-1 text-[0.82rem]">
@@ -99,7 +99,7 @@ export function HeroPreview() {
           </ul>
         </div>
       </div>
-      <div className="relative z-20 mt-4 hidden w-64 overflow-hidden rounded-[var(--radius-m)] border border-line bg-white shadow-[0_18px_40px_-24px_rgba(20,37,54,0.5)] lg:absolute lg:-top-12 lg:-right-6 lg:mt-0 lg:block xl:-right-14">
+      <div className="relative z-20 mt-4 hidden w-64 overflow-hidden rounded-[var(--radius-m)] border border-line bg-surface shadow-[0_18px_40px_-24px_rgba(20,37,54,0.5)] lg:absolute lg:-top-12 lg:-right-6 lg:mt-0 lg:block xl:-right-14">
         <p className="border-b border-line px-4 py-2 font-mono text-[0.66rem] uppercase tracking-[0.12em] text-teal">Activity</p>
         <div className="text-[0.85rem] [&_p]:text-[0.8rem]">
           <Timeline events={events.slice(0, 2)} dense />
@@ -107,7 +107,7 @@ export function HeroPreview() {
       </div>
 
       <Annotation className="-top-16 left-6">
-        <span className="h-px w-8 bg-teal" /> Status source: demo heuristic, illustrative
+        <span className="h-px w-8 bg-teal" /> Status source: engine, model estimate
       </Annotation>
       <Annotation className="right-0 -bottom-20">
         Every figure derives from logged records <span className="h-px w-8 bg-teal" />

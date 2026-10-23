@@ -7,8 +7,8 @@ export const metadata: Metadata = { title: "About & Limits" };
 const rows: { what: string; source: string; tone: "green" | "amber" | "neutral" | "outline"; detail: string }[] = [
   { what: "Sessions, top-ups, replacements", source: "Logged by you", tone: "green", detail: "Exactly what was entered. Totals are simple sums." },
   { what: "Warning observations", source: "Reported by you", tone: "green", detail: "What you saw. Any reported warning sign triggers a critical warning (conservative prototype rule)." },
-  { what: "Monitoring status", source: "Demo heuristic", tone: "amber", detail: "Placeholder weights on logged hours and heat level; any reported sign triggers Replace Oil. Food is recorded but not weighted. Not validated." },
-  { what: "Heat comparison", source: "Demo heuristic", tone: "amber", detail: "Shows the heuristic's weighting only. Not a measured effect on oil life." },
+  { what: "Monitoring status", source: "Model estimate", tone: "amber", detail: "TPC model on logged hours, heat and top-ups, fuzzy rules for food and oil type, and safety rules; any reported sign triggers Replace Oil. Not validated at real stalls." },
+  { what: "Heat simulator", source: "Model estimate", tone: "amber", detail: "Hours left and weekly peso savings at each heat level from the TPC model. Assumes daily frying at your average hours." },
   { what: "Guidance text", source: "Template", tone: "neutral", detail: "Fixed wording chosen by the status. It never decides the status." },
   { what: "Laboratory measurements", source: "Not available", tone: "outline", detail: "No polar-compound (TPC) or chemical readings are made or shown." },
 ];
@@ -56,15 +56,15 @@ export default function AboutLimitsPage() {
 
       <Panel aria-labelledby="plan-h" className="p-5">
         <h2 id="plan-h" className="flex flex-wrap items-center gap-2 font-bold">
-          Planned engine <Tag tone="amber">Team plan, not yet validated</Tag>
+          Status engine <Tag tone="amber">Research prototype, not validated at real stalls</Tag>
         </h2>
         <ul className="mt-3 space-y-2 text-gray">
-          <li>The engine in development estimates oil wear from published laboratory frying data (Li, 2020) using a kinetic model. It is not connected to this app yet.</li>
-          <li>The team's accuracy target is about ±3 TPC points (90% range). This has not been independently verified, so no TPC figure is shown.</li>
+          <li>The engine estimates oil wear from published laboratory frying data (Li, 2020) using a kinetic model, and runs in your browser.</li>
+          <li>The TPC range shown is about ±3 TPC points (90% range on the lab data). It has not been checked against test strips at real stalls.</li>
           <li>The 25% TPC level is a research benchmark used in Thailand, India and the EU. There is no Philippine legal limit, and this app makes no regulatory claim.</li>
           <li>The reference data comes from laboratory potato-chip frying, and the Low, Medium and High heat levels are approximate.</li>
-          <li>A language model may later reword the decided status into plain guidance. It will never make the decision. Today all guidance is fixed template text.</li>
-          <li>Records stay on this device. Nothing is sent anywhere in the current version; the plan is to send only anonymous facts when requesting reworded guidance.</li>
+          <li>A language model may reword the decided status into plain guidance. It never makes the decision, and its reply is checked; if it fails, fixed template text is shown.</li>
+          <li>Records stay on this device. Only the anonymous status facts (no stall name or records) are sent when requesting reworded guidance.</li>
         </ul>
       </Panel>
 
@@ -79,15 +79,15 @@ export default function AboutLimitsPage() {
         <Panel className="p-5">
           <h2 className="font-bold">Engine status</h2>
           <p className="mt-2 text-gray">
-            The scoring engine is in development and not connected. Until it is, statuses come from a transparent in-browser heuristic with placeholder weights, labelled
-            “Demo heuristic” wherever it appears.
+            Statuses come from the engine running in your browser: a TPC model fitted to lab frying data, fuzzy rules and FSSAI-based safety rules, labelled
+            “Model estimate” wherever it appears.
           </p>
         </Panel>
         <Panel className="p-5">
           <h2 className="font-bold">Your data</h2>
           <p className="mt-2 text-gray">
             Everything stays in this browser. The workspace starts with fictional demo records; you can remove them or start fresh in{" "}
-            <Link className="font-medium text-green underline" href="/app/settings">
+            <Link className="font-medium text-accent underline" href="/app/settings">
               Settings
             </Link>
             .
@@ -97,7 +97,7 @@ export default function AboutLimitsPage() {
           <h2 className="font-bold">Experimental color analyzer</h2>
           <p className="mt-2 text-gray">
             An earlier research tool that measures the average color of a photo region. Photo color is not an oil-quality measurement and is never used for the status.{" "}
-            <Link className="font-medium text-green underline" href="/app/experimental/color">
+            <Link className="font-medium text-accent underline" href="/app/experimental/color">
               Open the analyzer
             </Link>
             .

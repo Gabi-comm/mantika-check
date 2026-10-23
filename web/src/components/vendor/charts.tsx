@@ -6,7 +6,7 @@ import { fmtDayLabel } from "@/frontend/format";
  * Small dependency-free SVG charts. Each one is drawn from real records (demo or user)
  * and ships a data table for screen readers and anyone who prefers numbers.
  */
-const HEAT_FILL: Record<Heat, string> = { low: "#9fcdb8", medium: "#397d72", high: "#0b3d2e" };
+const HEAT_FILL: Record<Heat, string> = { low: "var(--heat-low)", medium: "var(--heat-medium)", high: "var(--heat-high)" };
 const HEATS: Heat[] = ["low", "medium", "high"];
 
 export function HeatLegend() {
@@ -25,7 +25,7 @@ export function HeatLegend() {
 function DataTable({ caption, head, rows }: { caption: string; head: string[]; rows: (string | number)[][] }) {
   return (
     <details className="mt-3 text-[0.82rem]">
-      <summary className="inline-flex min-h-11 cursor-pointer items-center font-medium text-green">View data table</summary>
+      <summary className="inline-flex min-h-11 cursor-pointer items-center font-medium text-accent">View data table</summary>
       <div className="overflow-x-auto">
         <table className="mt-1 w-full border-collapse text-left tabular">
           <caption className="sr-only">{caption}</caption>

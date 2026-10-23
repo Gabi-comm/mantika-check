@@ -1,0 +1,12 @@
+{
+  "name": "mantika-check",
+  "private": true,
+  "scripts": {
+    "dev": "npm --prefix web run dev",
+    "build": "npm --prefix web run build",
+    "start": "npm --prefix web run start",
+    "test": "npm --prefix web run test",
+    "lint": "npm --prefix web run lint",
+    "install:web": "npm --prefix web install"
+  }
+}

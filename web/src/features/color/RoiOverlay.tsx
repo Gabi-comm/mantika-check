@@ -46,7 +46,7 @@ export function RoiOverlay({ roi, onChange }: { roi: Roi; onChange: (r: Roi) => 
         onPointerDown={start("move")}
         onKeyDown={key}
       >
-        <span className="absolute -top-6 left-0 rounded-[3px] bg-white px-1.5 py-0.5 font-mono text-[0.68rem] uppercase tracking-wider text-forest">Region</span>
+        <span className="absolute -top-6 left-0 rounded-[3px] bg-surface px-1.5 py-0.5 font-mono text-[0.68rem] uppercase tracking-wider text-heading">Region</span>
         <button
           type="button"
           aria-label="Resize region"

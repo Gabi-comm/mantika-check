@@ -22,7 +22,7 @@ export function WorkspaceSkeleton() {
 export function NoBatch({ hasHistory }: { hasHistory?: boolean }) {
   return (
     <Panel className="dot-grid flex flex-col items-center px-6 py-14 text-center">
-      <span className="grid size-14 place-items-center rounded-[var(--radius-m)] border border-line bg-white text-green">
+      <span className="grid size-14 place-items-center rounded-[var(--radius-m)] border border-line bg-surface text-accent">
         <Droplet className="size-7" aria-hidden="true" />
       </span>
       <h2 className="mt-4 text-xl font-bold text-ink">{copy.states.emptyTitle}</h2>

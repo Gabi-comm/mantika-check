@@ -1,29 +1,22 @@
 "use client";
 
 import { createContext, useCallback, useContext, useEffect, useState, type ReactNode } from "react";
+import { SETTINGS_KEY } from "./boot";
 
-export type TextSize = "normal" | "large" | "xlarge";
+export type Theme = "dark" | "light";
 export interface Settings {
-  reducedMotion: boolean;
-  highContrast: boolean;
-  textSize: TextSize;
+  theme: Theme;
 }
-export const defaultSettings: Settings = { reducedMotion: false, highContrast: false, textSize: "normal" };
-export const SETTINGS_KEY = "mantika.settings.v2";
-
-/** Runs before paint (inlined in <head>) so preferences apply without a flash. Keep in sync with apply(). */
-export const settingsBootScript = `try{var s=JSON.parse(localStorage.getItem("${SETTINGS_KEY}")||"{}");var d=document.documentElement;d.dataset.motion=s.reducedMotion?"reduced":"full";d.dataset.contrast=s.highContrast?"high":"normal";d.dataset.text=s.textSize||"normal";}catch(e){}`;
+export const defaultSettings: Settings = { theme: "dark" };
 
 function apply(s: Settings) {
-  const d = document.documentElement;
-  d.dataset.motion = s.reducedMotion ? "reduced" : "full";
-  d.dataset.contrast = s.highContrast ? "high" : "normal";
-  d.dataset.text = s.textSize;
+  document.documentElement.dataset.theme = s.theme;
 }
 
 function read(): Settings {
   try {
-    return { ...defaultSettings, ...JSON.parse(localStorage.getItem(SETTINGS_KEY) || "{}") };
+    const raw = JSON.parse(localStorage.getItem(SETTINGS_KEY) || "{}") as Partial<Settings>;
+    return { theme: raw.theme === "light" ? "light" : "dark" };
   } catch {
     return defaultSettings;
   }

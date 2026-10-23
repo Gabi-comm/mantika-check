@@ -10,7 +10,7 @@ function Seg({ items, on }: { items: string[]; on: number }) {
   return (
     <div className="grid gap-1.5" style={{ gridTemplateColumns: `repeat(${items.length}, minmax(0,1fr))` }}>
       {items.map((t, i) => (
-        <span key={t} className={cx("grid min-h-11 place-items-center rounded-[var(--radius-s)] border text-[0.85rem] font-semibold", i === on ? "border-forest bg-forest text-white" : "border-line-strong bg-white text-ink")}>
+        <span key={t} className={cx("grid min-h-11 place-items-center rounded-[var(--radius-s)] border text-[0.85rem] font-semibold", i === on ? "border-forest bg-forest text-white" : "border-line-strong bg-surface text-ink")}>
           {t}
         </span>
       ))}
@@ -42,7 +42,7 @@ const STEPS: { id: string; tab: string; title: string; body: string; points: str
           <L>{copy.setup.oilType}</L>
           <div className="flex flex-wrap gap-1.5">
             {["Palm oil", "Coconut oil", "Vegetable blend"].map((o, i) => (
-              <span key={o} className={cx("rounded-full border px-3 py-1.5 text-[0.82rem]", i === 0 ? "border-green bg-mint text-forest" : "border-line-strong bg-white")}>
+              <span key={o} className={cx("rounded-full border px-3 py-1.5 text-[0.82rem]", i === 0 ? "border-green bg-tint text-heading" : "border-line-strong bg-surface")}>
                 {o}
               </span>
             ))}
@@ -51,7 +51,7 @@ const STEPS: { id: string; tab: string; title: string; body: string; points: str
         <div className="grid grid-cols-2 gap-3">
           <div>
             <L>{copy.setup.volume}</L>
-            <span className="flex h-11 items-center justify-between rounded-[var(--radius-s)] border border-line-strong bg-white px-3 font-mono text-[0.9rem]">
+            <span className="flex h-11 items-center justify-between rounded-[var(--radius-s)] border border-line-strong bg-surface px-3 font-mono text-[0.9rem]">
               3 <span className="text-gray">L</span>
             </span>
           </div>
@@ -93,7 +93,7 @@ const STEPS: { id: string; tab: string; title: string; body: string; points: str
       <Screen title={copy.check.title}>
         <div className="grid gap-2">
           {(["smoke", "foam", "dark_murky", "thick"] as const).map((s) => (
-            <span key={s} className={cx("flex items-center gap-3 rounded-[var(--radius-m)] border-2 bg-white px-3 py-2.5", s === "dark_murky" ? "border-green bg-mint" : "border-line")}>
+            <span key={s} className={cx("flex items-center gap-3 rounded-[var(--radius-m)] border-2 bg-surface px-3 py-2.5", s === "dark_murky" ? "border-green bg-tint" : "border-line")}>
               <span className={cx("grid size-6 place-items-center rounded-[4px] border-2", s === "dark_murky" ? "border-green bg-green text-white" : "border-line-strong")}>{s === "dark_murky" && <Check className="size-4" />}</span>
               <span>
                 <span className="block text-[0.88rem] font-semibold">{copy.signs[s].title}</span>
@@ -123,8 +123,8 @@ const STEPS: { id: string; tab: string; title: string; body: string; points: str
         <span className="block rounded-[var(--radius-m)] border border-line bg-st-replace-bg p-3">
           <span className="block font-display text-lg font-extrabold text-st-replace">{copy.status.change_now}</span>
           <span className="mt-1 flex gap-1.5">
-            <span className="rounded-[3px] border border-line-strong px-1 font-mono text-[0.62rem] uppercase text-gray">Demo heuristic</span>
-            <span className="rounded-[3px] border border-line-strong px-1 font-mono text-[0.62rem] uppercase text-gray">Illustrative</span>
+            <span className="rounded-[3px] border border-line-strong px-1 font-mono text-[0.62rem] uppercase text-gray">Engine</span>
+            <span className="rounded-[3px] border border-line-strong px-1 font-mono text-[0.62rem] uppercase text-gray">Model estimate</span>
           </span>
         </span>
       </Screen>
@@ -142,13 +142,13 @@ const STEPS: { id: string; tab: string; title: string; body: string; points: str
           <L>{copy.replace.reason}</L>
           <div className="flex flex-wrap gap-1.5">
             {["Oil turned dark", "Unusual smoke", "Planned schedule"].map((o, i) => (
-              <span key={o} className={cx("rounded-full border px-3 py-1.5 text-[0.82rem]", i === 0 ? "border-green bg-mint text-forest" : "border-line-strong bg-white")}>
+              <span key={o} className={cx("rounded-full border px-3 py-1.5 text-[0.82rem]", i === 0 ? "border-green bg-tint text-heading" : "border-line-strong bg-surface")}>
                 {o}
               </span>
             ))}
           </div>
         </div>
-        <span className="flex items-center justify-between rounded-[var(--radius-s)] border border-line bg-white px-3 py-2 text-[0.82rem]">
+        <span className="flex items-center justify-between rounded-[var(--radius-s)] border border-line bg-surface px-3 py-2 text-[0.82rem]">
           <span>Batch 06 · Oct 12 to Oct 16</span>
           <span className="font-mono">17 h</span>
         </span>
@@ -184,7 +184,7 @@ export function Walkthrough() {
             aria-controls={`wt-panel-${st.id}`}
             tabIndex={k === i ? 0 : -1}
             onClick={() => setI(k)}
-            className={cx("relative min-h-12 shrink-0 px-4 text-[0.92rem] font-semibold", k === i ? "text-forest after:absolute after:inset-x-2 after:-bottom-px after:h-0.5 after:bg-green" : "text-gray hover:text-ink")}
+            className={cx("relative min-h-12 shrink-0 px-4 text-[0.92rem] font-semibold", k === i ? "text-heading after:absolute after:inset-x-2 after:-bottom-px after:h-0.5 after:bg-green" : "text-gray hover:text-ink")}
           >
             <span className="mr-1.5 font-mono text-[0.72rem] text-teal">0{k + 1}</span>
             {st.tab}
@@ -198,7 +198,7 @@ export function Walkthrough() {
           <ul className="mt-5 space-y-2">
             {s.points.map((p) => (
               <li key={p} className="flex items-start gap-2.5 text-ink">
-                <Check className="mt-1 size-4 shrink-0 text-green" aria-hidden="true" />
+                <Check className="mt-1 size-4 shrink-0 text-accent" aria-hidden="true" />
                 {p}
               </li>
             ))}

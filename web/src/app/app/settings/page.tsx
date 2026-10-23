@@ -2,14 +2,12 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { Database, Accessibility, FlaskConical, HardDrive, ArrowRight } from "lucide-react";
+import { Database, FlaskConical, ArrowRight } from "lucide-react";
 import type { DemoScenario } from "@/vendor/types";
 import { copy } from "@/vendor/copy";
 import { clearAll, loadDemoScenario, removeDemoRecords, resetDemo } from "@/vendor/store";
 import { useVendorState } from "@/vendor/useOilStatus";
-import { useSettings, type TextSize } from "@/frontend/settings";
-import { Button, Panel, PanelHead, PageHeader, Tag } from "@/components/ui";
-import { Segmented, Switch } from "@/components/vendor/inputs";
+import { Button, Panel, PanelHead, PageHeader } from "@/components/ui";
 import { InlineNote } from "@/components/vendor/status";
 import { WorkspaceSkeleton } from "@/components/vendor/states";
 
@@ -17,7 +15,6 @@ const SCENARIOS = Object.entries(copy.demo.scenarios) as [DemoScenario, string][
 
 export default function SettingsPage() {
   const state = useVendorState();
-  const { settings, update } = useSettings();
   const [msg, setMsg] = useState<{ text: string; ok: boolean } | null>(null);
   const [confirmClear, setConfirmClear] = useState(false);
   const run = (ok: boolean, text: string) => setMsg(ok ? { text, ok } : { text: `${copy.states.error} ${copy.states.errorDetail}`, ok: false });
@@ -28,35 +25,10 @@ export default function SettingsPage() {
 
   return (
     <div className="space-y-6">
-      <PageHeader eyebrow="Preferences" title="Settings" lead="Display preferences, demo controls and the data stored on this device." />
+      <PageHeader eyebrow="Preferences" title="Settings" />
       {msg && <InlineNote tone={msg.ok ? "ok" : "error"}>{msg.text}</InlineNote>}
 
       <div className="grid gap-5 xl:grid-cols-2">
-        <Panel aria-labelledby="acc-h">
-          <PanelHead id="acc-h" title="Accessibility" eyebrow="Display" action={<Accessibility className="size-5 text-teal" aria-hidden="true" />} />
-          <div className="divide-y divide-line px-5">
-            <Switch id="motion" label="Reduce motion" desc="Turns off animated transitions and loading pulses." checked={settings.reducedMotion} onChange={(v) => update({ reducedMotion: v })} />
-            <Switch id="contrast" label="Higher contrast" desc="Darkens secondary text and borders." checked={settings.highContrast} onChange={(v) => update({ highContrast: v })} />
-            <div className="py-4">
-              <p className="font-medium text-ink" id="text-l">
-                Text size
-              </p>
-              <p className="mb-2 text-[0.85rem] text-gray">Scales all text and controls in the workspace and website.</p>
-              <div role="group" aria-labelledby="text-l">
-                <Segmented<TextSize>
-                  options={[
-                    { value: "normal", label: "A", sub: "Default" },
-                    { value: "large", label: <span className="text-[1.3rem]">A</span>, sub: "Large" },
-                    { value: "xlarge", label: <span className="text-[1.5rem]">A</span>, sub: "Extra large" },
-                  ]}
-                  value={settings.textSize}
-                  onChange={(v) => update({ textSize: v })}
-                />
-              </div>
-            </div>
-          </div>
-        </Panel>
-
         <Panel aria-labelledby="demo-h">
           <PanelHead id="demo-h" title="Demo mode" eyebrow="Demonstration" action={<FlaskConical className="size-5 text-teal" aria-hidden="true" />} />
           <div className="space-y-4 p-5">
@@ -78,7 +50,7 @@ export default function SettingsPage() {
                     className={
                       state.demoScenario === value
                         ? "min-h-12 rounded-[var(--radius-s)] border border-forest bg-forest px-3 text-left text-[0.88rem] font-semibold text-white"
-                        : "min-h-12 rounded-[var(--radius-s)] border border-line-strong bg-white px-3 text-left text-[0.88rem] font-medium text-ink hover:border-green"
+                        : "min-h-12 rounded-[var(--radius-s)] border border-line-strong bg-surface px-3 text-left text-[0.88rem] font-medium text-ink hover:border-green"
                     }
                   >
                     {label}
@@ -142,26 +114,13 @@ export default function SettingsPage() {
             </div>
           </div>
         </Panel>
-
-        <Panel aria-labelledby="store-h">
-          <PanelHead id="store-h" title="Local storage disclosure" eyebrow="Privacy" action={<HardDrive className="size-5 text-teal" aria-hidden="true" />} />
-          <div className="space-y-2 p-5 text-[0.92rem] text-ink/85">
-            <p>All records and preferences are stored in this browser&apos;s local storage. Nothing is sent to a server, and there is no account.</p>
-            <p>Clearing browser data, using a private window or switching devices will remove or hide your records.</p>
-            <p className="flex flex-wrap gap-1.5 pt-1">
-              <Tag tone="outline">mantika.web.v2</Tag>
-              <Tag tone="outline">mantika.settings.v2</Tag>
-              <Tag tone="outline">mantika.history</Tag>
-            </p>
-          </div>
-        </Panel>
       </div>
 
       <div className="flex flex-wrap gap-4 lg:hidden">
-        <Link href="/app/about" className="inline-flex min-h-11 items-center gap-1 font-medium text-green">
+        <Link href="/app/about" className="inline-flex min-h-11 items-center gap-1 font-medium text-accent">
           {copy.nav.about} <ArrowRight className="size-4" aria-hidden="true" />
         </Link>
-        <Link href="/app/experimental/color" className="inline-flex min-h-11 items-center gap-1 font-medium text-green">
+        <Link href="/app/experimental/color" className="inline-flex min-h-11 items-center gap-1 font-medium text-accent">
           {copy.nav.experimental} (experimental) <ArrowRight className="size-4" aria-hidden="true" />
         </Link>
       </div>

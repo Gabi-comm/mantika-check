@@ -1,18 +1,27 @@
 import { cx } from "@/frontend/format";
 
+const MIN_MARK = 24;
+
 /**
- * Approved brand mark (public/brand) plus HTML wordmark.
- * The wordmark is live text rather than the baked SVG so it uses the loaded display font.
+ * Approved brand mark (public/brand/mantika-check-mark*.svg) drawn inline, plus the HTML wordmark,
+ * in the brand-board lockup proportions. Inline so the mark has no tile and follows the theme:
+ * primary colours on light, reversed colours on dark.
  */
-export function Logo({ height = 28, reversed = false, className }: { height?: number; reversed?: boolean; className?: string }) {
-  const src = reversed ? "/brand/mantika-check-mark-reversed.svg" : "/brand/mantika-check-mark.svg";
+export function Logo({ height = 32, reversed = false, className }: { height?: number; reversed?: boolean; className?: string }) {
+  const h = Math.max(height, MIN_MARK);
   return (
-    <span className={cx("inline-flex shrink-0 items-center gap-2", className)}>
-      {/* eslint-disable-next-line @next/next/no-img-element -- static SVG brand asset, no optimisation needed */}
-      <img src={src} alt="" aria-hidden="true" width={height} height={height} style={{ height, width: height }} />
-      <span className={cx("whitespace-nowrap font-display tracking-[-0.01em]", reversed ? "text-white" : "text-forest")} style={{ fontSize: height * 0.62 }}>
+    <span className={cx("inline-flex shrink-0 items-center", className)} style={{ gap: h * 0.25 }}>
+      <svg viewBox="0 0 64 64" width={h} height={h} aria-hidden="true" className={cx("logo-mark shrink-0", reversed && "is-reversed")}>
+        <g fill="none" strokeWidth="9" strokeLinecap="butt">
+          <path d="M48.09 18.50 A21 21 0 0 0 20.87 14.19" stroke="var(--mark-1, #0b3d2e)" />
+          <path d="M19.07 15.45 A21 21 0 0 0 14.19 43.13" stroke="var(--mark-2, #11634a)" />
+          <path d="M15.45 44.93 A21 21 0 0 0 48.09 45.50" stroke="var(--mark-3, #1f8a5b)" />
+        </g>
+        <rect x="26" y="26" width="12" height="12" rx="2" fill="var(--mark-sq, #0e6e73)" />
+      </svg>
+      <span className={cx("whitespace-nowrap font-display leading-none tracking-[-0.017em]", reversed ? "text-white" : "logo-word")} style={{ fontSize: h * 0.5 }}>
         <b className="font-extrabold">MANTIKA</b>
-        <span className="ml-[0.28em] font-medium">CHECK</span>
+        <span className="ml-[0.3em] font-medium">CHECK</span>
       </span>
     </span>
   );
