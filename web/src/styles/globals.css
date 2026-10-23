@@ -1,0 +1,174 @@
+@import "tailwindcss";
+
+/* ------------------------------------------------------------------
+   Clear Lab design tokens. Palette is fixed by the brand guide;
+   change values here, never inline.
+   ------------------------------------------------------------------ */
+:root {
+  --forest: #0b3d2e;
+  --green: #11634a;
+  --mint: #dff2e7;
+  --canvas: #f7faf8;
+  --ink: #142536;
+  --white: #ffffff;
+  --teal: #397d72;
+  --pale: #edf6f0;
+  --gray: #667785;
+  --line: #dbe4df;
+  --line-strong: #b9c7c0;
+
+  /* status scale: each paired with an icon and a word, never colour alone */
+  --st-continue: #1f7a4d;
+  --st-continue-bg: #e3f3ea;
+  --st-monitor: #8a6200;
+  --st-monitor-bg: #fbf1d6;
+  --st-recommend: #a8480f;
+  --st-recommend-bg: #fce8da;
+  --st-replace: #b42318;
+  --st-replace-bg: #fdecea;
+  --critical: #8e1b12;
+
+  --focus: #0b6bcb;
+  --radius-s: 6px;
+  --radius-m: 10px;
+  --radius-l: 14px;
+}
+
+[data-contrast="high"] {
+  --gray: #3e4c58;
+  --line: #9aa8a1;
+  --line-strong: #5f6e67;
+  --teal: #245a51;
+}
+html[data-text="large"] {
+  font-size: 112.5%;
+}
+html[data-text="xlarge"] {
+  font-size: 125%;
+}
+
+@theme inline {
+  --color-forest: var(--forest);
+  --color-green: var(--green);
+  --color-mint: var(--mint);
+  --color-canvas: var(--canvas);
+  --color-ink: var(--ink);
+  --color-teal: var(--teal);
+  --color-pale: var(--pale);
+  --color-gray: var(--gray);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-st-continue: var(--st-continue);
+  --color-st-continue-bg: var(--st-continue-bg);
+  --color-st-monitor: var(--st-monitor);
+  --color-st-monitor-bg: var(--st-monitor-bg);
+  --color-st-recommend: var(--st-recommend);
+  --color-st-recommend-bg: var(--st-recommend-bg);
+  --color-st-replace: var(--st-replace);
+  --color-st-replace-bg: var(--st-replace-bg);
+  --color-critical: var(--critical);
+  --radius-s: var(--radius-s);
+  --radius-m: var(--radius-m);
+  --radius-l: var(--radius-l);
+  --font-display: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, monospace;
+}
+
+html {
+  background: var(--canvas);
+  color: var(--ink);
+  -webkit-text-size-adjust: 100%;
+}
+body {
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  line-height: 1.55;
+  min-height: 100dvh;
+  -webkit-font-smoothing: antialiased;
+}
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display);
+  letter-spacing: -0.02em;
+  line-height: 1.12;
+  text-wrap: balance;
+}
+p {
+  text-wrap: pretty;
+}
+
+:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* scientific dot grid, used only behind hero and section openers */
+.dot-grid {
+  background-color: var(--canvas);
+  background-image: radial-gradient(circle at 1px 1px, rgba(17, 99, 74, 0.16) 1px, transparent 0);
+  background-size: 22px 22px;
+}
+.dot-grid-dark {
+  background-image: radial-gradient(circle at 1px 1px, rgba(223, 242, 231, 0.12) 1px, transparent 0);
+  background-size: 22px 22px;
+}
+
+/* technical label: mono, uppercase, tracked */
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--teal);
+}
+
+.tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+.sr-only-focusable:not(:focus) {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+@keyframes pulse-soft {
+  50% {
+    opacity: 0.45;
+  }
+}
+.skeleton {
+  background: var(--line);
+  border-radius: 6px;
+  animation: pulse-soft 1.4s ease-in-out infinite;
+}
+
+html[data-motion="reduced"] *,
+html[data-motion="reduced"] *::before,
+html[data-motion="reduced"] *::after {
+  animation-duration: 0.001ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.001ms !important;
+  scroll-behavior: auto !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* safe-area for the mobile bottom bar */
+.pb-safe {
+  padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 0.5rem);
+}
