@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Reusable States</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap">
+<style>body{margin:0}a{color:#14213D}a:hover{color:#2F4A39}</style>
+</helmet>
+<div style="width:1360px;height:844px;box-sizing:border-box;padding:40px 48px;background:#F6F3EC;color:#14213D;font-family:'IBM Plex Sans',sans-serif;display:flex;flex-direction:column;gap:24px">
+<header style="display:flex;justify-content:space-between;align-items:flex-end;border-bottom:1px solid #14213D;padding-bottom:16px">
+<h1 style="margin:0;font-size:28px;font-weight:600;letter-spacing:-0.01em">Mobile states · one pattern, ten situations</h1>
+<span style="font-size:15px;color:#374151">Icon + plain title + what happens next + one action</span>
+</header>
+<div style="display:grid;grid-template-columns:repeat(5,minmax(0,1fr));grid-template-rows:repeat(2,minmax(0,1fr));gap:16px;flex-grow:1">
+
+<section style="background:#FFFFFF;border:1px solid #DDD6C6;border-radius:8px;padding:20px;display:flex;flex-direction:column;gap:10px"><span style="font-size:14px;color:#374151">No records</span><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#14213D" stroke-width="2" aria-hidden="true"><rect x="9" y="3" width="6" height="18" rx="1"></rect></svg><h2 style="margin:0;font-size:18px;font-weight:600">No readings yet</h2><p style="margin:0;font-size:15px;line-height:1.45;color:#374151">Scan your first strip to start your history.</p><button style="margin-top:auto;min-height:48px;background:#14213D;color:#FFFFFF;border:0;border-radius:8px;font:600 16px 'IBM Plex Sans',sans-serif">Scan a strip</button></section>
+
+<section aria-busy="true" style="background:#FFFFFF;border:1px solid #DDD6C6;border-radius:8px;padding:20px;display:flex;flex-direction:column;gap:10px"><span style="font-size:14px;color:#374151">Loading</span><div style="display:flex;gap:10px;align-items:center"><div style="width:40px;height:52px;background:#EAE4D6;border-radius:4px"></div><div style="flex-grow:1;display:flex;flex-direction:column;gap:8px"><div style="height:12px;width:80%;background:#EAE4D6;border-radius:4px"></div><div style="height:12px;width:55%;background:#EAE4D6;border-radius:4px"></div></div></div><div style="display:flex;gap:10px;align-items:center"><div style="width:40px;height:52px;background:#EAE4D6;border-radius:4px"></div><div style="flex-grow:1;display:flex;flex-direction:column;gap:8px"><div style="height:12px;width:70%;background:#EAE4D6;border-radius:4px"></div><div style="height:12px;width:45%;background:#EAE4D6;border-radius:4px"></div></div></div><p style="margin:auto 0 0;font-size:15px;color:#374151">Loading your history…</p></section>
+
+<section style="background:#FFFFFF;border:1px solid #DDD6C6;border-radius:8px;padding:20px;display:flex;flex-direction:column;gap:10px"><span style="font-size:14px;color:#374151">Offline</span><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#14213D" stroke-width="2" aria-hidden="true"><path d="M3 3l18 18M8.5 16a5 5 0 0 1 7 0M5 12.5a10 10 0 0 1 4-2.3M19 12.5a10 10 0 0 0-3-1.9"></path></svg><h2 style="margin:0;font-size:18px;font-weight:600">No internet</h2><p style="margin:0;font-size:15px;line-height:1.45;color:#374151">You can keep scanning. Readings stay on this phone and send later.</p><span style="margin-top:auto;font-size:14px;color:#374151">No action needed</span></section>
+
+<section style="background:#FFFFFF;border:1px solid #DDD6C6;border-radius:8px;padding:20px;display:flex;flex-direction:column;gap:10px"><span style="font-size:14px;color:#374151">Saved locally</span><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#14213D" stroke-width="2" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="2"></rect><path d="M10 18h4"></path></svg><h2 style="margin:0;font-size:18px;font-weight:600">Saved on this phone</h2><p style="margin:0;font-size:15px;line-height:1.45;color:#374151">It will send by itself when you are online.</p><button style="margin-top:auto;min-height:48px;background:#FFFFFF;color:#14213D;border:1px solid #14213D;border-radius:8px;font:600 16px 'IBM Plex Sans',sans-serif">OK</button></section>
+
+<section style="background:#FFFFFF;border:1px solid #DDD6C6;border-radius:8px;padding:20px;display:flex;flex-direction:column;gap:10px"><span style="font-size:14px;color:#374151">Pending sync</span><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#374151" stroke-width="2" stroke-dasharray="4 3" aria-hidden="true"><circle cx="12" cy="12" r="8"></circle></svg><h2 style="margin:0;font-size:18px;font-weight:600">Sending 2 readings</h2><p style="margin:0;font-size:15px;line-height:1.45;color:#374151">Keep the app open for a moment. You can still use it.</p><span style="margin-top:auto;font-size:14px;color:#374151">Updates on its own</span></section>
+
+<section style="background:#FBEFE9;border:1px solid #E6C2B6;border-radius:8px;padding:20px;display:flex;flex-direction:column;gap:10px;color:#8E2F1C"><span style="font-size:14px">Sync failed</span><svg width="28" height="28" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M8 2l6.5 12h-13z"></path><path d="M8 7v3M8 12v.5"></path></svg><h2 style="margin:0;font-size:18px;font-weight:600">Not sent</h2><p style="margin:0;font-size:15px;line-height:1.45;color:#5E1F12">The connection dropped. Your reading is still on this phone.</p><button style="margin-top:auto;min-height:48px;background:#14213D;color:#FFFFFF;border:0;border-radius:8px;font:600 16px 'IBM Plex Sans',sans-serif">Send again</button></section>
+
+<section style="background:#FBEFE9;border:1px solid #E6C2B6;border-radius:8px;padding:20px;display:flex;flex-direction:column;gap:10px;color:#8E2F1C"><span style="font-size:14px">Capture failed</span><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 7h4l2-3h6l2 3h4v13H3z"></path><path d="M9 10l6 6M15 10l-6 6"></path></svg><h2 style="margin:0;font-size:18px;font-weight:600">Photo too blurry</h2><p style="margin:0;font-size:15px;line-height:1.45;color:#5E1F12">Hold the phone still and keep the strip inside the frame.</p><button style="margin-top:auto;min-height:48px;background:#14213D;color:#FFFFFF;border:0;border-radius:8px;font:600 16px 'IBM Plex Sans',sans-serif">Take it again</button></section>
+
+<section style="background:#F3E6CC;border:1px solid #E2CDA0;border-radius:8px;padding:20px;display:flex;flex-direction:column;gap:10px;color:#4A330C"><span style="font-size:14px">Uncertain reading</span><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M9.5 9a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .9-1 1.6M12 16.5v.5"></path></svg><h2 style="margin:0;font-size:18px;font-weight:600">The phone isn't sure</h2><p style="margin:0;font-size:15px;line-height:1.45">Band 2 looks between two card colours. Please choose what you see.</p><button style="margin-top:auto;min-height:48px;background:#14213D;color:#FFFFFF;border:0;border-radius:8px;font:600 16px 'IBM Plex Sans',sans-serif">Choose the band</button></section>
+
+<section style="background:#FFFFFF;border:1px solid #DDD6C6;border-radius:8px;padding:20px;display:flex;flex-direction:column;gap:10px"><span style="font-size:14px;color:#374151">Permission denied</span><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#14213D" stroke-width="2" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"></rect><path d="M8 11V8a4 4 0 0 1 8 0v3"></path></svg><h2 style="margin:0;font-size:18px;font-weight:600">Camera is off</h2><p style="margin:0;font-size:15px;line-height:1.45;color:#374151">MANTIKA CHECK needs the camera to photograph strips. Nothing else is recorded.</p><button style="margin-top:auto;min-height:48px;background:#14213D;color:#FFFFFF;border:0;border-radius:8px;font:600 16px 'IBM Plex Sans',sans-serif">Open settings</button></section>
+
+<section style="background:#FFFFFF;border:1px solid #DDD6C6;border-radius:8px;padding:20px;display:flex;flex-direction:column;gap:8px"><span style="font-size:14px;color:#374151">Validation error</span><label for="ve" style="font-size:15px;font-weight:600">Oil temperature</label><input id="ve" value="1750" aria-invalid="true" aria-describedby="vee" style="min-height:48px;border:2px solid #8E2F1C;border-radius:4px;padding:0 12px;font:400 17px 'IBM Plex Mono',monospace;color:#14213D;background:#FFFFFF;box-sizing:border-box;width:100%"><span id="vee" style="font-size:15px;line-height:1.4;color:#8E2F1C">That looks too high. Frying oil is usually 150 to 200 °C. Or choose Don't know.</span></section>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1360,"height":844}}'>
+class Component extends DCLogic { renderVals() { return {}; } }
+</script>
+</body>
+</html>

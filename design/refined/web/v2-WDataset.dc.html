@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Dataset Explorer</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap">
+<style>body{margin:0}a{color:#14213D}a:hover{color:#2F4A39}a:focus-visible,button:focus-visible,select:focus-visible{outline:2px solid #B07A2A;outline-offset:2px}td span,td:first-child,dd{white-space:nowrap}</style>
+</helmet>
+<div style="min-height:1100px;background:#F6F3EC;color:#14213D;font-family:'IBM Plex Sans',sans-serif;display:flex;flex-wrap:wrap">
+
+<nav aria-label="Research modules" style="flex:1 1 240px;max-width:100%;background:#14213D;color:#FFFFFF;padding:24px 16px;box-sizing:border-box;display:flex;flex-direction:column;gap:20px">
+<img src="../brand/mantika-check-horizontal-reversed.svg" alt="MANTIKA CHECK" style="width:168px;height:auto;margin:4px 8px 4px">
+<a href="v2-WOverview.dc.html" style="min-height:40px;display:flex;align-items:center;padding:0 12px;border-radius:8px;color:#FFFFFF;text-decoration:none;font-size:15px">Overview</a>
+<div style="display:flex;flex-direction:column;gap:2px"><span style="padding:0 12px 4px;font-size:14px;color:#AEB8CB">Track 1 · Public data</span>
+<a href="v2-WMLLab.dc.html" style="min-height:40px;display:flex;align-items:center;padding:0 12px;border-radius:8px;color:#FFFFFF;text-decoration:none;font-size:15px">ML laboratory</a>
+<a href="v2-WDataset.dc.html" aria-current="page" style="min-height:40px;display:flex;align-items:center;padding:0 12px;border-radius:8px;background:#26365A;color:#FFFFFF;text-decoration:none;font-size:15px;font-weight:600">Dataset explorer</a></div>
+<div style="display:flex;flex-direction:column;gap:2px"><span style="padding:0 12px 4px;font-size:14px;color:#AEB8CB">Track 2 · Local pilot</span>
+<a href="v2-WStrip.dc.html" style="min-height:40px;display:flex;align-items:center;padding:0 12px;border-radius:8px;color:#FFFFFF;text-decoration:none;font-size:15px">Strip laboratory</a>
+<a href="v2-WVendors.dc.html" style="min-height:40px;display:flex;align-items:center;padding:0 12px;border-radius:8px;color:#FFFFFF;text-decoration:none;font-size:15px">Vendor management</a></div>
+<div style="display:flex;flex-direction:column;gap:2px"><span style="padding:0 12px 4px;font-size:14px;color:#AEB8CB">Outputs</span>
+<a href="v2-WReporting.dc.html" style="min-height:40px;display:flex;align-items:center;padding:0 12px;border-radius:8px;color:#FFFFFF;text-decoration:none;font-size:15px">Reporting</a></div>
+</nav>
+
+<div style="flex:999 1 640px;min-width:0;display:flex;flex-direction:column">
+<header style="padding:28px clamp(16px,3vw,40px) 0;border-bottom:1px solid #DDD6C6;display:flex;flex-direction:column;gap:16px;background:#FFFFFF">
+<div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:16px">
+<div style="display:flex;flex-direction:column;gap:4px"><span style="font-size:14px;color:#4B5563">Track 1 · Methodology steps 1 and 2</span><h1 style="margin:0;font-size:32px;font-weight:600;letter-spacing:-0.015em">Dataset explorer</h1></div>
+<span style="display:inline-flex;align-items:center;gap:6px;background:#F1EEE6;color:#374151;border-radius:4px;padding:6px 10px;font-size:14px">Layout preview · example row states, values load from the CSV</span>
+</div>
+<div role="tablist" aria-label="Files" style="display:flex;flex-wrap:wrap;gap:4px">
+<button role="tab" aria-selected="true" style="min-height:44px;padding:0 16px;background:none;border:0;border-bottom:2px solid #14213D;font:600 15px 'IBM Plex Mono',monospace;color:#14213D">total_polar_compoents.csv</button>
+<button role="tab" aria-selected="false" style="min-height:44px;padding:0 16px;background:none;border:0;border-bottom:2px solid transparent;font:400 15px 'IBM Plex Mono',monospace;color:#374151">acid_value.csv</button>
+<button role="tab" aria-selected="false" style="min-height:44px;padding:0 16px;background:none;border:0;border-bottom:2px solid transparent;font:400 15px 'IBM Plex Mono',monospace;color:#374151">carbonyl_value.csv</button>
+</div>
+</header>
+
+<div style="display:flex;flex-wrap:wrap;gap:24px;padding:28px clamp(16px,3vw,40px) 40px;align-items:flex-start">
+<main style="flex:999 1 600px;min-width:0;display:flex;flex-direction:column;gap:20px">
+
+<form aria-label="Filters" style="display:flex;flex-wrap:wrap;gap:16px;align-items:flex-end">
+<div style="display:flex;flex-direction:column;gap:6px"><label for="ft" style="font-size:14px;font-weight:600">Temperature</label><select id="ft" style="min-height:40px;min-width:160px;border:1px solid #8C8574;border-radius:4px;padding:0 10px;font:400 15px 'IBM Plex Sans',sans-serif;background:#FFFFFF;color:#14213D"><option>All five</option></select></div>
+<div style="display:flex;flex-direction:column;gap:6px"><label for="fh" style="font-size:14px;font-weight:600">Hours</label><select id="fh" style="min-height:40px;min-width:140px;border:1px solid #8C8574;border-radius:4px;padding:0 10px;font:400 15px 'IBM Plex Sans',sans-serif;background:#FFFFFF;color:#14213D"><option>0 to 30</option></select></div>
+<label style="min-height:40px;display:flex;align-items:center;gap:8px;font-size:15px"><input type="checkbox" style="width:18px;height:18px">Only rows with issues</label>
+<button type="button" style="margin-left:auto;min-height:40px;padding:0 14px;border:1px solid #14213D;background:#FFFFFF;border-radius:8px;font:600 15px 'IBM Plex Sans',sans-serif;color:#14213D">Download filtered CSV</button>
+</form>
+
+<section aria-label="Rows" style="background:#FFFFFF;border:1px solid #DDD6C6;border-radius:8px;overflow-x:auto">
+<table style="border-collapse:collapse;width:100%;min-width:560px;font-size:15px">
+<thead><tr style="text-align:left;border-bottom:1px solid #14213D;background:#FAF8F3"><th scope="col" style="padding:0 20px;height:44px;font-weight:600">Row</th><th scope="col" style="padding:0 12px;font-weight:600">Temperature label</th><th scope="col" style="padding:0 12px;font-weight:600;text-align:right">Time</th><th scope="col" style="padding:0 12px;font-weight:600;text-align:right">TPC</th><th scope="col" style="padding:0 20px;font-weight:600">Check</th></tr></thead>
+<tbody style="font-family:'IBM Plex Mono',monospace;color:#374151">
+<tr style="border-bottom:1px solid #EAE4D6;height:44px"><td style="padding:0 20px">1</td><td style="padding:0 12px">[label]</td><td style="padding:0 12px;text-align:right">[h]</td><td style="padding:0 12px;text-align:right">[%]</td><td style="padding:0 20px;font-family:'IBM Plex Sans',sans-serif"><span style="background:#EAF0EA;color:#2F4A39;border-radius:4px;padding:2px 8px;font-size:14px">✓ OK</span></td></tr>
+<tr style="border-bottom:1px solid #EAE4D6;height:44px"><td style="padding:0 20px">2</td><td style="padding:0 12px">[label]</td><td style="padding:0 12px;text-align:right">[h]</td><td style="padding:0 12px;text-align:right">[%]</td><td style="padding:0 20px;font-family:'IBM Plex Sans',sans-serif"><span style="background:#EAF0EA;color:#2F4A39;border-radius:4px;padding:2px 8px;font-size:14px">✓ OK</span></td></tr>
+<tr style="border-bottom:1px solid #EAE4D6;height:44px;background:#FBF6F3"><td style="padding:0 20px">3</td><td style="padding:0 12px">[label]</td><td style="padding:0 12px;text-align:right">[h]</td><td style="padding:0 12px;text-align:right"><span style="font-family:'IBM Plex Sans',sans-serif;border:1px dashed #8E2F1C;color:#8E2F1C;border-radius:4px;padding:2px 6px;font-size:14px">empty</span></td><td style="padding:0 20px;font-family:'IBM Plex Sans',sans-serif"><span style="background:#FBEFE9;color:#8E2F1C;border-radius:4px;padding:2px 8px;font-size:14px">▲ Missing value</span></td></tr>
+<tr style="border-bottom:1px solid #EAE4D6;height:44px"><td style="padding:0 20px">4</td><td style="padding:0 12px">[label]</td><td style="padding:0 12px;text-align:right">[h]</td><td style="padding:0 12px;text-align:right">[%]</td><td style="padding:0 20px;font-family:'IBM Plex Sans',sans-serif"><span style="background:#F3E6CC;color:#6B4A12;border-radius:4px;padding:2px 8px;font-size:14px">◆ Unit to confirm</span></td></tr>
+<tr style="height:44px"><td style="padding:0 20px">5</td><td style="padding:0 12px">[label]</td><td style="padding:0 12px;text-align:right">[h]</td><td style="padding:0 12px;text-align:right">[%]</td><td style="padding:0 20px;font-family:'IBM Plex Sans',sans-serif"><span style="background:#EAF0EA;color:#2F4A39;border-radius:4px;padding:2px 8px;font-size:14px">✓ OK</span></td></tr>
+</tbody></table>
+<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 20px;border-top:1px solid #DDD6C6;font-size:14px;color:#374151"><span>Rows 1 to 5 of [n]</span><span style="display:flex;gap:8px"><button style="min-height:40px;padding:0 12px;border:1px solid #8C8574;background:#FFFFFF;border-radius:4px;font:500 14px 'IBM Plex Sans',sans-serif;color:#14213D">Previous</button><button style="min-height:40px;padding:0 12px;border:1px solid #8C8574;background:#FFFFFF;border-radius:4px;font:500 14px 'IBM Plex Sans',sans-serif;color:#14213D">Next</button></span></div>
+</section>
+
+<section aria-labelledby="sc" style="background:#FFFFFF;border:1px solid #DDD6C6;border-radius:8px;overflow-x:auto">
+<table style="border-collapse:collapse;width:100%;min-width:560px;font-size:15px">
+<caption id="sc" style="text-align:left;padding:18px 20px 8px;font-size:18px;font-weight:600">Columns</caption>
+<thead><tr style="text-align:left;border-bottom:1px solid #14213D"><th scope="col" style="padding:0 20px;height:44px;font-weight:600">Column</th><th scope="col" style="padding:0 12px;font-weight:600">Meaning</th><th scope="col" style="padding:0 12px;font-weight:600">Type</th><th scope="col" style="padding:0 20px;font-weight:600;text-align:right">Missing</th></tr></thead>
+<tbody>
+<tr style="border-bottom:1px solid #EAE4D6;height:44px"><td style="padding:0 20px;font-family:'IBM Plex Mono',monospace">[temperature]</td><td style="padding:0 12px">Controlled frying temperature, one of five</td><td style="padding:0 12px">category</td><td style="padding:0 20px;text-align:right;font-family:'IBM Plex Mono',monospace">[n]</td></tr>
+<tr style="border-bottom:1px solid #EAE4D6;height:44px"><td style="padding:0 20px;font-family:'IBM Plex Mono',monospace">[time]</td><td style="padding:0 12px">Frying time; unit to be confirmed on import</td><td style="padding:0 12px">number</td><td style="padding:0 20px;text-align:right;font-family:'IBM Plex Mono',monospace">[n]</td></tr>
+<tr style="height:44px"><td style="padding:0 20px;font-family:'IBM Plex Mono',monospace">[tpc]</td><td style="padding:0 12px">Total polar compounds, % of oil mass</td><td style="padding:0 12px">number</td><td style="padding:0 20px;text-align:right;font-family:'IBM Plex Mono',monospace">[n]</td></tr>
+</tbody></table>
+</section>
+</main>
+
+<aside aria-label="Dataset information" style="flex:1 1 300px;min-width:0;display:flex;flex-direction:column;gap:16px">
+<section style="background:#FFFFFF;border:1px solid #DDD6C6;border-radius:8px;padding:20px;display:flex;flex-direction:column;gap:10px">
+<h2 style="margin:0;font-size:17px;font-weight:600">Provenance</h2>
+<dl style="margin:0;display:grid;grid-template-columns:auto minmax(0,1fr);gap:8px 12px;font-size:15px">
+<dt style="color:#374151">Author</dt><dd style="margin:0;white-space:normal">Yumei Li (2020)</dd>
+<dt style="color:#374151">Host</dt><dd style="margin:0">Mendeley Data</dd>
+<dt style="color:#374151">DOI</dt><dd style="margin:0;font-family:'IBM Plex Mono',monospace;font-size:14px;white-space:normal;word-break:break-all">10.17632/4k7b395yxx.1</dd>
+<dt style="color:#374151">Food</dt><dd style="margin:0">Potato chips</dd>
+<dt style="color:#374151">Oil</dt><dd style="margin:0">Not specified</dd>
+<dt style="color:#374151">Reuse terms</dt><dd style="margin:0;white-space:normal">To verify before publication</dd>
+</dl></section>
+<section style="background:#FFFFFF;border:1px solid #DDD6C6;border-radius:8px;padding:20px;display:flex;flex-direction:column;gap:10px">
+<h2 style="margin:0;font-size:17px;font-weight:600">Data quality checks</h2>
+<ul style="list-style:none;margin:0;padding:0;font-size:15px;display:flex;flex-direction:column">
+<li style="display:flex;justify-content:space-between;gap:8px;padding:8px 0;border-bottom:1px solid #EAE4D6"><span>Missing values</span><span style="color:#374151">not run</span></li>
+<li style="display:flex;justify-content:space-between;gap:8px;padding:8px 0;border-bottom:1px solid #EAE4D6"><span>Duplicate rows</span><span style="color:#374151">not run</span></li>
+<li style="display:flex;justify-content:space-between;gap:8px;padding:8px 0;border-bottom:1px solid #EAE4D6"><span>Time units</span><span style="color:#374151">not run</span></li>
+<li style="display:flex;justify-content:space-between;gap:8px;padding:8px 0;border-bottom:1px solid #EAE4D6"><span>Temperature labels</span><span style="color:#374151">not run</span></li>
+<li style="display:flex;justify-content:space-between;gap:8px;padding:8px 0"><span>Measurement ranges</span><span style="color:#374151">not run</span></li>
+</ul></section>
+<section style="background:#FFFFFF;border:1px solid #DDD6C6;border-radius:8px;padding:20px;display:flex;flex-direction:column;gap:8px">
+<h2 style="margin:0;font-size:17px;font-weight:600">Preprocessing rules</h2>
+<ul style="margin:0;padding-left:18px;font-size:15px;line-height:1.55;color:#253047"><li>TPC, acid and carbonyl values are never merged</li><li>Rows from one temperature series are not treated as independent</li><li>Every change is logged with the source row</li></ul>
+</section>
+</aside>
+</div>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1100}}'>
+class Component extends DCLogic { renderVals() { return {}; } }
+</script>
+</body>
+</html>

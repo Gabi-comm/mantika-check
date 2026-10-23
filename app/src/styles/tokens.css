@@ -1,0 +1,64 @@
+:root {
+  /* Clear Lab palette */
+  --primary: #11634a;
+  --primary-deep: #0b3d2e;
+  --primary-soft: #1f8a5b;
+  --mint: #dff2e7;
+  --teal: #0e6e73;
+  --lab-blue: #1d4e89;
+  --bg: #f5f8f7;
+  --surface: #ffffff;
+  --text: #0f1f2e;
+  --text-muted: #3e4c59;
+  --muted: #5b6875;
+  --border: #e3e8ea;
+  --border2: #cbd3d6;
+
+  /* strip result colours: DATA ONLY, illustrative until calibrated */
+  --s-yellow: #e3be2f;
+  --s-blue: #2c6db5;
+  --s-green: #3c9a57;
+
+  --ok-bg: #eaf6ef;
+  --ok-text: #0b3d2e;
+  --warn-bg: #fff4d6;
+  --warn-text: #6b4a12;
+  --error-bg: #fbeaea;
+  --error-text: #7a1a12;
+  --info-bg: #e6eef8;
+
+  --focus: #1f8a5b;
+
+  --font-display: "Plus Jakarta Sans", Inter, system-ui, sans-serif;
+  --font-body: Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
+
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+
+  --shadow-sm: 0 1px 2px rgba(15, 31, 46, 0.06);
+  --shadow-md: 0 4px 16px rgba(11, 61, 46, 0.08);
+
+  --motion: 180ms ease;
+  --sidebar-w: 264px;
+  --header-h: 68px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --motion: 0ms;
+  }
+}
+
+[data-reduced-motion="true"] {
+  --motion: 0ms;
+}
+
+[data-contrast="high"] {
+  --text: #000000;
+  --text-muted: #1a1a1a;
+  --border: #000000;
+  --bg: #ffffff;
+  --surface: #ffffff;
+}

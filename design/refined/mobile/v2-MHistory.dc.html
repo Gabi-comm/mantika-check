@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>History</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap">
+<style>body{margin:0}a{color:#14213D}a:hover{color:#2F4A39}a:focus-visible,button:focus-visible{outline:2px solid #B07A2A;outline-offset:2px}</style>
+</helmet>
+<div style="width:390px;height:844px;box-sizing:border-box;background:#F6F3EC;color:#14213D;font-family:'IBM Plex Sans',sans-serif;display:flex;flex-direction:column;overflow:hidden">
+<header style="padding:16px 16px 8px;display:flex;flex-direction:column;gap:12px">
+<div style="display:flex;justify-content:space-between;align-items:center"><h1 style="margin:0;font-size:24px;font-weight:600;letter-spacing:-0.01em">History</h1><button style="min-height:44px;padding:0 12px;background:#FFFFFF;border:1px solid #14213D;border-radius:8px;font:600 15px 'IBM Plex Sans',sans-serif;color:#14213D">Compare two</button></div>
+<div role="group" aria-label="Show" style="display:flex;gap:8px;overflow-x:auto">
+<button aria-pressed="true" style="min-height:40px;padding:0 14px;background:#14213D;color:#FFFFFF;border:1px solid #14213D;border-radius:4px;font:600 15px 'IBM Plex Sans',sans-serif;white-space:nowrap">All</button>
+<button aria-pressed="false" style="min-height:40px;padding:0 14px;background:#FFFFFF;color:#14213D;border:1px solid #8C8574;border-radius:4px;font:400 15px 'IBM Plex Sans',sans-serif;white-space:nowrap">Strip readings</button>
+<button aria-pressed="false" style="min-height:40px;padding:0 14px;background:#FFFFFF;color:#14213D;border:1px solid #8C8574;border-radius:4px;font:400 15px 'IBM Plex Sans',sans-serif;white-space:nowrap">Oil logs</button>
+<button aria-pressed="false" style="min-height:40px;padding:0 14px;background:#FFFFFF;color:#14213D;border:1px solid #8C8574;border-radius:4px;font:400 15px 'IBM Plex Sans',sans-serif;white-space:nowrap">Needs you (2)</button>
+</div>
+</header>
+
+<div role="alert" style="margin:4px 16px 8px;background:#FBEFE9;border-radius:8px;padding:12px 14px;display:flex;gap:12px;align-items:center;color:#8E2F1C">
+<svg width="20" height="20" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink:0" aria-hidden="true"><path d="M8 2l6.5 12h-13z"></path><path d="M8 7v3"></path></svg>
+<span style="flex-grow:1;font-size:15px;line-height:1.4"><strong>1 reading not sent.</strong> It is still saved on this phone.</span>
+<button style="min-height:44px;padding:0 12px;background:#14213D;color:#FFFFFF;border:0;border-radius:8px;font:600 15px 'IBM Plex Sans',sans-serif">Send again</button>
+</div>
+
+<main style="flex-grow:1;padding:0 16px;overflow:hidden">
+<h2 style="margin:8px 0 4px;font-size:15px;font-weight:600;color:#374151">Today · Thu 23 Oct</h2>
+<ol style="list-style:none;margin:0;padding:0;background:#FFFFFF;border:1px solid #DDD6C6;border-radius:8px">
+<li style="display:flex;gap:12px;align-items:center;padding:10px 12px;border-bottom:1px solid #EAE4D6">
+<div role="img" aria-label="Strip photo" style="width:40px;height:52px;border-radius:4px;background:#6A6252;display:flex;align-items:center;justify-content:center;flex-shrink:0"><div style="width:12px;height:42px;background:#F7F4EA;display:flex;flex-direction:column;justify-content:space-around;padding:3px 2px;box-sizing:border-box"><div style="height:8px;background:#E5DB9E"></div><div style="height:8px;background:#C7A245"></div><div style="height:8px;background:#EFEADC"></div></div></div>
+<div style="flex-grow:1;min-width:0;display:flex;flex-direction:column;gap:2px"><span style="font-size:16px;font-weight:600">Band 2 of 3</span><span style="font-size:14px;color:#374151"><span style="font-family:'IBM Plex Mono',monospace">10:42</span> · after 3 h 20 m heating</span></div>
+<span style="display:inline-flex;align-items:center;gap:4px;background:#F1EEE6;color:#374151;border-radius:4px;padding:3px 8px;font-size:14px;white-space:nowrap"><svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="3 2" aria-hidden="true"><circle cx="8" cy="8" r="5.5"></circle></svg>Waiting</span>
+</li>
+<li style="display:flex;gap:12px;align-items:center;padding:10px 12px;border-bottom:1px solid #EAE4D6">
+<div aria-hidden="true" style="width:40px;height:52px;border-radius:4px;border:1px dashed #8C8574;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:18px;color:#374151">?</div>
+<div style="flex-grow:1;min-width:0;display:flex;flex-direction:column;gap:2px"><span style="font-size:16px;font-weight:600">Reading not finished</span><span style="font-size:14px;color:#374151"><span style="font-family:'IBM Plex Mono',monospace">08:05</span> · photo missing</span></div>
+<a href="v2-MScanner.dc.html" style="min-height:44px;display:flex;align-items:center;font-size:15px;font-weight:600">Finish</a>
+</li>
+<li style="display:flex;gap:12px;align-items:center;padding:10px 12px">
+<div aria-hidden="true" style="width:40px;height:52px;border-radius:4px;background:#F1EEE6;display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#14213D" stroke-width="2"><path d="M3 12h18M5 12a7 5 0 0 0 14 0"></path></svg></div>
+<div style="flex-grow:1;min-width:0;display:flex;flex-direction:column;gap:2px"><span style="font-size:16px;font-weight:600">Oil log started · Palm</span><span style="font-size:14px;color:#374151"><span style="font-family:'IBM Plex Mono',monospace">07:10</span> · fresh oil added 08:15</span></div>
+<span style="display:inline-flex;align-items:center;gap:4px;background:#EAF0EA;color:#2F4A39;border-radius:4px;padding:3px 8px;font-size:14px">Sent</span>
+</li>
+</ol>
+
+<h2 style="margin:16px 0 4px;font-size:15px;font-weight:600;color:#374151">Yesterday · Wed 22 Oct</h2>
+<ol style="list-style:none;margin:0;padding:0;background:#FFFFFF;border:1px solid #DDD6C6;border-radius:8px">
+<li style="display:flex;gap:12px;align-items:center;padding:10px 12px;border-bottom:1px solid #EAE4D6">
+<div role="img" aria-label="Strip photo" style="width:40px;height:52px;border-radius:4px;background:#6A6252;display:flex;align-items:center;justify-content:center;flex-shrink:0"><div style="width:12px;height:42px;background:#F7F4EA;display:flex;flex-direction:column;justify-content:space-around;padding:3px 2px;box-sizing:border-box"><div style="height:8px;background:#E5DB9E"></div><div style="height:8px;background:#EFEADC"></div><div style="height:8px;background:#EFEADC"></div></div></div>
+<div style="flex-grow:1;min-width:0;display:flex;flex-direction:column;gap:2px"><span style="font-size:16px;font-weight:600">Band 1 of 3</span><span style="font-size:14px;color:#374151"><span style="font-family:'IBM Plex Mono',monospace">16:10</span> · after 5 h heating</span></div>
+<span style="display:inline-flex;align-items:center;gap:4px;background:#FBEFE9;color:#8E2F1C;border-radius:4px;padding:3px 8px;font-size:14px;white-space:nowrap"><svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M8 2l6.5 12h-13z"></path></svg>Not sent</span>
+</li>
+<li style="display:flex;gap:12px;align-items:center;padding:10px 12px">
+<div role="img" aria-label="Strip photo" style="width:40px;height:52px;border-radius:4px;background:#6A6252;display:flex;align-items:center;justify-content:center;flex-shrink:0"><div style="width:12px;height:42px;background:#F7F4EA;display:flex;flex-direction:column;justify-content:space-around;padding:3px 2px;box-sizing:border-box"><div style="height:8px;background:#EFEADC"></div><div style="height:8px;background:#EFEADC"></div><div style="height:8px;background:#EFEADC"></div></div></div>
+<div style="flex-grow:1;min-width:0;display:flex;flex-direction:column;gap:2px"><span style="font-size:16px;font-weight:600">No band changed</span><span style="font-size:14px;color:#374151"><span style="font-family:'IBM Plex Mono',monospace">09:30</span> · fresh oil</span></div>
+<span style="display:inline-flex;align-items:center;gap:4px;background:#EAF0EA;color:#2F4A39;border-radius:4px;padding:3px 8px;font-size:14px">Sent</span>
+</li>
+</ol>
+</main>
+
+<nav aria-label="Main" style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:1px solid #DDD6C6;background:#FFFFFF;padding-bottom:8px">
+<a href="v2-MHome.dc.html" style="min-height:56px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;text-decoration:none;color:#374151;font-size:14px"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 11l8-7 8 7v9H4z"></path></svg>Home</a>
+<a href="v2-MTracker.dc.html" style="min-height:56px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;text-decoration:none;color:#374151;font-size:14px"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 12h18M5 12a7 5 0 0 0 14 0"></path></svg>Oil log</a>
+<a href="v2-MHistory.dc.html" aria-current="page" style="min-height:56px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;text-decoration:none;color:#14213D;font-size:14px;font-weight:600"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="8"></circle><path d="M12 8v4l3 2"></path></svg>History</a>
+</nav>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic { renderVals() { return {}; } }
+</script>
+</body>
+</html>

@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Vendor Research Management</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap">
+<style>body{margin:0}a{color:#14213D}a:hover{color:#2F4A39}a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid #B07A2A;outline-offset:2px}td span,td:first-child,dd{white-space:nowrap}</style>
+</helmet>
+<div style="min-height:1100px;background:#F6F3EC;color:#14213D;font-family:'IBM Plex Sans',sans-serif;display:flex;flex-wrap:wrap">
+
+<nav aria-label="Research modules" style="flex:1 1 240px;max-width:100%;background:#14213D;color:#FFFFFF;padding:24px 16px;box-sizing:border-box;display:flex;flex-direction:column;gap:20px">
+<img src="../brand/mantika-check-horizontal-reversed.svg" alt="MANTIKA CHECK" style="width:168px;height:auto;margin:4px 8px 4px">
+<a href="v2-WOverview.dc.html" style="min-height:40px;display:flex;align-items:center;padding:0 12px;border-radius:8px;color:#FFFFFF;text-decoration:none;font-size:15px">Overview</a>
+<div style="display:flex;flex-direction:column;gap:2px"><span style="padding:0 12px 4px;font-size:14px;color:#AEB8CB">Track 1 · Public data</span>
+<a href="v2-WMLLab.dc.html" style="min-height:40px;display:flex;align-items:center;padding:0 12px;border-radius:8px;color:#FFFFFF;text-decoration:none;font-size:15px">ML laboratory</a>
+<a href="v2-WDataset.dc.html" style="min-height:40px;display:flex;align-items:center;padding:0 12px;border-radius:8px;color:#FFFFFF;text-decoration:none;font-size:15px">Dataset explorer</a></div>
+<div style="display:flex;flex-direction:column;gap:2px"><span style="padding:0 12px 4px;font-size:14px;color:#AEB8CB">Track 2 · Local pilot</span>
+<a href="v2-WStrip.dc.html" style="min-height:40px;display:flex;align-items:center;padding:0 12px;border-radius:8px;color:#FFFFFF;text-decoration:none;font-size:15px">Strip laboratory</a>
+<a href="v2-WVendors.dc.html" aria-current="page" style="min-height:40px;display:flex;align-items:center;padding:0 12px;border-radius:8px;background:#26365A;color:#FFFFFF;text-decoration:none;font-size:15px;font-weight:600">Vendor management</a></div>
+<div style="display:flex;flex-direction:column;gap:2px"><span style="padding:0 12px 4px;font-size:14px;color:#AEB8CB">Outputs</span>
+<a href="v2-WReporting.dc.html" style="min-height:40px;display:flex;align-items:center;padding:0 12px;border-radius:8px;color:#FFFFFF;text-decoration:none;font-size:15px">Reporting</a></div>
+</nav>
+
+<div style="flex:999 1 640px;min-width:0;display:flex;flex-direction:column">
+<header style="padding:28px clamp(16px,3vw,40px) 20px;border-bottom:1px solid #DDD6C6;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:16px;background:#FFFFFF">
+<div style="display:flex;flex-direction:column;gap:4px"><span style="font-size:14px;color:#4B5563">Track 2 · Methodology step 5</span><h1 style="margin:0;font-size:32px;font-weight:600;letter-spacing:-0.015em">Vendor research management</h1></div>
+<button style="min-height:40px;padding:0 16px;background:#14213D;color:#FFFFFF;border:0;border-radius:8px;font:600 15px 'IBM Plex Sans',sans-serif">Add participant</button>
+</header>
+
+<div style="display:flex;flex-wrap:wrap;gap:24px;padding:28px clamp(16px,3vw,40px) 40px;align-items:flex-start">
+<main style="flex:999 1 600px;min-width:0;display:flex;flex-direction:column;gap:20px">
+<form aria-label="Filter participants" style="display:flex;flex-wrap:wrap;gap:12px;align-items:center">
+<label for="q" style="position:absolute;left:-9999px">Search by participant ID</label>
+<input id="q" placeholder="Search by ID, e.g. V-07" style="min-height:40px;width:260px;border:1px solid #8C8574;border-radius:4px;padding:0 12px;font:400 15px 'IBM Plex Sans',sans-serif;background:#FFFFFF;color:#14213D">
+<div role="group" aria-label="Consent" style="display:flex;flex-wrap:wrap;gap:6px">
+<button aria-pressed="true" style="min-height:40px;padding:0 12px;background:#14213D;color:#FFFFFF;border:1px solid #14213D;border-radius:4px;font:600 14px 'IBM Plex Sans',sans-serif">All</button>
+<button aria-pressed="false" style="min-height:40px;padding:0 12px;background:#FFFFFF;color:#14213D;border:1px solid #8C8574;border-radius:4px;font:400 14px 'IBM Plex Sans',sans-serif">Consent given</button>
+<button aria-pressed="false" style="min-height:40px;padding:0 12px;background:#FFFFFF;color:#14213D;border:1px solid #8C8574;border-radius:4px;font:400 14px 'IBM Plex Sans',sans-serif">Incomplete</button>
+<button aria-pressed="false" style="min-height:40px;padding:0 12px;background:#FFFFFF;color:#14213D;border:1px solid #8C8574;border-radius:4px;font:400 14px 'IBM Plex Sans',sans-serif">Repeat observers</button>
+</div>
+</form>
+
+<section aria-labelledby="pt" style="background:#FFFFFF;border:1px solid #DDD6C6;border-radius:8px;overflow-x:auto">
+<table style="border-collapse:collapse;width:100%;min-width:760px;font-size:15px">
+<caption id="pt" style="text-align:left;padding:18px 24px 8px;font-size:18px;font-weight:600">Participants <span style="font-weight:400;font-size:14px;color:#374151">· example records for layout</span></caption>
+<thead><tr style="text-align:left;border-bottom:1px solid #14213D;background:#FAF8F3"><th scope="col" style="padding:0 24px;height:44px;font-weight:600">ID</th><th scope="col" style="padding:0 12px;font-weight:600">Consent</th><th scope="col" style="padding:0 12px;font-weight:600">Record</th><th scope="col" style="padding:0 12px;font-weight:600;text-align:right">Strip readings</th><th scope="col" style="padding:0 12px;font-weight:600">Repeat</th><th scope="col" style="padding:0 24px;font-weight:600"><span style="position:absolute;left:-9999px">Actions</span></th></tr></thead>
+<tbody>
+<tr style="border-bottom:1px solid #EAE4D6;height:48px"><td style="padding:0 24px;font-family:'IBM Plex Mono',monospace">V-03</td><td style="padding:0 12px"><span style="background:#EAF0EA;color:#2F4A39;border-radius:4px;padding:2px 8px;font-size:14px">✓ Given</span></td><td style="padding:0 12px;font-size:14px"><span>✓ Photo</span> · <span>✓ Survey</span> · <span>✓ Strip</span></td><td style="padding:0 12px;text-align:right;font-family:'IBM Plex Mono',monospace">[n]</td><td style="padding:0 12px">Yes</td><td style="padding:0 24px"><a href="#" style="font-size:15px;font-weight:600">Open</a></td></tr>
+<tr style="border-bottom:1px solid #EAE4D6;height:48px"><td style="padding:0 24px;font-family:'IBM Plex Mono',monospace">V-07</td><td style="padding:0 12px"><span style="background:#EAF0EA;color:#2F4A39;border-radius:4px;padding:2px 8px;font-size:14px">✓ Given</span></td><td style="padding:0 12px;font-size:14px"><span>✓ Photo</span> · <span style="color:#8E2F1C">✕ Survey</span> · <span>✓ Strip</span></td><td style="padding:0 12px;text-align:right;font-family:'IBM Plex Mono',monospace">[n]</td><td style="padding:0 12px">No</td><td style="padding:0 24px"><a href="#" style="font-size:15px;font-weight:600">Open</a></td></tr>
+<tr style="border-bottom:1px solid #EAE4D6;height:48px"><td style="padding:0 24px;font-family:'IBM Plex Mono',monospace">V-11</td><td style="padding:0 12px"><span style="background:#F1EEE6;color:#374151;border-radius:4px;padding:2px 8px;font-size:14px">○ Pending</span></td><td style="padding:0 12px;font-size:14px;color:#374151">No data collected before consent</td><td style="padding:0 12px;text-align:right;font-family:'IBM Plex Mono',monospace">0</td><td style="padding:0 12px">No</td><td style="padding:0 24px"><a href="#" style="font-size:15px;font-weight:600">Record consent</a></td></tr>
+<tr style="height:48px"><td style="padding:0 24px;font-family:'IBM Plex Mono',monospace">V-12</td><td style="padding:0 12px"><span style="background:#FBEFE9;color:#8E2F1C;border-radius:4px;padding:2px 8px;font-size:14px">■ Withdrawn</span></td><td style="padding:0 12px;font-size:14px;color:#374151">Data removed from analysis</td><td style="padding:0 12px;text-align:right;font-family:'IBM Plex Mono',monospace">0</td><td style="padding:0 12px">No</td><td style="padding:0 24px"><a href="#" style="font-size:15px;font-weight:600">View log</a></td></tr>
+</tbody></table>
+</section>
+
+<section aria-labelledby="ss" style="background:#FFFFFF;border:1px dashed #8C8574;border-radius:8px;padding:20px 24px;display:flex;flex-direction:column;gap:6px">
+<h2 id="ss" style="margin:0;font-size:18px;font-weight:600">Area summary is suppressed</h2>
+<p style="margin:0;font-size:15px;line-height:1.5;color:#374151">Summaries appear when at least 5 stalls have consented. This prevents any single stall from being identified.</p>
+</section>
+</main>
+
+<aside aria-label="Privacy" style="flex:1 1 300px;min-width:0;display:flex;flex-direction:column;gap:16px">
+<section style="background:#FFFFFF;border:1px solid #DDD6C6;border-radius:8px;padding:20px;display:flex;flex-direction:column;gap:10px">
+<h2 style="margin:0;font-size:17px;font-weight:600">Privacy rules</h2>
+<ul style="margin:0;padding-left:18px;font-size:15px;line-height:1.55;color:#253047">
+<li>Only pseudonymous IDs appear here; names and stall locations are stored separately</li>
+<li>No reading is collected before consent</li>
+<li>Withdrawal removes the vendor's data from analysis</li>
+<li>Faces are never required in photos</li>
+</ul></section>
+<section style="background:#FFFFFF;border:1px solid #DDD6C6;border-radius:8px;padding:20px;display:flex;flex-direction:column;gap:10px">
+<h2 style="margin:0;font-size:17px;font-weight:600">Pilot scope</h2>
+<dl style="margin:0;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px 12px;font-size:15px">
+<dt>Consenting stalls</dt><dd style="margin:0;font-family:'IBM Plex Mono',monospace">target 15 to 25</dd>
+<dt>Repeat observers</dt><dd style="margin:0;font-family:'IBM Plex Mono',monospace">target 5 to 8</dd>
+<dt>Area</dt><dd style="margin:0">One, near campus</dd>
+</dl></section>
+</aside>
+</div>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1100}}'>
+class Component extends DCLogic { renderVals() { return {}; } }
+</script>
+</body>
+</html>
