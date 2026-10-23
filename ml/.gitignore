@@ -1,0 +1,17 @@
+.venv/
+__pycache__/
+.pytest_cache/
+data/processed/debug/
+data/processed/results.csv
+data/processed/confusion_matrix.csv
+
+# Raw/reference photos: kept locally, not versioned on main (large binaries).
+# .gitkeep placeholders are explicitly re-added below so empty dirs survive.
+data/raw/*/*.jpg
+data/raw/*/*.jpeg
+data/raw/*/*.png
+data/reference/*.jpg
+data/reference/*.jpeg
+data/reference/*.png
+!data/raw/*/.gitkeep
+!data/reference/.gitkeep
