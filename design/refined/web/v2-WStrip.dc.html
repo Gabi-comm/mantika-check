@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Strip Laboratory</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap">
+<style>body{margin:0}a{color:#14213D}a:hover{color:#2F4A39}a:focus-visible,button:focus-visible{outline:2px solid #B07A2A;outline-offset:2px}td span,td:first-child,dd{white-space:nowrap}</style>
+</helmet>
+<div style="min-height:1100px;background:#F6F3EC;color:#14213D;font-family:'IBM Plex Sans',sans-serif;display:flex;flex-wrap:wrap">
+
+<nav aria-label="Research modules" style="flex:1 1 240px;max-width:100%;background:#14213D;color:#FFFFFF;padding:24px 16px;box-sizing:border-box;display:flex;flex-direction:column;gap:20px">
+<img src="../brand/mantika-check-horizontal-reversed.svg" alt="MANTIKA CHECK" style="width:168px;height:auto;margin:4px 8px 4px">
+<a href="v2-WOverview.dc.html" style="min-height:40px;display:flex;align-items:center;padding:0 12px;border-radius:8px;color:#FFFFFF;text-decoration:none;font-size:15px">Overview</a>
+<div style="display:flex;flex-direction:column;gap:2px"><span style="padding:0 12px 4px;font-size:14px;color:#AEB8CB">Track 1 · Public data</span>
+<a href="v2-WMLLab.dc.html" style="min-height:40px;display:flex;align-items:center;padding:0 12px;border-radius:8px;color:#FFFFFF;text-decoration:none;font-size:15px">ML laboratory</a>
+<a href="v2-WDataset.dc.html" style="min-height:40px;display:flex;align-items:center;padding:0 12px;border-radius:8px;color:#FFFFFF;text-decoration:none;font-size:15px">Dataset explorer</a></div>
+<div style="display:flex;flex-direction:column;gap:2px"><span style="padding:0 12px 4px;font-size:14px;color:#AEB8CB">Track 2 · Local pilot</span>
+<a href="v2-WStrip.dc.html" aria-current="page" style="min-height:40px;display:flex;align-items:center;padding:0 12px;border-radius:8px;background:#26365A;color:#FFFFFF;text-decoration:none;font-size:15px;font-weight:600">Strip laboratory</a>
+<a href="v2-WVendors.dc.html" style="min-height:40px;display:flex;align-items:center;padding:0 12px;border-radius:8px;color:#FFFFFF;text-decoration:none;font-size:15px">Vendor management</a></div>
+<div style="display:flex;flex-direction:column;gap:2px"><span style="padding:0 12px 4px;font-size:14px;color:#AEB8CB">Outputs</span>
+<a href="v2-WReporting.dc.html" style="min-height:40px;display:flex;align-items:center;padding:0 12px;border-radius:8px;color:#FFFFFF;text-decoration:none;font-size:15px">Reporting</a></div>
+</nav>
+
+<div style="flex:999 1 640px;min-width:0;display:flex;flex-direction:column">
+<header style="padding:28px clamp(16px,3vw,40px) 20px;border-bottom:1px solid #DDD6C6;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:16px;background:#FFFFFF">
+<div style="display:flex;flex-direction:column;gap:4px"><span style="font-size:14px;color:#4B5563">Track 2 · Methodology step 6</span><h1 style="margin:0;font-size:32px;font-weight:600;letter-spacing:-0.015em">Strip laboratory <span style="font-family:'IBM Plex Mono',monospace;font-size:22px;font-weight:400;color:#374151">S-014</span></h1></div>
+<div style="display:flex;gap:8px"><button style="min-height:40px;padding:0 14px;border:1px solid #8C8574;background:#FFFFFF;border-radius:8px;font:500 15px 'IBM Plex Sans',sans-serif;color:#14213D">← S-013</button><button style="min-height:40px;padding:0 14px;border:1px solid #8C8574;background:#FFFFFF;border-radius:8px;font:500 15px 'IBM Plex Sans',sans-serif;color:#14213D">S-015 →</button></div>
+</header>
+
+<div style="display:flex;flex-wrap:wrap;gap:24px;padding:28px clamp(16px,3vw,40px) 40px;align-items:flex-start">
+<main style="flex:999 1 600px;min-width:0;display:flex;flex-direction:column;gap:24px">
+
+<section aria-labelledby="cm" style="background:#FFFFFF;border:1px solid #DDD6C6;border-radius:8px;padding:20px 24px;display:flex;flex-direction:column;gap:14px">
+<div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px"><h2 id="cm" style="margin:0;font-size:20px;font-weight:600">Same strip, four captures</h2><span style="font-size:14px;color:#374151">All four stay in one data partition</span></div>
+<div style="display:grid;grid-template-columns:auto repeat(2,minmax(0,1fr));gap:12px;align-items:center">
+<span></span><span style="font-size:15px;font-weight:600">Lab light</span><span style="font-size:15px;font-weight:600">Daylight</span>
+<span style="font-size:15px;font-weight:600">Phone A</span>
+<button aria-pressed="true" style="height:150px;border:2px solid #14213D;border-radius:8px;background:#6A6252;display:flex;align-items:center;justify-content:center;gap:16px;padding:0"><span style="width:24px;height:120px;background:#F7F4EA;display:flex;flex-direction:column;justify-content:space-around;padding:6px 4px;box-sizing:border-box"><span style="display:block;height:22px;background:#E5DB9E"></span><span style="display:block;height:22px;background:#C7A245"></span><span style="display:block;height:22px;background:#EFEADC"></span></span><span style="font:500 14px 'IBM Plex Sans',sans-serif;color:#FFFFFF;background:#14213D;padding:3px 8px;border-radius:4px">Inspecting</span></button>
+<button aria-pressed="false" style="height:150px;border:1px solid #DDD6C6;border-radius:8px;background:#5E584C;display:flex;align-items:center;justify-content:center;padding:0"><span style="width:24px;height:120px;background:#EDE7D6;display:flex;flex-direction:column;justify-content:space-around;padding:6px 4px;box-sizing:border-box"><span style="display:block;height:22px;background:#D9CE8E"></span><span style="display:block;height:22px;background:#B8953C"></span><span style="display:block;height:22px;background:#E3DCC8"></span></span></button>
+<span style="font-size:15px;font-weight:600">Phone B</span>
+<button aria-pressed="false" style="height:150px;border:1px solid #DDD6C6;border-radius:8px;background:#6D6555;display:flex;align-items:center;justify-content:center;padding:0"><span style="width:24px;height:120px;background:#F9F6EE;display:flex;flex-direction:column;justify-content:space-around;padding:6px 4px;box-sizing:border-box"><span style="display:block;height:22px;background:#EBE2A9"></span><span style="display:block;height:22px;background:#CDAA52"></span><span style="display:block;height:22px;background:#F2EDE0"></span></span></button>
+<button aria-pressed="false" style="height:150px;border:1px solid #DDD6C6;border-radius:8px;background:#605A4E;display:flex;align-items:center;justify-content:center;padding:0"><span style="width:24px;height:120px;background:#EFE9DA;display:flex;flex-direction:column;justify-content:space-around;padding:6px 4px;box-sizing:border-box"><span style="display:block;height:22px;background:#DDD293"></span><span style="display:block;height:22px;background:#BE9A40"></span><span style="display:block;height:22px;background:#E6DFCC"></span></span></button>
+</div>
+<p style="margin:0;font-size:14px;color:#374151">Images are placeholders for real captures from the supervised campus laboratory.</p>
+</section>
+
+<section aria-labelledby="cf" style="background:#FFFFFF;border:1px solid #DDD6C6;border-radius:8px;overflow-x:auto">
+<table style="border-collapse:collapse;width:100%;min-width:620px;font-size:15px">
+<caption id="cf" style="text-align:left;padding:18px 24px 8px;font-size:18px;font-weight:600">Colour features · Phone A, lab light</caption>
+<thead><tr style="text-align:left;border-bottom:1px solid #14213D;background:#FAF8F3"><th scope="col" style="padding:0 24px;height:44px;font-weight:600">Band</th><th scope="col" style="padding:0 12px;font-weight:600">Sample</th><th scope="col" style="padding:0 12px;font-weight:600;text-align:right">R G B</th><th scope="col" style="padding:0 12px;font-weight:600;text-align:right">L*</th><th scope="col" style="padding:0 12px;font-weight:600;text-align:right">a*</th><th scope="col" style="padding:0 24px;font-weight:600;text-align:right">b*</th></tr></thead>
+<tbody style="font-family:'IBM Plex Mono',monospace;color:#374151">
+<tr style="border-bottom:1px solid #EAE4D6;height:44px"><td style="padding:0 24px;color:#14213D">1</td><td style="padding:0 12px"><span aria-hidden="true" style="display:inline-block;width:32px;height:16px;background:#E5DB9E;border:1px solid #8C8574;vertical-align:middle"></span></td><td style="padding:0 12px;text-align:right">[r g b]</td><td style="padding:0 12px;text-align:right">[ ]</td><td style="padding:0 12px;text-align:right">[ ]</td><td style="padding:0 24px;text-align:right">[ ]</td></tr>
+<tr style="border-bottom:1px solid #EAE4D6;height:44px"><td style="padding:0 24px;color:#14213D">2</td><td style="padding:0 12px"><span aria-hidden="true" style="display:inline-block;width:32px;height:16px;background:#C7A245;border:1px solid #8C8574;vertical-align:middle"></span></td><td style="padding:0 12px;text-align:right">[r g b]</td><td style="padding:0 12px;text-align:right">[ ]</td><td style="padding:0 12px;text-align:right">[ ]</td><td style="padding:0 24px;text-align:right">[ ]</td></tr>
+<tr style="height:44px"><td style="padding:0 24px;color:#14213D">3</td><td style="padding:0 12px"><span aria-hidden="true" style="display:inline-block;width:32px;height:16px;background:#EFEADC;border:1px solid #8C8574;vertical-align:middle"></span></td><td style="padding:0 12px;text-align:right">[r g b]</td><td style="padding:0 12px;text-align:right">[ ]</td><td style="padding:0 12px;text-align:right">[ ]</td><td style="padding:0 24px;text-align:right">[ ]</td></tr>
+</tbody></table>
+<p style="margin:0;padding:10px 24px 16px;font-size:14px;color:#374151">CIELAB extraction after Fan et al. (2021), normalised to the reference card in each photo.</p>
+</section>
+
+<section aria-labelledby="mv" style="background:#FFFFFF;border:1px solid #DDD6C6;border-radius:8px;overflow-x:auto">
+<table style="border-collapse:collapse;width:100%;min-width:620px;font-size:15px">
+<caption id="mv" style="text-align:left;padding:18px 24px 8px;font-size:18px;font-weight:600">Person versus phone</caption>
+<thead><tr style="text-align:left;border-bottom:1px solid #14213D;background:#FAF8F3"><th scope="col" style="padding:0 24px;height:44px;font-weight:600">Capture</th><th scope="col" style="padding:0 12px;font-weight:600">Human reader</th><th scope="col" style="padding:0 12px;font-weight:600">Phone, experimental</th><th scope="col" style="padding:0 24px;font-weight:600">Agreement</th></tr></thead>
+<tbody>
+<tr style="border-bottom:1px solid #EAE4D6;height:44px"><td style="padding:0 24px">Phone A · Lab</td><td style="padding:0 12px">[band]</td><td style="padding:0 12px">[band]</td><td style="padding:0 24px"><span style="background:#F1EEE6;color:#374151;border-radius:4px;padding:2px 8px;font-size:14px">○ Pending</span></td></tr>
+<tr style="border-bottom:1px solid #EAE4D6;height:44px"><td style="padding:0 24px">Phone A · Daylight</td><td style="padding:0 12px">[band]</td><td style="padding:0 12px">[band]</td><td style="padding:0 24px"><span style="background:#F1EEE6;color:#374151;border-radius:4px;padding:2px 8px;font-size:14px">○ Pending</span></td></tr>
+<tr style="border-bottom:1px solid #EAE4D6;height:44px"><td style="padding:0 24px">Phone B · Lab</td><td style="padding:0 12px">[band]</td><td style="padding:0 12px">[band]</td><td style="padding:0 24px"><span style="background:#F1EEE6;color:#374151;border-radius:4px;padding:2px 8px;font-size:14px">○ Pending</span></td></tr>
+<tr style="height:44px"><td style="padding:0 24px">Phone B · Daylight</td><td style="padding:0 12px">[band]</td><td style="padding:0 12px">[band]</td><td style="padding:0 24px"><span style="background:#F1EEE6;color:#374151;border-radius:4px;padding:2px 8px;font-size:14px">○ Pending</span></td></tr>
+</tbody></table>
+<p style="margin:0;padding:10px 24px 16px;font-size:14px;color:#374151">Agreement states: ✓ Match, ✕ Differs, ○ Pending. Human readings are taken before the phone result is shown.</p>
+</section>
+</main>
+
+<aside aria-label="Validation" style="flex:1 1 300px;min-width:0;display:flex;flex-direction:column;gap:16px">
+<section style="background:#FFFFFF;border:1px solid #DDD6C6;border-radius:8px;padding:20px;display:flex;flex-direction:column;gap:12px">
+<h2 style="margin:0;font-size:17px;font-weight:600">Agreement, all strips</h2>
+<dl style="margin:0;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px 12px;font-size:15px">
+<dt>Across phones</dt><dd style="margin:0;font-family:'IBM Plex Mono',monospace;color:#374151">not computed</dd>
+<dt>Across lighting</dt><dd style="margin:0;font-family:'IBM Plex Mono',monospace;color:#374151">not computed</dd>
+<dt>Phone vs human</dt><dd style="margin:0;font-family:'IBM Plex Mono',monospace;color:#374151">not computed</dd>
+</dl></section>
+<section style="background:#14213D;color:#FFFFFF;border-radius:8px;padding:20px;display:flex;flex-direction:column;gap:12px">
+<h2 style="margin:0;font-size:17px;font-weight:600">Two different questions</h2>
+<div style="display:flex;flex-direction:column;gap:4px"><span style="font-size:15px;font-weight:600">Camera to human agreement</span><span style="font-size:15px;line-height:1.5;color:#D5DAE3">Measured in this pilot. Does the phone read the band a person reads?</span></div>
+<div style="display:flex;flex-direction:column;gap:4px;border-top:1px solid #33456B;padding-top:12px"><span style="font-size:15px;font-weight:600">Strip to laboratory TPC</span><span style="font-size:15px;line-height:1.5;color:#D5DAE3">Not measured. Requires a qualified laboratory partner (validation gate 7).</span></div>
+</section>
+<section style="background:#FFFFFF;border:1px solid #DDD6C6;border-radius:8px;padding:20px;display:flex;flex-direction:column;gap:6px;font-size:14px;line-height:1.5;color:#374151">
+<h2 style="margin:0 0 4px;font-size:17px;font-weight:600;color:#14213D">Procedure</h2>
+<span>Strip method: Yongyod and Kerdsin (2025). Acidity strips are not substituted.</span>
+</section>
+</aside>
+</div>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1260}}'>
+class Component extends DCLogic { renderVals() { return {}; } }
+</script>
+</body>
+</html>

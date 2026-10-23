@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Oil Log</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap">
+<style>body{margin:0}a{color:#14213D}a:hover{color:#2F4A39}a:focus-visible,button:focus-visible{outline:2px solid #B07A2A;outline-offset:2px}</style>
+</helmet>
+<div style="width:390px;height:844px;box-sizing:border-box;background:#F6F3EC;color:#14213D;font-family:'IBM Plex Sans',sans-serif;display:flex;flex-direction:column;overflow:hidden">
+<header style="display:flex;justify-content:space-between;align-items:center;padding:16px 16px 8px">
+<h1 style="margin:0;font-size:24px;font-weight:600;letter-spacing:-0.01em">Oil log</h1>
+<a href="v2-MHistory.dc.html" style="min-height:44px;display:flex;align-items:center;font-size:16px;font-weight:600">Past days</a>
+</header>
+
+<main style="flex-grow:1;padding:4px 16px 0;display:flex;flex-direction:column;gap:12px;overflow:hidden">
+
+<section aria-labelledby="g1" style="background:#FFFFFF;border:1px solid #DDD6C6;border-radius:8px;padding:14px;display:flex;flex-direction:column;gap:12px">
+<h2 id="g1" style="margin:0;font-size:16px;font-weight:600">1 · What oil and food?</h2>
+<div style="display:flex;flex-direction:column;gap:6px"><span id="lo" style="font-size:14px;color:#374151">Oil</span>
+<div role="radiogroup" aria-labelledby="lo" style="display:flex;flex-wrap:wrap;gap:8px">
+<button role="radio" aria-checked="true" style="min-height:44px;padding:0 14px;background:#14213D;color:#FFFFFF;border:1px solid #14213D;border-radius:4px;font:600 16px 'IBM Plex Sans',sans-serif">Palm</button>
+<button role="radio" aria-checked="false" style="min-height:44px;padding:0 14px;background:#FFFFFF;color:#14213D;border:1px solid #8C8574;border-radius:4px;font:400 16px 'IBM Plex Sans',sans-serif">Coconut</button>
+<button role="radio" aria-checked="false" style="min-height:44px;padding:0 14px;background:#FFFFFF;color:#14213D;border:1px solid #8C8574;border-radius:4px;font:400 16px 'IBM Plex Sans',sans-serif">Soybean</button>
+<button role="radio" aria-checked="false" style="min-height:44px;padding:0 14px;background:#FFFFFF;color:#14213D;border:1px solid #8C8574;border-radius:4px;font:400 16px 'IBM Plex Sans',sans-serif">Not sure</button>
+</div></div>
+<div style="display:flex;flex-direction:column;gap:6px"><span id="lf" style="font-size:14px;color:#374151">Food</span>
+<div role="group" aria-labelledby="lf" style="display:flex;flex-wrap:wrap;gap:8px">
+<button aria-pressed="true" style="min-height:44px;padding:0 14px;background:#14213D;color:#FFFFFF;border:1px solid #14213D;border-radius:4px;font:600 16px 'IBM Plex Sans',sans-serif">Kwek-kwek</button>
+<button aria-pressed="false" style="min-height:44px;padding:0 14px;background:#FFFFFF;color:#14213D;border:1px solid #8C8574;border-radius:4px;font:400 16px 'IBM Plex Sans',sans-serif">Fish balls</button>
+<button aria-pressed="false" style="min-height:44px;padding:0 14px;background:#FFFFFF;color:#14213D;border:1px solid #8C8574;border-radius:4px;font:400 16px 'IBM Plex Sans',sans-serif">Banana cue</button>
+<button aria-pressed="false" style="min-height:44px;padding:0 14px;background:#FFFFFF;color:#14213D;border:1px solid #8C8574;border-radius:4px;font:400 16px 'IBM Plex Sans',sans-serif">Other</button>
+</div></div>
+</section>
+
+<section aria-labelledby="g2" style="background:#FFFFFF;border:1px solid #DDD6C6;border-radius:8px;padding:14px;display:flex;flex-direction:column;gap:12px">
+<div style="display:flex;justify-content:space-between;align-items:baseline"><h2 id="g2" style="margin:0;font-size:16px;font-weight:600">2 · Heating</h2><span style="font-family:'IBM Plex Mono',monospace;font-size:18px">3 h 20 m</span></div>
+<button style="min-height:52px;display:flex;align-items:center;justify-content:center;gap:10px;background:#EAF0EA;color:#2F4A39;border:1px solid #2F4A39;border-radius:8px;font:600 17px 'IBM Plex Sans',sans-serif"><span aria-hidden="true" style="width:10px;height:10px;border-radius:50%;background:#2F4A39"></span>Frying now · tap to pause</button>
+<div style="display:flex;flex-direction:column;gap:6px"><span id="lt" style="font-size:14px;color:#374151">Oil temperature, if you know it</span>
+<div role="group" aria-labelledby="lt" style="display:flex;gap:8px">
+<div style="flex-grow:1;display:flex;align-items:center;border:1px solid #8C8574;border-radius:8px;overflow:hidden;background:#FFFFFF"><button aria-label="Lower by 5 degrees" style="width:48px;min-height:48px;border:0;background:none;font:500 22px 'IBM Plex Sans',sans-serif;color:#14213D">−</button><span style="flex-grow:1;text-align:center;white-space:nowrap;font:400 17px 'IBM Plex Mono',monospace">175 °C</span><button aria-label="Raise by 5 degrees" style="width:48px;min-height:48px;border:0;background:none;font:500 22px 'IBM Plex Sans',sans-serif;color:#14213D">+</button></div>
+<button aria-pressed="false" style="min-height:48px;padding:0 12px;background:#FFFFFF;border:1px solid #8C8574;border-radius:8px;font:400 15px 'IBM Plex Sans',sans-serif;color:#14213D;white-space:nowrap">Don't know</button>
+</div></div>
+</section>
+
+<section aria-labelledby="g3" style="background:#FFFFFF;border:1px solid #DDD6C6;border-radius:8px;padding:14px;display:flex;flex-direction:column;gap:10px">
+<h2 id="g3" style="margin:0;font-size:16px;font-weight:600">3 · Oil changes today</h2>
+<div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px">
+<button style="min-height:56px;background:#FFFFFF;border:1px solid #14213D;border-radius:8px;font:600 16px 'IBM Plex Sans',sans-serif;color:#14213D">+ Added fresh oil</button>
+<button style="min-height:56px;background:#FFFFFF;border:1px solid #14213D;border-radius:8px;font:600 16px 'IBM Plex Sans',sans-serif;color:#14213D">Replaced all oil</button>
+</div>
+<span style="font-size:14px;color:#374151">Fresh oil added 1 time, at 8:15 AM.</span>
+</section>
+</main>
+
+<div style="padding:12px 16px 20px">
+<button style="width:100%;min-height:56px;background:#14213D;color:#FFFFFF;border:0;border-radius:8px;font:600 17px 'IBM Plex Sans',sans-serif">Done for today</button>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic { renderVals() { return {}; } }
+</script>
+</body>
+</html>

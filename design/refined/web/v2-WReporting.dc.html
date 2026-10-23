@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Research Reporting</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap">
+<style>body{margin:0}a{color:#14213D}a:hover{color:#2F4A39}a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid #B07A2A;outline-offset:2px}td span,td:first-child,dd{white-space:nowrap}</style>
+</helmet>
+<div style="min-height:1100px;background:#F6F3EC;color:#14213D;font-family:'IBM Plex Sans',sans-serif;display:flex;flex-wrap:wrap">
+
+<nav aria-label="Research modules" style="flex:1 1 240px;max-width:100%;background:#14213D;color:#FFFFFF;padding:24px 16px;box-sizing:border-box;display:flex;flex-direction:column;gap:20px">
+<img src="../brand/mantika-check-horizontal-reversed.svg" alt="MANTIKA CHECK" style="width:168px;height:auto;margin:4px 8px 4px">
+<a href="v2-WOverview.dc.html" style="min-height:40px;display:flex;align-items:center;padding:0 12px;border-radius:8px;color:#FFFFFF;text-decoration:none;font-size:15px">Overview</a>
+<div style="display:flex;flex-direction:column;gap:2px"><span style="padding:0 12px 4px;font-size:14px;color:#AEB8CB">Track 1 · Public data</span>
+<a href="v2-WMLLab.dc.html" style="min-height:40px;display:flex;align-items:center;padding:0 12px;border-radius:8px;color:#FFFFFF;text-decoration:none;font-size:15px">ML laboratory</a>
+<a href="v2-WDataset.dc.html" style="min-height:40px;display:flex;align-items:center;padding:0 12px;border-radius:8px;color:#FFFFFF;text-decoration:none;font-size:15px">Dataset explorer</a></div>
+<div style="display:flex;flex-direction:column;gap:2px"><span style="padding:0 12px 4px;font-size:14px;color:#AEB8CB">Track 2 · Local pilot</span>
+<a href="v2-WStrip.dc.html" style="min-height:40px;display:flex;align-items:center;padding:0 12px;border-radius:8px;color:#FFFFFF;text-decoration:none;font-size:15px">Strip laboratory</a>
+<a href="v2-WVendors.dc.html" style="min-height:40px;display:flex;align-items:center;padding:0 12px;border-radius:8px;color:#FFFFFF;text-decoration:none;font-size:15px">Vendor management</a></div>
+<div style="display:flex;flex-direction:column;gap:2px"><span style="padding:0 12px 4px;font-size:14px;color:#AEB8CB">Outputs</span>
+<a href="v2-WReporting.dc.html" aria-current="page" style="min-height:40px;display:flex;align-items:center;padding:0 12px;border-radius:8px;background:#26365A;color:#FFFFFF;text-decoration:none;font-size:15px;font-weight:600">Reporting</a></div>
+</nav>
+
+<div style="flex:999 1 640px;min-width:0;display:flex;flex-direction:column">
+<header style="padding:28px clamp(16px,3vw,40px) 20px;border-bottom:1px solid #DDD6C6;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:16px;background:#FFFFFF">
+<div style="display:flex;flex-direction:column;gap:4px"><span style="font-size:14px;color:#4B5563">Outputs</span><h1 style="margin:0;font-size:32px;font-weight:600;letter-spacing:-0.015em">Research reporting</h1></div>
+<div style="display:flex;flex-wrap:wrap;gap:8px">
+<button style="min-height:40px;padding:0 14px;border:1px solid #14213D;background:#FFFFFF;border-radius:8px;font:600 15px 'IBM Plex Sans',sans-serif;color:#14213D">Tables as CSV</button>
+<button style="min-height:40px;padding:0 14px;border:1px solid #14213D;background:#FFFFFF;border-radius:8px;font:600 15px 'IBM Plex Sans',sans-serif;color:#14213D">Figures as SVG</button>
+<button style="min-height:40px;padding:0 16px;background:#14213D;color:#FFFFFF;border:0;border-radius:8px;font:600 15px 'IBM Plex Sans',sans-serif">Export report PDF</button>
+</div>
+</header>
+
+<div style="display:flex;flex-wrap:wrap;gap:24px;padding:28px clamp(16px,3vw,40px) 40px;align-items:flex-start">
+<aside aria-label="Report contents" style="flex:1 1 260px;min-width:0;display:flex;flex-direction:column;gap:16px">
+<fieldset style="background:#FFFFFF;border:1px solid #DDD6C6;border-radius:8px;padding:16px 20px 20px;margin:0;display:flex;flex-direction:column;gap:4px">
+<legend style="font-size:17px;font-weight:600;padding:0 4px">Include</legend>
+<label style="min-height:40px;display:flex;align-items:center;gap:10px;font-size:15px"><input type="checkbox" checked style="width:18px;height:18px">Evaluation summary</label>
+<label style="min-height:40px;display:flex;align-items:center;gap:10px;font-size:15px"><input type="checkbox" checked style="width:18px;height:18px">Model comparison</label>
+<label style="min-height:40px;display:flex;align-items:center;gap:10px;font-size:15px"><input type="checkbox" checked style="width:18px;height:18px">Strip agreement</label>
+<label style="min-height:40px;display:flex;align-items:center;gap:10px;font-size:15px"><input type="checkbox" style="width:18px;height:18px">Usability results (SUS)</label>
+<label style="min-height:40px;display:flex;align-items:center;gap:10px;font-size:15px"><input type="checkbox" checked disabled style="width:18px;height:18px">Limitations · always included</label>
+<label style="min-height:40px;display:flex;align-items:center;gap:10px;font-size:15px"><input type="checkbox" checked disabled style="width:18px;height:18px">Citations · always included</label>
+</fieldset>
+<section style="background:#FFFFFF;border:1px solid #DDD6C6;border-radius:8px;padding:16px 20px;display:flex;flex-direction:column;gap:10px">
+<h2 style="margin:0;font-size:17px;font-weight:600">Reproducibility</h2>
+<dl style="margin:0;display:grid;grid-template-columns:auto minmax(0,1fr);gap:8px 12px;font-size:15px">
+<dt style="color:#374151">Dataset</dt><dd style="margin:0;font-family:'IBM Plex Mono',monospace;font-size:14px">Li 2020 v1</dd>
+<dt style="color:#374151">Code</dt><dd style="margin:0;font-family:'IBM Plex Mono',monospace;font-size:14px">[commit]</dd>
+<dt style="color:#374151">Seed</dt><dd style="margin:0;font-family:'IBM Plex Mono',monospace;font-size:14px">[seed]</dd>
+<dt style="color:#374151">Generated</dt><dd style="margin:0;font-family:'IBM Plex Mono',monospace;font-size:14px">on export</dd>
+</dl></section>
+</aside>
+
+<main aria-label="Report preview" style="flex:999 1 560px;min-width:0;background:#FFFFFF;border:1px solid #DDD6C6;border-radius:8px;padding:clamp(20px,4vw,56px);display:flex;flex-direction:column;gap:28px;max-width:860px">
+<div style="display:flex;flex-wrap:wrap-reverse;justify-content:space-between;align-items:flex-start;gap:16px;border-bottom:1px solid #14213D;padding-bottom:20px">
+<div style="display:flex;flex-direction:column;gap:6px"><span style="font-size:14px;color:#4B5563">Preview · draft</span><h2 style="margin:0;font-size:28px;font-weight:600;letter-spacing:-0.01em;line-height:1.2">Evaluated public data forecasting and a strip reader pilot</h2><span style="font-size:15px;color:#374151">Team Innov · PJDSC 2026</span></div>
+<img src="../brand/mantika-check-horizontal.svg" alt="MANTIKA CHECK" style="width:140px;height:auto;flex-shrink:0;margin-top:6px">
+</div>
+<section style="display:flex;flex-direction:column;gap:10px">
+<h3 style="margin:0;font-size:18px;font-weight:600">1 · Evaluation summary</h3>
+<div style="overflow-x:auto"><table style="border-collapse:collapse;width:100%;min-width:420px;font-size:15px">
+<thead><tr style="text-align:left;border-bottom:1px solid #14213D"><th scope="col" style="padding:8px 0;font-weight:600">Question</th><th scope="col" style="padding:8px 12px;font-weight:600">Measure</th><th scope="col" style="padding:8px 0;font-weight:600;text-align:right">Result</th></tr></thead>
+<tbody>
+<tr style="border-bottom:1px solid #EAE4D6"><td style="padding:10px 0">Forecast error, held out time</td><td style="padding:10px 12px">MAE, RMSE</td><td style="padding:10px 0;text-align:right;color:#374151">pending</td></tr>
+<tr style="border-bottom:1px solid #EAE4D6"><td style="padding:10px 0">Forecast error, new temperature</td><td style="padding:10px 12px">MAE, RMSE</td><td style="padding:10px 0;text-align:right;color:#374151">pending</td></tr>
+<tr><td style="padding:10px 0">Phone versus human reading</td><td style="padding:10px 12px">Agreement</td><td style="padding:10px 0;text-align:right;color:#374151">pending</td></tr>
+</tbody></table></div>
+<p style="margin:0;font-size:14px;color:#374151">Results fill in only from completed runs. Nothing is estimated for the report.</p>
+</section>
+<section style="display:flex;flex-direction:column;gap:8px">
+<h3 style="margin:0;font-size:18px;font-weight:600">2 · Model comparison</h3>
+<div role="img" aria-label="Empty chart area: appears when both models have been evaluated" style="height:160px;border:1px dashed #8C8574;border-radius:8px;display:flex;align-items:center;justify-content:center;padding:16px;text-align:center;font-size:15px;color:#374151">MAE and RMSE for both models, both validations, appear here after the runs finish.</div>
+</section>
+<section style="display:flex;flex-direction:column;gap:8px">
+<h3 style="margin:0;font-size:18px;font-weight:600">Limitations</h3>
+<p style="margin:0;font-size:15px;line-height:1.6;color:#253047">Published curves come from potato chip frying with an unspecified oil and demonstrate a method, not street vendor oil life. Phone strip readings are not direct TPC measurements; laboratory calibration remains future work. The 25% TPC line is a research benchmark, not Philippine law. The pilot does not detect pathogens or make regulatory rulings.</p>
+</section>
+<section style="display:flex;flex-direction:column;gap:8px">
+<h3 style="margin:0;font-size:18px;font-weight:600">References</h3>
+<ol style="margin:0;padding-left:20px;font-size:14px;line-height:1.6;color:#253047">
+<li>Li, Y. (2020). Frying oil data [Data set]. Mendeley Data. https://doi.org/10.17632/4k7b395yxx.1</li>
+<li>Yongyod, R., &amp; Kerdsin, A. (2025). Modified test kit for detecting polar compounds. Foods, 14(9), 1572.</li>
+<li>Fan, Y., et al. (2021). Digital image colorimetry on smartphone. Measurement, 171, 108829.</li>
+</ol>
+</section>
+</main>
+</div>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1240}}'>
+class Component extends DCLogic { renderVals() { return {}; } }
+</script>
+</body>
+</html>

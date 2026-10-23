@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Home</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap">
+<style>body{margin:0}a{color:#14213D}a:hover{color:#2F4A39}a:focus-visible,button:focus-visible{outline:2px solid #B07A2A;outline-offset:2px}</style>
+</helmet>
+<div style="width:390px;height:844px;box-sizing:border-box;background:#F6F3EC;color:#14213D;font-family:'IBM Plex Sans',sans-serif;display:flex;flex-direction:column;overflow:hidden">
+
+<header style="display:flex;justify-content:space-between;align-items:center;gap:12px;padding:16px 16px 8px">
+<img src="../brand/mantika-check-horizontal.svg" alt="MANTIKA CHECK" style="width:140px;height:auto">
+<a href="v2-MHistory.dc.html" style="min-height:44px;display:flex;align-items:center;gap:6px;padding:0 10px;background:#EAF0EA;color:#2F4A39;border-radius:4px;text-decoration:none;font-size:15px;font-weight:500"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 8.5l3 3 7-7"></path></svg>All sent</a>
+</header>
+
+<main style="flex-grow:1;padding:8px 16px 0;display:flex;flex-direction:column;gap:20px;overflow:hidden">
+<div style="display:flex;flex-direction:column;gap:2px">
+<h1 style="margin:0;font-size:24px;font-weight:600;letter-spacing:-0.01em;line-height:1.2">Stall V-07</h1>
+<span style="font-size:15px;color:#374151">Thursday, 23 October</span>
+</div>
+
+<section aria-labelledby="h-latest" style="display:flex;flex-direction:column;gap:8px">
+<h2 id="h-latest" style="margin:0;font-size:15px;font-weight:600;color:#374151">Latest strip reading</h2>
+<a href="v2-MResults.dc.html" style="display:flex;gap:14px;align-items:center;background:#FFFFFF;border:1px solid #DDD6C6;border-radius:8px;padding:12px;text-decoration:none;color:#14213D">
+<div role="img" aria-label="Strip photo thumbnail" style="width:56px;height:72px;border-radius:4px;background:#6A6252;display:flex;align-items:center;justify-content:center;flex-shrink:0"><div style="width:16px;height:60px;background:#F7F4EA;display:flex;flex-direction:column;justify-content:space-around;padding:4px 3px;box-sizing:border-box"><div style="height:11px;background:#E5DB9E"></div><div style="height:11px;background:#C7A245"></div><div style="height:11px;background:#EFEADC"></div></div></div>
+<div style="flex-grow:1;display:flex;flex-direction:column;gap:4px;min-width:0">
+<span style="font-size:19px;font-weight:600;line-height:1.25">Band 2 of 3</span>
+<span style="font-size:15px;color:#374151">Today, 10:42 AM · you confirmed it</span>
+<span style="align-self:flex-start;display:inline-flex;align-items:center;gap:6px;background:#F3E6CC;color:#6B4A12;border-radius:4px;padding:2px 8px;font-size:14px"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="3 2" aria-hidden="true"><path d="M2 8h12"></path></svg>Experimental reading</span>
+</div>
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M9 5l7 7-7 7"></path></svg>
+</a>
+</section>
+
+<section aria-labelledby="h-oil" style="display:flex;flex-direction:column;gap:8px">
+<h2 id="h-oil" style="margin:0;font-size:15px;font-weight:600;color:#374151">Today's oil</h2>
+<div style="background:#FFFFFF;border:1px solid #DDD6C6;border-radius:8px">
+<div style="display:flex;justify-content:space-between;align-items:baseline;padding:14px 14px 10px"><span style="font-size:19px;font-weight:600">Palm oil · Kwek-kwek</span><span style="font-size:14px;color:#374151">since 7:10 AM</span></div>
+<dl style="margin:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));border-top:1px solid #EAE4D6">
+<div style="padding:10px 14px;border-right:1px solid #EAE4D6"><dt style="font-size:14px;color:#374151">Heating recorded</dt><dd style="margin:2px 0 0;font-family:'IBM Plex Mono',monospace;font-size:20px">3 h 20 m</dd></div>
+<div style="padding:10px 14px"><dt style="font-size:14px;color:#374151">Fresh oil added</dt><dd style="margin:2px 0 0;font-family:'IBM Plex Mono',monospace;font-size:20px">1 time</dd></div>
+</dl>
+<a href="v2-MTracker.dc.html" style="min-height:48px;display:flex;align-items:center;justify-content:center;border-top:1px solid #EAE4D6;text-decoration:none;font-size:16px;font-weight:600">Update oil log</a>
+</div>
+</section>
+
+<section aria-labelledby="h-recent" style="display:flex;flex-direction:column">
+<h2 id="h-recent" style="margin:0 0 2px;font-size:15px;font-weight:600;color:#374151">Recent</h2>
+<div style="display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid #DDD6C6;font-size:16px"><span>Strip scanned</span><span style="font-family:'IBM Plex Mono',monospace;font-size:15px;color:#374151">10:42</span></div>
+<div style="display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid #DDD6C6;font-size:16px"><span>Added fresh oil</span><span style="font-family:'IBM Plex Mono',monospace;font-size:15px;color:#374151">08:15</span></div>
+<div style="display:flex;justify-content:space-between;gap:12px;padding:10px 0;font-size:16px"><span>Started oil log · Palm oil</span><span style="font-family:'IBM Plex Mono',monospace;font-size:15px;color:#374151">07:10</span></div>
+</section>
+</main>
+
+<div style="padding:12px 16px">
+<a href="v2-MScanner.dc.html" style="min-height:56px;background:#14213D;color:#FFFFFF;border-radius:8px;display:flex;align-items:center;justify-content:center;gap:10px;text-decoration:none;font-size:18px;font-weight:600"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 8V5a1 1 0 0 1 1-1h3M16 4h3a1 1 0 0 1 1 1v3M20 16v3a1 1 0 0 1-1 1h-3M8 20H5a1 1 0 0 1-1-1v-3"></path><rect x="10" y="7" width="4" height="10" rx="1"></rect></svg>Scan a test strip</a>
+</div>
+<nav aria-label="Main" style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:1px solid #DDD6C6;background:#FFFFFF;padding-bottom:8px">
+<a href="v2-MHome.dc.html" aria-current="page" style="min-height:56px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;text-decoration:none;color:#14213D;font-size:14px;font-weight:600"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 11l8-7 8 7v9H4z"></path></svg>Home</a>
+<a href="v2-MTracker.dc.html" style="min-height:56px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;text-decoration:none;color:#374151;font-size:14px"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 12h18M5 12a7 5 0 0 0 14 0"></path></svg>Oil log</a>
+<a href="v2-MHistory.dc.html" style="min-height:56px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;text-decoration:none;color:#374151;font-size:14px"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="8"></circle><path d="M12 8v4l3 2"></path></svg>History</a>
+</nav>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic { renderVals() { return {}; } }
+</script>
+</body>
+</html>

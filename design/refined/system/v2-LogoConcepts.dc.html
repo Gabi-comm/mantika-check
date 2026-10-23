@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Logo Concepts</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap">
+<style>body{margin:0}a{color:#14213D}a:hover{color:#2F4A39}</style>
+</helmet>
+<div style="width:1600px;height:1000px;box-sizing:border-box;padding:56px 64px;background:#F6F3EC;color:#14213D;font-family:'IBM Plex Sans',sans-serif;display:grid;grid-template-columns:repeat(12,minmax(0,1fr));grid-template-rows:auto minmax(0,1fr) auto;gap:28px 24px">
+
+<header style="grid-column:span 12;display:flex;justify-content:space-between;align-items:flex-end;border-bottom:1px solid #14213D;padding-bottom:20px">
+<div style="display:flex;flex-direction:column;gap:8px"><span style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#4B5563">02 · Identity concepts</span><h1 style="margin:0;font-size:40px;font-weight:600;letter-spacing:-0.015em">Two answers, one chosen</h1></div>
+<p style="margin:0;max-width:440px;font-size:16px;line-height:1.5;color:#374151">Both are vector drawn. A makes the letters do the work. B adds a symbol. A wins because its mark is already inside the name.</p>
+</header>
+
+<section style="grid-column:span 8;background:#FFFFFF;border:1px solid #14213D;border-radius:8px;padding:40px;display:flex;flex-direction:column;justify-content:space-between;gap:24px">
+<div style="display:flex;justify-content:space-between;align-items:center"><span style="font-size:18px;font-weight:600">A · Editorial wordmark</span><span style="font-family:'IBM Plex Mono',monospace;font-size:13px;background:#14213D;color:#F6F3EC;border-radius:4px;padding:4px 8px">Selected</span></div>
+<img src="../brand/mantika-check-horizontal.svg" alt="MANTIKA CHECK wordmark, concept A" style="width:100%;height:auto;display:block">
+<div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;border-top:1px solid #DDD6C6;padding-top:20px">
+<div style="display:flex;flex-direction:column;gap:6px"><span style="font-weight:600;font-size:15px">The gauge A</span><span style="font-size:15px;line-height:1.5;color:#374151">The crossbar stops short of the left stroke and fuses into the right, like a needle reading a level. Gold in colour, ink in mono.</span></div>
+<div style="display:flex;flex-direction:column;gap:6px"><span style="font-weight:600;font-size:15px">Two weights, one height</span><span style="font-size:15px;line-height:1.5;color:#374151">MANTIKA is drawn at a 17 unit stroke, CHECK at 10, on a shared 100 unit cap height. Kitchen word, lab word, one line.</span></div>
+<div style="display:flex;flex-direction:column;gap:6px"><span style="font-weight:600;font-size:15px">Flat terminals</span><span style="font-size:15px;line-height:1.5;color:#374151">Every stroke is cut square to the cap and base line, with optical kerning on MA, AN and NT.</span></div>
+</div>
+</section>
+
+<section style="grid-column:span 4;background:#FFFFFF;border:1px solid #DDD6C6;border-radius:8px;padding:32px;display:flex;flex-direction:column;gap:24px">
+<span style="font-size:18px;font-weight:600">B · Measurement identity</span>
+<div style="display:flex;align-items:center;gap:16px;padding:24px 0;border-bottom:1px solid #DDD6C6">
+<img src="../brand/concept-b-symbol.svg" alt="Concept B symbol: three tonal steps in a rounded square" style="width:64px;height:64px">
+<span style="font-size:30px;font-weight:600;letter-spacing:-0.01em">MANTIKA <span style="font-weight:400">Check</span></span>
+</div>
+<p style="margin:0;font-size:15px;line-height:1.55;color:#374151">Three tonal steps for the three strip bands. Clear at 16px and a strong app tile, but at small sizes it reads as a signal or volume meter, and the wordmark beside it is ordinary set type.</p>
+<div style="display:flex;gap:12px;align-items:flex-end;margin-top:auto">
+<img src="../brand/concept-b-symbol.svg" alt="" style="width:16px;height:16px"><img src="../brand/concept-b-symbol.svg" alt="" style="width:24px;height:24px"><img src="../brand/concept-b-symbol.svg" alt="" style="width:40px;height:40px">
+</div>
+</section>
+
+<section aria-label="Comparison" style="grid-column:span 12;background:#FFFFFF;border:1px solid #DDD6C6;border-radius:8px;overflow:hidden">
+<table style="border-collapse:collapse;width:100%;font-size:15px">
+<thead><tr style="text-align:left;border-bottom:1px solid #14213D"><th style="padding:12px 24px;font-weight:600">Criterion</th><th style="padding:12px;font-weight:600">A · Editorial wordmark</th><th style="padding:12px 24px;font-weight:600">B · Measurement identity</th></tr></thead>
+<tbody>
+<tr style="border-bottom:1px solid #EAE4D6"><td style="padding:11px 24px">Proprietary feel</td><td style="padding:11px">Drawn letters, one recognisable detail</td><td style="padding:11px 24px">Symbol is generic; type is a font</td></tr>
+<tr style="border-bottom:1px solid #EAE4D6"><td style="padding:11px 24px">16px recognition</td><td style="padding:11px">Gauge A with gold bar stays distinct</td><td style="padding:11px 24px">Clear, but confusable with meters</td></tr>
+<tr><td style="padding:11px 24px">Fit with the science</td><td style="padding:11px">A reading, not a verdict</td><td style="padding:11px 24px">Implies a graded scale we have not validated</td></tr>
+</tbody></table>
+</section>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1600,"height":1000}}'>
+class Component extends DCLogic { renderVals() { return {}; } }
+</script>
+</body>
+</html>

@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Design System</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap">
+<style>body{margin:0}a{color:#14213D}a:hover{color:#2F4A39}</style>
+</helmet>
+<div style="width:1600px;height:1760px;box-sizing:border-box;padding:56px 64px;background:#F6F3EC;color:#14213D;font-family:'IBM Plex Sans',sans-serif;display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:24px;align-content:start">
+
+<header style="grid-column:span 12;display:flex;justify-content:space-between;align-items:flex-end;border-bottom:1px solid #14213D;padding-bottom:20px">
+<div style="display:flex;flex-direction:column;gap:8px"><span style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#4B5563">04 · Calibrated Paper v2 · tokens in design/refined/system</span><h1 style="margin:0;font-size:40px;font-weight:600;letter-spacing:-0.015em">Design system</h1></div>
+<p style="margin:0;max-width:460px;font-size:16px;line-height:1.5;color:#374151">Two families, one type scale, a 4px grid, two radii. Ratios are measured WCAG values on white unless noted.</p>
+</header>
+
+<!-- COLOR -->
+<section aria-label="Color" style="grid-column:span 7;background:#FFFFFF;border:1px solid #DDD6C6;border-radius:8px;padding:28px;display:flex;flex-direction:column;gap:18px">
+<h2 style="margin:0;font-size:20px;font-weight:600">Colour</h2>
+<div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px">
+<div style="display:flex;flex-direction:column;gap:6px"><div style="height:64px;border-radius:4px;background:#14213D"></div><span style="font-size:15px;font-weight:600">ink</span><span style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#4B5563">#14213D · 15.9</span></div>
+<div style="display:flex;flex-direction:column;gap:6px"><div style="height:64px;border-radius:4px;background:#F6F3EC;border:1px solid #DDD6C6"></div><span style="font-size:15px;font-weight:600">paper</span><span style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#4B5563">#F6F3EC · ground</span></div>
+<div style="display:flex;flex-direction:column;gap:6px"><div style="height:64px;border-radius:4px;background:#2F4A39"></div><span style="font-size:15px;font-weight:600">green</span><span style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#4B5563">#2F4A39 · 9.7</span></div>
+<div style="display:flex;flex-direction:column;gap:6px"><div style="height:64px;border-radius:4px;background:#B07A2A"></div><span style="font-size:15px;font-weight:600">gold</span><span style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#4B5563">#B07A2A · 3.7 graphic</span></div>
+</div>
+<table style="border-collapse:collapse;width:100%;font-size:15px">
+<thead><tr style="text-align:left;border-bottom:1px solid #14213D"><th style="padding:8px 0;font-weight:600">Role</th><th style="padding:8px;font-weight:600">Token</th><th style="padding:8px;font-weight:600">Value</th><th style="padding:8px 0;font-weight:600;text-align:right">Ratio</th></tr></thead>
+<tbody style="font-family:'IBM Plex Mono',monospace;font-size:14px">
+<tr style="border-bottom:1px solid #EAE4D6"><td style="padding:8px 0;font-family:'IBM Plex Sans',sans-serif">Body text</td><td style="padding:8px">text.primary</td><td style="padding:8px">#14213D</td><td style="padding:8px 0;text-align:right">15.9</td></tr>
+<tr style="border-bottom:1px solid #EAE4D6"><td style="padding:8px 0;font-family:'IBM Plex Sans',sans-serif">Secondary text</td><td style="padding:8px">text.secondary</td><td style="padding:8px">#374151</td><td style="padding:8px 0;text-align:right">10.3</td></tr>
+<tr style="border-bottom:1px solid #EAE4D6"><td style="padding:8px 0;font-family:'IBM Plex Sans',sans-serif">Lightest allowed text</td><td style="padding:8px">text.muted</td><td style="padding:8px">#4B5563</td><td style="padding:8px 0;text-align:right">7.6</td></tr>
+<tr style="border-bottom:1px solid #EAE4D6"><td style="padding:8px 0;font-family:'IBM Plex Sans',sans-serif">Experimental text</td><td style="padding:8px">exp.text / exp.bg</td><td style="padding:8px">#6B4A12 / #F3E6CC</td><td style="padding:8px 0;text-align:right">6.5 on bg</td></tr>
+<tr style="border-bottom:1px solid #EAE4D6"><td style="padding:8px 0;font-family:'IBM Plex Sans',sans-serif">Error</td><td style="padding:8px">error.text / error.bg</td><td style="padding:8px">#8E2F1C / #FBEFE9</td><td style="padding:8px 0;text-align:right">7.2 on bg</td></tr>
+<tr style="border-bottom:1px solid #EAE4D6"><td style="padding:8px 0;font-family:'IBM Plex Sans',sans-serif">Done, synced</td><td style="padding:8px">ok.text / ok.bg</td><td style="padding:8px">#2F4A39 / #EAF0EA</td><td style="padding:8px 0;text-align:right">8.4 on bg</td></tr>
+<tr style="border-bottom:1px solid #EAE4D6"><td style="padding:8px 0;font-family:'IBM Plex Sans',sans-serif">Control outline</td><td style="padding:8px">border.control</td><td style="padding:8px">#8C8574</td><td style="padding:8px 0;text-align:right">3.3 on paper</td></tr>
+<tr><td style="padding:8px 0;font-family:'IBM Plex Sans',sans-serif">Divider (decorative)</td><td style="padding:8px">border.rule</td><td style="padding:8px">#DDD6C6</td><td style="padding:8px 0;text-align:right">n/a</td></tr>
+</tbody></table>
+</section>
+
+<!-- TYPE -->
+<section aria-label="Typography" style="grid-column:span 5;background:#FFFFFF;border:1px solid #DDD6C6;border-radius:8px;padding:28px;display:flex;flex-direction:column;gap:12px">
+<h2 style="margin:0 0 4px;font-size:20px;font-weight:600">Type scale · one scale, both platforms</h2>
+<div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px;border-bottom:1px solid #EAE4D6;padding-bottom:10px"><span style="font-size:32px;font-weight:600;letter-spacing:-0.015em;line-height:1.15">Display 32</span><span style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#4B5563">600 · 1.15 · web titles</span></div>
+<div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px;border-bottom:1px solid #EAE4D6;padding-bottom:10px"><span style="font-size:24px;font-weight:600;letter-spacing:-0.01em;line-height:1.2">Title 24</span><span style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#4B5563">600 · 1.2 · screen titles</span></div>
+<div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px;border-bottom:1px solid #EAE4D6;padding-bottom:10px"><span style="font-size:20px;font-weight:600;line-height:1.3">Heading 20</span><span style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#4B5563">600 · 1.3 · sections</span></div>
+<div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px;border-bottom:1px solid #EAE4D6;padding-bottom:10px"><span style="font-size:17px;line-height:1.5">Body 17 mobile</span><span style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#4B5563">400 · 1.5</span></div>
+<div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px;border-bottom:1px solid #EAE4D6;padding-bottom:10px"><span style="font-size:15px;line-height:1.5">Body 15 web, tables</span><span style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#4B5563">400 · 1.5</span></div>
+<div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px;border-bottom:1px solid #EAE4D6;padding-bottom:10px"><span style="font-size:15px;font-weight:600">Label 15</span><span style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#4B5563">600 · fields, buttons</span></div>
+<div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px;border-bottom:1px solid #EAE4D6;padding-bottom:10px"><span style="font-size:14px;color:#374151">Caption 14 · sources, hints</span><span style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#4B5563">400 · minimum text</span></div>
+<div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px"><span style="font-family:'IBM Plex Mono',monospace;font-size:20px">24.6 % · 190 °C</span><span style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#4B5563">Plex Mono · values only</span></div>
+<p style="margin:4px 0 0;font-size:14px;line-height:1.5;color:#374151">No uppercase eyebrows, no tracking above 0. Mono is reserved for numbers, units, IDs and file names.</p>
+</section>
+
+<!-- SPACING -->
+<section aria-label="Spacing and layout" style="grid-column:span 4;background:#FFFFFF;border:1px solid #DDD6C6;border-radius:8px;padding:28px;display:flex;flex-direction:column;gap:14px">
+<h2 style="margin:0;font-size:20px;font-weight:600">Space, grid, radius</h2>
+<div style="display:flex;align-items:flex-end;gap:8px"><div style="width:4px;height:4px;background:#14213D"></div><div style="width:8px;height:8px;background:#14213D"></div><div style="width:12px;height:12px;background:#14213D"></div><div style="width:16px;height:16px;background:#14213D"></div><div style="width:24px;height:24px;background:#14213D"></div><div style="width:32px;height:32px;background:#14213D"></div><div style="width:48px;height:48px;background:#14213D"></div></div>
+<span style="font-family:'IBM Plex Mono',monospace;font-size:14px">4 8 12 16 24 32 48</span>
+<ul style="margin:0;padding-left:18px;font-size:15px;line-height:1.6;color:#253047">
+<li>Mobile 320 to 430: 4 col, 16px margin, 12px gutter</li>
+<li>Tablet 768: 8 col, 32px margin, rail collapses to top bar</li>
+<li>Desktop 1024 to 1440: 12 col, 40px margin, 24px gutter, max 1280</li>
+<li>Radius 4: badges, inputs, tags. Radius 8: buttons, panels</li>
+<li>Borders 1px; 2px only for focus and selected</li>
+</ul>
+</section>
+
+<!-- COMPONENTS -->
+<section aria-label="Controls" style="grid-column:span 8;background:#FFFFFF;border:1px solid #DDD6C6;border-radius:8px;padding:28px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px">
+<h2 style="grid-column:span 3;margin:0;font-size:20px;font-weight:600">Controls · mobile 56 / 48, web 40</h2>
+<div style="display:flex;flex-direction:column;gap:10px">
+<button style="min-height:56px;background:#14213D;color:#FFFFFF;border:0;border-radius:8px;font:600 17px 'IBM Plex Sans',sans-serif">Primary 56</button>
+<button style="min-height:48px;background:#FFFFFF;color:#14213D;border:1px solid #14213D;border-radius:8px;font:600 16px 'IBM Plex Sans',sans-serif">Secondary 48</button>
+<button style="min-height:48px;background:transparent;color:#14213D;border:0;border-radius:8px;font:600 16px 'IBM Plex Sans',sans-serif;text-decoration:underline;text-underline-offset:4px">Tertiary text</button>
+<button style="min-height:40px;background:#14213D;color:#FFFFFF;border:0;border-radius:8px;font:600 15px 'IBM Plex Sans',sans-serif;outline:2px solid #B07A2A;outline-offset:2px">Web 40 · focus ring</button>
+<button disabled style="min-height:48px;background:#EAE4D6;color:#4B5563;border:0;border-radius:8px;font:600 16px 'IBM Plex Sans',sans-serif">Disabled, with reason</button>
+</div>
+<div style="display:flex;flex-direction:column;gap:8px">
+<label for="s1" style="font-size:15px;font-weight:600">Oil type</label>
+<select id="s1" style="min-height:48px;border:1px solid #8C8574;border-radius:4px;padding:0 12px;font:400 16px 'IBM Plex Sans',sans-serif;background:#FFFFFF;color:#14213D"><option>Palm oil</option></select>
+<label for="s2" style="font-size:15px;font-weight:600;margin-top:6px">Temperature, if known</label>
+<input id="s2" aria-invalid="true" aria-describedby="s2e" value="1750" style="min-height:48px;border:2px solid #8E2F1C;border-radius:4px;padding:0 12px;font:400 16px 'IBM Plex Mono',monospace;background:#FFFFFF;color:#14213D">
+<span id="s2e" style="font-size:14px;line-height:1.4;color:#8E2F1C">Check the number. Frying oil is usually 150 to 200 °C.</span>
+</div>
+<div style="display:flex;flex-direction:column;gap:12px">
+<div role="tablist" style="display:flex;border-bottom:1px solid #DDD6C6"><button role="tab" aria-selected="true" style="min-height:44px;padding:0 14px;background:none;border:0;border-bottom:2px solid #14213D;font:600 15px 'IBM Plex Sans',sans-serif;color:#14213D">Readings</button><button role="tab" aria-selected="false" style="min-height:44px;padding:0 14px;background:none;border:0;font:400 15px 'IBM Plex Sans',sans-serif;color:#374151">Oil sessions</button></div>
+<div role="group" aria-label="Segmented" style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border:1px solid #14213D;border-radius:8px;overflow:hidden"><button style="min-height:48px;border:0;background:#FFFFFF;font:500 15px 'IBM Plex Sans',sans-serif;color:#14213D">1</button><button aria-pressed="true" style="min-height:48px;border:0;background:#14213D;color:#FFFFFF;font:600 15px 'IBM Plex Sans',sans-serif">2</button><button style="min-height:48px;border:0;border-left:1px solid #14213D;background:#FFFFFF;font:500 15px 'IBM Plex Sans',sans-serif;color:#14213D">3</button></div>
+<div style="display:flex;align-items:center;border:1px solid #8C8574;border-radius:8px;overflow:hidden"><button aria-label="Decrease" style="width:56px;min-height:48px;border:0;background:#FFFFFF;font:500 22px 'IBM Plex Sans',sans-serif;color:#14213D">−</button><span style="flex-grow:1;text-align:center;font:400 18px 'IBM Plex Mono',monospace">175 °C</span><button aria-label="Increase" style="width:56px;min-height:48px;border:0;background:#FFFFFF;font:500 22px 'IBM Plex Sans',sans-serif;color:#14213D">+</button></div>
+</div>
+</section>
+
+<!-- STATUS -->
+<section aria-label="Status" style="grid-column:span 6;background:#FFFFFF;border:1px solid #DDD6C6;border-radius:8px;padding:28px;display:flex;flex-direction:column;gap:16px">
+<h2 style="margin:0;font-size:20px;font-weight:600">Status vocabulary · shape + word + colour</h2>
+<div style="display:flex;flex-wrap:wrap;gap:10px;font-size:15px">
+<span style="display:inline-flex;align-items:center;gap:6px;background:#EAF0EA;color:#2F4A39;border-radius:4px;padding:5px 10px"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 8.5l3 3 7-7"></path></svg>Sent</span>
+<span style="display:inline-flex;align-items:center;gap:6px;background:#F1EEE6;color:#374151;border-radius:4px;padding:5px 10px"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="2" width="10" height="12" rx="1"></rect></svg>Saved on phone</span>
+<span style="display:inline-flex;align-items:center;gap:6px;background:#F1EEE6;color:#374151;border-radius:4px;padding:5px 10px"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="3 2" aria-hidden="true"><circle cx="8" cy="8" r="5.5"></circle></svg>Waiting to send</span>
+<span style="display:inline-flex;align-items:center;gap:6px;background:#FBEFE9;color:#8E2F1C;border-radius:4px;padding:5px 10px"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M8 2l6.5 12h-13z"></path><path d="M8 7v3"></path></svg>Not sent</span>
+<span style="display:inline-flex;align-items:center;gap:6px;background:#F3E6CC;color:#6B4A12;border-radius:4px;padding:5px 10px"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="3 2" aria-hidden="true"><path d="M2 8h12"></path></svg>Experimental</span>
+<span style="display:inline-flex;align-items:center;gap:6px;background:#F1EEE6;color:#374151;border-radius:4px;padding:5px 10px"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 8h10"></path></svg>Not available</span>
+</div>
+<div role="status" style="display:flex;gap:12px;align-items:center;background:#14213D;color:#FFFFFF;border-radius:8px;padding:12px 16px;font-size:15px"><svg width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 8.5l3 3 7-7"></path></svg><span style="flex-grow:1">Reading saved on this phone.</span><button style="min-height:40px;background:none;border:0;color:#FFFFFF;font:600 15px 'IBM Plex Sans',sans-serif;text-decoration:underline">Undo</button></div>
+<p style="margin:0;font-size:14px;line-height:1.5;color:#374151">Toasts last 6 seconds, never carry the only copy of an error, and stay until dismissed when they hold an action.</p>
+</section>
+
+<!-- CHARTS -->
+<section aria-label="Chart tokens" style="grid-column:span 6;background:#FFFFFF;border:1px solid #DDD6C6;border-radius:8px;padding:28px;display:flex;flex-direction:column;gap:14px">
+<h2 style="margin:0;font-size:20px;font-weight:600">Chart tokens</h2>
+<div style="display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;font-family:'IBM Plex Mono',monospace;font-size:13px">
+<div style="display:flex;flex-direction:column;gap:4px"><div style="height:8px;background:#7C8AA3"></div>○ 160 °C<br>#7C8AA3</div>
+<div style="display:flex;flex-direction:column;gap:4px"><div style="height:8px;background:#5D6B85"></div>□ 175 °C<br>#5D6B85</div>
+<div style="display:flex;flex-direction:column;gap:4px"><div style="height:8px;background:#3E4E6C"></div>△ 190 °C<br>#3E4E6C</div>
+<div style="display:flex;flex-direction:column;gap:4px"><div style="height:8px;background:#253047"></div>◇ 205 °C<br>#253047</div>
+<div style="display:flex;flex-direction:column;gap:4px"><div style="height:8px;background:#14213D"></div>× 220 °C<br>#14213D</div>
+</div>
+<ul style="margin:0;padding-left:18px;font-size:15px;line-height:1.6;color:#253047">
+<li>Temperature is ordered, so one ink ramp by lightness; every series also has its own marker. All ≥ 3.4:1 on white</li>
+<li>Measured: solid 2px line, filled marker. Experimental: gold #B07A2A 2px dashed 6 4, hollow marker, "Experimental" label at line end</li>
+<li>Uncertainty: gold 45° hatch, never a gradient. Benchmark: 1.5px dotted, labelled in text</li>
+<li>Axes 1px ink, grid #EAE4D6, ticks 13px mono; direct labels before legends</li>
+<li>Every chart: title, unit, source line, "Show table" toggle. Under 600px charts become tables</li>
+</ul>
+</section>
+
+<!-- STATES / A11Y -->
+<section aria-label="Empty, loading, offline" style="grid-column:span 6;background:#FFFFFF;border:1px solid #DDD6C6;border-radius:8px;padding:28px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px">
+<h2 style="grid-column:span 2;margin:0;font-size:20px;font-weight:600">System states</h2>
+<div style="border:1px dashed #8C8574;border-radius:8px;padding:16px;display:flex;flex-direction:column;gap:6px"><span style="font-weight:600">No readings yet</span><span style="font-size:15px;color:#374151;line-height:1.45">Your first strip scan will appear here.</span></div>
+<div aria-busy="true" style="border:1px solid #DDD6C6;border-radius:8px;padding:16px;display:flex;flex-direction:column;gap:8px"><div style="height:12px;width:60%;background:#EAE4D6;border-radius:4px"></div><div style="height:12px;width:85%;background:#EAE4D6;border-radius:4px"></div><span style="font-size:14px;color:#374151">Loading readings…</span></div>
+<div style="background:#F1EEE6;border-radius:8px;padding:12px 16px;font-size:15px;display:flex;gap:10px;align-items:center"><svg width="18" height="18" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M2 2l12 12M5 9a4 4 0 0 1 6 0"></path></svg>No internet. Saving on phone.</div>
+<div style="background:#FBEFE9;color:#8E2F1C;border-radius:8px;padding:12px 16px;font-size:15px">Photo too dark. Move to shade or turn on the light.</div>
+</section>
+<section aria-label="Accessibility rules" style="grid-column:span 6;background:#14213D;color:#FFFFFF;border-radius:8px;padding:28px;display:flex;flex-direction:column;gap:12px">
+<h2 style="margin:0;font-size:20px;font-weight:600">Accessibility specification</h2>
+<ol style="margin:0;padding-left:20px;font-size:15px;line-height:1.6;color:#E4E7EE">
+<li>Text 14px minimum, 17px mobile body; no text lighter than #4B5563</li>
+<li>Targets 48px mobile (56 primary), 40px web with 8px spacing</li>
+<li>2px gold focus ring with 2px offset, visible on ink and paper</li>
+<li>Status always icon + word; colour third</li>
+<li>Layouts reflow at 320px and 200% zoom; labels wrap, never truncate</li>
+<li>Strings sized for Filipino at +35% length</li>
+<li>Motion ≤ 200ms, none under reduced motion</li>
+</ol>
+</section>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1600,"height":1760}}'>
+class Component extends DCLogic { renderVals() { return {}; } }
+</script>
+</body>
+</html>

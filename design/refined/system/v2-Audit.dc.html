@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Design Audit</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap">
+<style>body{margin:0}a{color:#14213D}a:hover{color:#2F4A39}</style>
+</helmet>
+<div style="width:1200px;height:1000px;box-sizing:border-box;padding:56px 64px;background:#F6F3EC;color:#14213D;font-family:'IBM Plex Sans',sans-serif;display:flex;flex-direction:column;gap:32px">
+<header style="display:flex;justify-content:space-between;align-items:flex-end;gap:32px;border-bottom:1px solid #14213D;padding-bottom:20px">
+<div style="display:flex;flex-direction:column;gap:8px">
+<span style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#4B5563">01 · Audit of v1 moodboard</span>
+<h1 style="margin:0;font-size:40px;font-weight:600;letter-spacing:-0.015em;line-height:1.1">Keep the idea. Rebuild the execution.</h1>
+</div>
+<p style="margin:0;max-width:380px;font-size:16px;line-height:1.5;color:#374151">Calibrated Paper was the right direction. Its weaknesses were in craft: identity, type rhythm, density and a few broken layouts.</p>
+</header>
+
+<div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px">
+<section style="display:flex;flex-direction:column;gap:12px">
+<h2 style="margin:0;font-size:18px;font-weight:600;display:flex;gap:8px;align-items:center"><span style="font-family:'IBM Plex Mono',monospace;font-size:13px;border:1px solid #2F4A39;color:#2F4A39;border-radius:4px;padding:2px 6px">Keep</span></h2>
+<ul style="margin:0;padding-left:18px;font-size:15px;line-height:1.6;color:#253047">
+<li>Ink, paper, green, gold palette and their single meanings</li>
+<li>Solid measured, dashed experimental, hatched uncertainty</li>
+<li>Plex Sans and Plex Mono for text and values</li>
+<li>Status as icon plus word plus border style</li>
+<li>Research notices on every reading</li>
+</ul>
+</section>
+<section style="display:flex;flex-direction:column;gap:12px">
+<h2 style="margin:0;font-size:18px;font-weight:600"><span style="font-family:'IBM Plex Mono',monospace;font-size:13px;border:1px solid #6B4A12;color:#6B4A12;border-radius:4px;padding:2px 6px">Improve</span></h2>
+<ul style="margin:0;padding-left:18px;font-size:15px;line-height:1.6;color:#253047">
+<li>Logo: a drawn wordmark replaces font text plus icon</li>
+<li>One type scale shared by mobile and web, 4px rhythm</li>
+<li>Web data text up from 12 to 14px, table rows 44px</li>
+<li>Separate navigation, analysis and methodology regions</li>
+<li>Scanner: real camera layout with honest feedback</li>
+</ul>
+</section>
+<section style="display:flex;flex-direction:column;gap:12px">
+<h2 style="margin:0;font-size:18px;font-weight:600"><span style="font-family:'IBM Plex Mono',monospace;font-size:13px;border:1px solid #8E2F1C;color:#8E2F1C;border-radius:4px;padding:2px 6px">Remove</span></h2>
+<ul style="margin:0;padding-left:18px;font-size:15px;line-height:1.6;color:#253047">
+<li>Strip symbol: read as a battery at small sizes</li>
+<li>Bricolage display face: a third family with no job</li>
+<li>Wide tracked mono CHECK and uppercase eyebrows</li>
+<li>Decorative ruled boxes and placeholder photo tiles</li>
+<li>Hour timer as a hero number on vendor screens</li>
+</ul>
+</section>
+</div>
+
+<section aria-label="Defects found" style="background:#FFFFFF;border:1px solid #DDD6C6;border-radius:8px;overflow:hidden">
+<table style="border-collapse:collapse;width:100%;font-size:15px">
+<caption style="text-align:left;padding:18px 24px 10px;font-size:18px;font-weight:600">Defects found when rendering v1</caption>
+<thead><tr style="text-align:left;border-bottom:1px solid #14213D"><th style="padding:10px 24px;font-weight:600;width:200px">Where</th><th style="padding:10px 12px;font-weight:600">Problem</th><th style="padding:10px 24px;font-weight:600;width:260px">v2 resolution</th></tr></thead>
+<tbody>
+<tr style="border-bottom:1px solid #EAE4D6"><td style="padding:12px 24px">Master moodboard</td><td style="padding:12px">Five panels fell out of the grid; fonts fell back to a serif; a large empty band</td><td style="padding:12px 24px">Brand kit rebuilt on a fixed 12 column grid</td></tr>
+<tr style="border-bottom:1px solid #EAE4D6"><td style="padding:12px 24px">Strip results (p.6)</td><td style="padding:12px">Collision reported in the PDF export; the expanding disclosure and tight label stack are the likely cause</td><td style="padding:12px 24px">Explanation is a fixed block; labels have their own rows</td></tr>
+<tr style="border-bottom:1px solid #EAE4D6"><td style="padding:12px 24px">Logo</td><td style="padding:12px">Symbol unreadable below 24px; MANTIKA and CHECK unrelated</td><td style="padding:12px 24px">Gauge A wordmark; A is the icon</td></tr>
+<tr style="border-bottom:1px solid #EAE4D6"><td style="padding:12px 24px">Web tables</td><td style="padding:12px">12px captions and mono, 36px rows, notes below the fold</td><td style="padding:12px 24px">14px minimum, 44px rows, method panel</td></tr>
+<tr><td style="padding:12px 24px">Oil log</td><td style="padding:12px">Ten decisions on one screen; temperature field typed</td><td style="padding:12px 24px">Three grouped steps, stepper for temperature</td></tr>
+</tbody></table>
+</section>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1200,"height":1000}}'>
+class Component extends DCLogic { renderVals() { return {}; } }
+</script>
+</body>
+</html>

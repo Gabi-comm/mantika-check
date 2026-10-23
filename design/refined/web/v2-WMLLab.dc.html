@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>ML Laboratory</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap">
+<style>body{margin:0}a{color:#14213D}a:hover{color:#2F4A39}a:focus-visible,button:focus-visible,select:focus-visible{outline:2px solid #B07A2A;outline-offset:2px}td span,td:first-child,dd{white-space:nowrap}</style>
+</helmet>
+<div style="min-height:1100px;background:#F6F3EC;color:#14213D;font-family:'IBM Plex Sans',sans-serif;display:flex;flex-wrap:wrap">
+
+<nav aria-label="Research modules" style="flex:1 1 240px;max-width:100%;background:#14213D;color:#FFFFFF;padding:24px 16px;box-sizing:border-box;display:flex;flex-direction:column;gap:20px">
+<img src="../brand/mantika-check-horizontal-reversed.svg" alt="MANTIKA CHECK" style="width:168px;height:auto;margin:4px 8px 4px">
+<a href="v2-WOverview.dc.html" style="min-height:40px;display:flex;align-items:center;padding:0 12px;border-radius:8px;color:#FFFFFF;text-decoration:none;font-size:15px">Overview</a>
+<div style="display:flex;flex-direction:column;gap:2px"><span style="padding:0 12px 4px;font-size:14px;color:#AEB8CB">Track 1 · Public data</span>
+<a href="v2-WMLLab.dc.html" aria-current="page" style="min-height:40px;display:flex;align-items:center;padding:0 12px;border-radius:8px;background:#26365A;color:#FFFFFF;text-decoration:none;font-size:15px;font-weight:600">ML laboratory</a>
+<a href="v2-WDataset.dc.html" style="min-height:40px;display:flex;align-items:center;padding:0 12px;border-radius:8px;color:#FFFFFF;text-decoration:none;font-size:15px">Dataset explorer</a></div>
+<div style="display:flex;flex-direction:column;gap:2px"><span style="padding:0 12px 4px;font-size:14px;color:#AEB8CB">Track 2 · Local pilot</span>
+<a href="v2-WStrip.dc.html" style="min-height:40px;display:flex;align-items:center;padding:0 12px;border-radius:8px;color:#FFFFFF;text-decoration:none;font-size:15px">Strip laboratory</a>
+<a href="v2-WVendors.dc.html" style="min-height:40px;display:flex;align-items:center;padding:0 12px;border-radius:8px;color:#FFFFFF;text-decoration:none;font-size:15px">Vendor management</a></div>
+<div style="display:flex;flex-direction:column;gap:2px"><span style="padding:0 12px 4px;font-size:14px;color:#AEB8CB">Outputs</span>
+<a href="v2-WReporting.dc.html" style="min-height:40px;display:flex;align-items:center;padding:0 12px;border-radius:8px;color:#FFFFFF;text-decoration:none;font-size:15px">Reporting</a></div>
+</nav>
+
+<div style="flex:999 1 640px;min-width:0;display:flex;flex-direction:column">
+<header style="padding:28px clamp(16px,3vw,40px) 20px;border-bottom:1px solid #DDD6C6;display:flex;flex-direction:column;gap:16px;background:#FFFFFF">
+<div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:16px">
+<div style="display:flex;flex-direction:column;gap:4px"><span style="font-size:14px;color:#4B5563">Track 1 · Methodology step 3</span><h1 style="margin:0;font-size:32px;font-weight:600;letter-spacing:-0.015em">Machine learning laboratory</h1></div>
+<span style="display:inline-flex;align-items:center;gap:6px;background:#F3E6CC;color:#6B4A12;border-radius:4px;padding:6px 10px;font-size:14px"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="3 2" aria-hidden="true"><path d="M2 8h12"></path></svg>Experimental · never shown to vendors</span>
+</div>
+<form aria-label="Experiment settings" style="display:flex;flex-wrap:wrap;gap:20px;align-items:flex-end">
+<fieldset style="border:0;margin:0;padding:0;display:flex;flex-direction:column;gap:6px"><legend style="font-size:14px;font-weight:600;margin-bottom:6px">Temperatures</legend>
+<div style="display:flex;flex-wrap:wrap;gap:6px;font-family:'IBM Plex Mono',monospace;font-size:14px">
+<label style="min-height:40px;display:flex;align-items:center;gap:6px;border:1px solid #8C8574;border-radius:4px;padding:0 10px"><input type="checkbox" checked>○ 160</label>
+<label style="min-height:40px;display:flex;align-items:center;gap:6px;border:1px solid #8C8574;border-radius:4px;padding:0 10px"><input type="checkbox" checked>□ 175</label>
+<label style="min-height:40px;display:flex;align-items:center;gap:6px;border:1px solid #8C8574;border-radius:4px;padding:0 10px"><input type="checkbox" checked>△ 190</label>
+<label style="min-height:40px;display:flex;align-items:center;gap:6px;border:1px solid #8C8574;border-radius:4px;padding:0 10px"><input type="checkbox" checked>◇ 205</label>
+<label style="min-height:40px;display:flex;align-items:center;gap:6px;border:1px solid #14213D;border-radius:4px;padding:0 10px;background:#F6F3EC"><input type="checkbox" checked>× 220 held out</label>
+</div></fieldset>
+<div style="display:flex;flex-direction:column;gap:6px"><span id="lm" style="font-size:14px;font-weight:600">Model</span><div role="radiogroup" aria-labelledby="lm" style="display:flex;flex-wrap:wrap;border:1px solid #14213D;border-radius:8px;overflow:hidden"><button role="radio" aria-checked="false" style="min-height:40px;padding:0 14px;border:0;background:#FFFFFF;font:400 15px 'IBM Plex Sans',sans-serif;color:#14213D">Curve fit baseline</button><button role="radio" aria-checked="true" style="min-height:40px;padding:0 14px;border:0;background:#14213D;color:#FFFFFF;font:600 15px 'IBM Plex Sans',sans-serif">Regularized regression</button></div></div>
+<div style="display:flex;flex-direction:column;gap:6px"><span id="lv" style="font-size:14px;font-weight:600">Validation</span><div role="radiogroup" aria-labelledby="lv" style="display:flex;flex-wrap:wrap;border:1px solid #14213D;border-radius:8px;overflow:hidden"><button role="radio" aria-checked="false" style="min-height:40px;padding:0 14px;border:0;background:#FFFFFF;font:400 15px 'IBM Plex Sans',sans-serif;color:#14213D">Held out time</button><button role="radio" aria-checked="true" style="min-height:40px;padding:0 14px;border:0;background:#14213D;color:#FFFFFF;font:600 15px 'IBM Plex Sans',sans-serif">Leave one temperature out</button></div></div>
+</form>
+</header>
+
+<div style="display:flex;flex-wrap:wrap;gap:24px;padding:28px clamp(16px,3vw,40px) 40px;align-items:flex-start">
+<main style="flex:999 1 600px;min-width:0;display:flex;flex-direction:column;gap:24px">
+
+<figure style="margin:0;background:#FFFFFF;border:1px solid #DDD6C6;border-radius:8px;padding:20px 24px;display:flex;flex-direction:column;gap:12px">
+<figcaption style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-start;gap:12px">
+<div style="display:flex;flex-direction:column;gap:2px"><span style="font-size:20px;font-weight:600">TPC over frying time</span><span style="font-size:14px;color:#374151">Total polar compounds, % of oil · illustrative curve shapes, not results</span></div>
+<button style="min-height:40px;padding:0 14px;border:1px solid #14213D;background:#FFFFFF;border-radius:8px;font:600 15px 'IBM Plex Sans',sans-serif;color:#14213D">Show table</button>
+</figcaption>
+<div style="display:flex;flex-wrap:wrap;gap:20px;font-size:14px;color:#253047">
+<span style="display:flex;align-items:center;gap:6px"><svg width="28" height="10" aria-hidden="true"><line x1="0" y1="5" x2="28" y2="5" stroke="#14213D" stroke-width="2"></line><circle cx="14" cy="5" r="3.5" fill="#14213D"></circle></svg>Measured, Li (2020)</span>
+<span style="display:flex;align-items:center;gap:6px;color:#6B4A12"><svg width="28" height="10" aria-hidden="true"><line x1="0" y1="5" x2="28" y2="5" stroke="#B07A2A" stroke-width="2" stroke-dasharray="6 4"></line><circle cx="14" cy="5" r="3.5" fill="#FFFFFF" stroke="#B07A2A" stroke-width="2"></circle></svg>Experimental prediction</span>
+<span style="display:flex;align-items:center;gap:6px"><svg width="20" height="12" aria-hidden="true"><defs><pattern id="lh" width="5" height="5" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="5" stroke="#B07A2A" stroke-width="1.5"></line></pattern></defs><rect width="20" height="12" fill="url(#lh)"></rect></svg>Uncertainty range</span>
+<span style="display:flex;align-items:center;gap:6px"><svg width="28" height="10" aria-hidden="true"><line x1="0" y1="5" x2="28" y2="5" stroke="#374151" stroke-width="1.5" stroke-dasharray="2 3"></line></svg>25% research benchmark</span>
+</div>
+<div style="overflow-x:auto"><svg width="100%" viewBox="0 0 820 380" style="min-width:600px;display:block" role="img" aria-label="Illustrative chart of TPC percent against hours from 0 to 30 for five temperatures. The 220 degree series is held out and its prediction is dashed with an uncertainty band. A dotted line marks the 25 percent research benchmark.">
+<defs><pattern id="hz" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="6" stroke="#B07A2A" stroke-width="1.5" opacity="0.55"></line></pattern></defs>
+<g stroke="#EAE4D6"><line x1="60" y1="30" x2="740" y2="30"></line><line x1="60" y1="100" x2="740" y2="100"></line><line x1="60" y1="170" x2="740" y2="170"></line><line x1="60" y1="240" x2="740" y2="240"></line></g>
+<line x1="60" y1="310" x2="740" y2="310" stroke="#14213D"></line><line x1="60" y1="30" x2="60" y2="310" stroke="#14213D"></line>
+<g font-family="IBM Plex Mono, monospace" font-size="13" fill="#374151"><text x="50" y="34" text-anchor="end">40</text><text x="50" y="104" text-anchor="end">30</text><text x="50" y="174" text-anchor="end">20</text><text x="50" y="244" text-anchor="end">10</text><text x="50" y="314" text-anchor="end">0</text><text x="60" y="334" text-anchor="middle">0</text><text x="173" y="334" text-anchor="middle">5</text><text x="287" y="334" text-anchor="middle">10</text><text x="400" y="334" text-anchor="middle">15</text><text x="513" y="334" text-anchor="middle">20</text><text x="627" y="334" text-anchor="middle">25</text><text x="740" y="334" text-anchor="middle">30</text></g>
+<text x="400" y="368" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-size="14" fill="#253047">Frying time (hours)</text>
+<text x="18" y="170" text-anchor="middle" transform="rotate(-90 18 170)" font-family="IBM Plex Sans, sans-serif" font-size="14" fill="#253047">TPC (%)</text>
+<line x1="60" y1="135" x2="740" y2="135" stroke="#374151" stroke-width="1.5" stroke-dasharray="2 4"></line>
+<text x="66" y="128" font-family="IBM Plex Sans, sans-serif" font-size="13" fill="#253047">25% research benchmark · not Philippine law</text>
+<polyline points="60,282 173,272 287,262 400,252 513,243 627,234 740,226" fill="none" stroke="#7C8AA3" stroke-width="2"></polyline>
+<polyline points="60,280 173,266 287,252 400,238 513,225 627,212 740,200" fill="none" stroke="#5D6B85" stroke-width="2"></polyline>
+<polyline points="60,278 173,259 287,240 400,222 513,204 627,187 740,171" fill="none" stroke="#3E4E6C" stroke-width="2"></polyline>
+<polyline points="60,276 173,251 287,226 400,202 513,179 627,157 740,136" fill="none" stroke="#253047" stroke-width="2"></polyline>
+<polygon points="173,236 287,196 400,158 513,124 627,92 740,64 740,118 627,140 513,166 400,194 287,224 173,252" fill="url(#hz)"></polygon>
+<polyline points="60,274 173,244 287,210 400,176 513,145 627,116 740,91" fill="none" stroke="#B07A2A" stroke-width="2" stroke-dasharray="7 5"></polyline>
+<g fill="#14213D" font-family="IBM Plex Mono, monospace" font-size="15" text-anchor="middle"><text x="173" y="249">×</text><text x="287" y="216">×</text><text x="400" y="185">×</text><text x="513" y="153">×</text><text x="627" y="125">×</text><text x="740" y="96">×</text></g>
+<g fill="none" stroke="#B07A2A" stroke-width="2"><circle cx="400" cy="176" r="5"></circle><circle cx="627" cy="116" r="5"></circle></g>
+<g font-family="IBM Plex Mono, monospace" font-size="13" fill="#253047"><text x="748" y="230">160</text><text x="748" y="204">175</text><text x="748" y="175">190</text><text x="748" y="140">205</text><text x="748" y="95">220</text></g>
+<g><line x1="627" y1="116" x2="627" y2="310" stroke="#14213D" stroke-dasharray="3 3"></line><rect x="470" y="40" width="200" height="66" rx="4" fill="#FFFFFF" stroke="#14213D"></rect><text x="482" y="62" font-family="IBM Plex Sans, sans-serif" font-size="13" fill="#14213D" font-weight="600">220 °C · 25 h</text><text x="482" y="80" font-family="IBM Plex Mono, monospace" font-size="13" fill="#14213D">measured [x] · pred [x]</text><text x="482" y="97" font-family="IBM Plex Sans, sans-serif" font-size="12.5" fill="#374151">LOTO, regularized regression</text></g>
+</svg></div>
+<p style="margin:0;font-size:14px;line-height:1.5;color:#374151">Source: Li (2020), Frying oil data, potato chip frying under controlled heat; oil type unspecified. Not Philippine vendor data.</p>
+</figure>
+
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(420px,100%),1fr));gap:24px">
+<figure style="margin:0;background:#FFFFFF;border:1px solid #DDD6C6;border-radius:8px;padding:20px 24px;display:flex;flex-direction:column;gap:10px">
+<figcaption style="display:flex;flex-direction:column;gap:2px"><span style="font-size:18px;font-weight:600">Actual versus predicted</span><span style="font-size:14px;color:#374151">Held out 220 °C · illustrative</span></figcaption>
+<div style="display:flex;flex-wrap:wrap;gap:24px;align-items:center"><svg width="420" style="max-width:100%" viewBox="0 0 360 280" role="img" aria-label="Illustrative scatter of measured against predicted TPC with a diagonal line of perfect agreement">
+<rect x="50" y="10" width="300" height="230" fill="none" stroke="#EAE4D6"></rect>
+<line x1="50" y1="240" x2="350" y2="10" stroke="#374151" stroke-dasharray="4 4"></line><text x="344" y="30" text-anchor="end" font-family="IBM Plex Sans, sans-serif" font-size="13" fill="#253047">perfect agreement</text>
+<g fill="#FFFFFF" stroke="#B07A2A" stroke-width="2"><circle cx="85" cy="212" r="5"></circle><circle cx="125" cy="190" r="5"></circle><circle cx="165" cy="148" r="5"></circle><circle cx="205" cy="140" r="5"></circle><circle cx="245" cy="96" r="5"></circle><circle cx="285" cy="82" r="5"></circle><circle cx="320" cy="56" r="5"></circle></g>
+<text x="200" y="268" text-anchor="middle" font-family="IBM Plex Sans, sans-serif" font-size="14" fill="#253047">Measured TPC (%)</text>
+<text x="18" y="125" text-anchor="middle" transform="rotate(-90 18 125)" font-family="IBM Plex Sans, sans-serif" font-size="14" fill="#253047">Predicted TPC (%)</text>
+</svg>
+<dl style="flex:1 1 220px;margin:0;display:flex;flex-direction:column;gap:12px;font-size:15px;line-height:1.5">
+<div><dt style="font-weight:600">How to read it</dt><dd style="margin:2px 0 0;color:#374151;white-space:normal">Points on the dashed line are perfect predictions. Above the line, the model predicts more TPC than was measured.</dd></div>
+<div><dt style="font-weight:600">Points shown</dt><dd style="margin:2px 0 0;color:#374151;white-space:normal">Only the held out series. Training points are never plotted here.</dd></div>
+</dl>
+</div>
+</figure>
+
+<section aria-labelledby="em" style="background:#FFFFFF;border:1px solid #DDD6C6;border-radius:8px;overflow-x:auto">
+<table style="border-collapse:collapse;width:100%;font-size:15px">
+<caption id="em" style="text-align:left;padding:18px 20px 4px;font-size:18px;font-weight:600">Error by model and validation</caption>
+
+<thead><tr style="text-align:left;border-bottom:1px solid #14213D"><th scope="col" style="padding:0 20px;height:44px;font-weight:600">Model</th><th scope="col" style="padding:0 12px;font-weight:600">Validation</th><th scope="col" style="padding:0 12px;font-weight:600;text-align:right">MAE</th><th scope="col" style="padding:0 20px;font-weight:600;text-align:right">RMSE</th></tr></thead>
+<tbody style="font-family:'IBM Plex Mono',monospace">
+<tr style="border-bottom:1px solid #EAE4D6;height:44px"><td style="padding:0 20px;font-family:'IBM Plex Sans',sans-serif">Curve fit</td><td style="padding:0 12px;font-family:'IBM Plex Sans',sans-serif">Held out time</td><td style="padding:0 12px;text-align:right;color:#374151">not run</td><td style="padding:0 20px;text-align:right;color:#374151">not run</td></tr>
+<tr style="border-bottom:1px solid #EAE4D6;height:44px"><td style="padding:0 20px;font-family:'IBM Plex Sans',sans-serif">Curve fit</td><td style="padding:0 12px;font-family:'IBM Plex Sans',sans-serif">LOTO</td><td style="padding:0 12px;text-align:right;color:#374151">not run</td><td style="padding:0 20px;text-align:right;color:#374151">not run</td></tr>
+<tr style="border-bottom:1px solid #EAE4D6;height:44px"><td style="padding:0 20px;font-family:'IBM Plex Sans',sans-serif">Regularized</td><td style="padding:0 12px;font-family:'IBM Plex Sans',sans-serif">Held out time</td><td style="padding:0 12px;text-align:right;color:#374151">not run</td><td style="padding:0 20px;text-align:right;color:#374151">not run</td></tr>
+<tr style="height:44px;background:#FAF8F3"><td style="padding:0 20px;font-family:'IBM Plex Sans',sans-serif;font-weight:600">Regularized</td><td style="padding:0 12px;font-family:'IBM Plex Sans',sans-serif">LOTO</td><td style="padding:0 12px;text-align:right;color:#374151">running</td><td style="padding:0 20px;text-align:right;color:#374151">running</td></tr>
+</tbody></table>
+<p style="margin:0;padding:10px 20px 16px;font-size:14px;color:#374151">Units: TPC percentage points. Five temperature series only, so errors carry small sample uncertainty.</p>
+</section>
+</div>
+</main>
+
+<aside aria-label="Method" style="flex:1 1 300px;min-width:0;display:flex;flex-direction:column;gap:16px">
+<section style="background:#FFFFFF;border:1px solid #DDD6C6;border-radius:8px;padding:20px;display:flex;flex-direction:column;gap:8px">
+<h2 style="margin:0;font-size:17px;font-weight:600">About this validation</h2>
+<p style="margin:0;font-size:15px;line-height:1.55;color:#253047">Leave one temperature out trains on four series and predicts the fifth. It tests whether the model generalises across heat, not across oils or foods.</p>
+</section>
+<section style="background:#FFFFFF;border:1px solid #DDD6C6;border-radius:8px;overflow:hidden">
+<table style="border-collapse:collapse;width:100%;font-size:15px">
+<caption style="text-align:left;padding:18px 20px 8px;font-size:17px;font-weight:600">Time to 25% · research only</caption>
+<thead><tr style="text-align:left;border-bottom:1px solid #14213D"><th scope="col" style="padding:0 20px;height:40px;font-weight:600">Temp</th><th scope="col" style="padding:0 20px;font-weight:600">Crossing</th></tr></thead>
+<tbody>
+<tr style="border-bottom:1px solid #EAE4D6;height:44px"><td style="padding:0 20px;font-family:'IBM Plex Mono',monospace">160 °C</td><td style="padding:0 20px">not yet determined</td></tr>
+<tr style="border-bottom:1px solid #EAE4D6;height:44px"><td style="padding:0 20px;font-family:'IBM Plex Mono',monospace">190 °C</td><td style="padding:0 20px">not yet determined</td></tr>
+<tr style="height:44px"><td style="padding:0 20px;font-family:'IBM Plex Mono',monospace">220 °C</td><td style="padding:0 20px">not yet determined</td></tr>
+</tbody></table>
+<p style="margin:0;padding:10px 20px 16px;font-size:14px;line-height:1.5;color:#374151">Reported only when observed or defensibly interpolated within 30 h; otherwise "not reached".</p>
+</section>
+<section style="background:#FBEFE9;border-radius:8px;padding:16px 20px;font-size:15px;line-height:1.5;color:#5E1F12"><strong style="color:#8E2F1C">Not a vendor forecast.</strong> Hours to 25% stay hidden from the mobile app until repeated local reference TPC measurements exist.</section>
+</aside>
+</div>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1634}}'>
+class Component extends DCLogic { renderVals() { return {}; } }
+</script>
+</body>
+</html>
