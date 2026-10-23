@@ -1,0 +1,10 @@
+{
+  "name": "MANTIKA CHECK",
+  "short_name": "Mantika Check",
+  "description": "Cooking-oil usage monitoring workspace for street-food vendors. Research prototype.",
+  "start_url": "/app",
+  "display": "standalone",
+  "background_color": "#F7FAF8",
+  "theme_color": "#11634A",
+  "icons": [{ "src": "/brand/mantika-check-app-icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }]
+}
