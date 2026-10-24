@@ -3,14 +3,14 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useState, type ReactNode } from "react";
-import { LayoutDashboard, Timer, ClipboardCheck, History, Settings, Info, ScanLine, ArrowUpRight, WifiOff, CircleHelp, PanelLeftClose, PanelLeftOpen } from "@/components/icons";
+import { LayoutDashboard, Timer, ClipboardCheck, History, Settings, Info, ScanLine, WifiOff, CircleHelp, PanelLeftClose, PanelLeftOpen, House, Sparkles, BookOpen, Users } from "@/components/icons";
 import { ThemeToggle } from "./ThemeToggle";
 import { HelpButton, HelpDrawer } from "./help/HelpDrawer";
 import { Tour } from "./help/Tour";
 import { TOUR_EVENT } from "./help/tourEvents";
 import { Logo } from "./Logo";
 import { MobileNav } from "./MobileNav";
-import { CloudBadge } from "./CloudBadge";
+import { WelcomeSplash } from "./WelcomeSplash";
 import { Tag } from "./ui";
 import { cx } from "@/frontend/format";
 import { SIDEBAR_KEY } from "@/frontend/boot";
@@ -22,7 +22,6 @@ const primary = [
   { href: "/app/log", label: copy.nav.log, icon: Timer },
   { href: "/app/check", label: copy.nav.check, icon: ClipboardCheck },
   { href: "/app/history", label: copy.nav.history, icon: History },
-  { href: "/app/settings", label: copy.nav.settings, icon: Settings },
 ];
 const secondary = [
   { href: "/app/about", label: copy.nav.about, icon: Info },
@@ -32,6 +31,12 @@ const secondary = [
     icon: ScanLine,
     tag: "Experimental",
   },
+];
+const website = [
+  { href: "/", label: "Overview", icon: House },
+  { href: "/features", label: "Features", icon: Sparkles },
+  { href: "/methodology", label: "Methodology", icon: BookOpen },
+  { href: "/about", label: "About", icon: Users },
 ];
 const TOUR_TARGET: Record<string, string> = {
   "/app": "dashboard",
@@ -136,10 +141,39 @@ export function AppShell({ children }: { children: ReactNode }) {
                 );
               })}
             </ul>
+            <p className="mt-6 mb-1.5 px-3 font-mono text-[0.68rem] uppercase tracking-[0.14em] text-gray">Website</p>
+            <ul className="space-y-0.5">
+              {website.map(({ href, label, icon: Icon }) => (
+                <li key={href}>
+                  <Link href={href} className="flex min-h-11 items-center gap-3 rounded-[var(--radius-s)] px-3 text-[0.92rem] text-ink/75 transition-colors hover:bg-pale hover:text-ink">
+                    <Icon className="size-[1.1rem]" aria-hidden="true" />
+                    {label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </nav>
-          <Link href="/" className="flex min-h-12 items-center gap-2 border-t border-line px-5 text-[0.88rem] text-gray hover:text-accent">
-            <ArrowUpRight className="size-4" aria-hidden="true" /> Back to website
-          </Link>
+          <div className="grid grid-cols-2 gap-2 border-t border-line p-3">
+            <button
+              type="button"
+              data-tour="help"
+              onClick={() => setHelp(true)}
+              aria-haspopup="dialog"
+              className="flex min-h-11 items-center justify-center gap-2 rounded-[var(--radius-s)] border border-line text-[0.9rem] font-semibold text-ink transition-colors hover:border-green hover:text-accent"
+            >
+              <CircleHelp className="size-[1.1rem]" aria-hidden="true" /> Help
+            </button>
+            <Link
+              href="/app/settings"
+              aria-current={isActive(path, "/app/settings") ? "page" : undefined}
+              className={cx(
+                "flex min-h-11 items-center justify-center gap-2 rounded-[var(--radius-s)] border text-[0.9rem] font-semibold transition-colors",
+                isActive(path, "/app/settings") ? "border-transparent bg-tint text-heading" : "border-line text-ink hover:border-green hover:text-accent"
+              )}
+            >
+              <Settings className="size-[1.1rem]" aria-hidden="true" /> {copy.nav.settings}
+            </Link>
+          </div>
         </div>
       </aside>
 
@@ -149,7 +183,6 @@ export function AppShell({ children }: { children: ReactNode }) {
             <Logo height={30} />
           </Link>
           <div className="flex items-center gap-2">
-            <CloudBadge />
             <ThemeToggle />
             <button
               type="button"
@@ -185,9 +218,9 @@ export function AppShell({ children }: { children: ReactNode }) {
             </button>
           )}
           <div className="ml-auto flex items-center gap-2">
-            <CloudBadge />
             <ThemeToggle />
-            <HelpButton onOpen={() => setHelp(true)} />
+            {/* Help lives at the foot of the sidebar; keep it reachable here while the sidebar is hidden. */}
+            {!sidebar && <HelpButton onOpen={() => setHelp(true)} />}
           </div>
         </div>
 
@@ -196,6 +229,7 @@ export function AppShell({ children }: { children: ReactNode }) {
         </main>
       </div>
 
+      <WelcomeSplash />
       <HelpDrawer open={help} onClose={() => setHelp(false)} />
       <Tour />
 

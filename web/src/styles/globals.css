@@ -1098,3 +1098,70 @@ span.auth-swap {
     transform: translateY(-4px);
   }
 }
+
+/* ------------------------------------------------------------------
+   Charts: hover tooltip.
+   ------------------------------------------------------------------ */
+.chart-tip {
+  translate: -50% 0;
+  animation: chart-tip 0.18s ease-out both;
+}
+@keyframes chart-tip {
+  from {
+    opacity: 0;
+    transform: translateY(4px) scale(0.97);
+  }
+}
+
+/* ------------------------------------------------------------------
+   Sign-in → workspace. The card lifts away, Ollie greets (WelcomeSplash),
+   then the overlay opens like a lid while the workspace settles in.
+   ------------------------------------------------------------------ */
+.auth-done {
+  animation: auth-done 0.55s cubic-bezier(0.4, 0, 0.2, 1) 0.2s both;
+}
+@keyframes auth-done {
+  to {
+    opacity: 0;
+    transform: translateY(-10px) scale(0.97);
+    filter: blur(2px);
+  }
+}
+.welcome-splash {
+  animation: welcome-in 0.35s ease-out both;
+}
+.welcome-splash.is-leaving {
+  animation: welcome-out 0.6s cubic-bezier(0.7, 0, 0.3, 1) both;
+}
+.welcome-line {
+  animation: fade-up-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.35s both;
+}
+.welcome-line-2 {
+  animation-delay: 0.5s;
+}
+.welcome-reveal #main {
+  animation: welcome-main 0.75s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@keyframes welcome-in {
+  from {
+    opacity: 0;
+  }
+}
+@keyframes welcome-out {
+  to {
+    opacity: 0;
+    clip-path: inset(0 0 100% 0);
+  }
+}
+@keyframes fade-up-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
+@keyframes welcome-main {
+  from {
+    opacity: 0;
+    transform: translateY(18px) scale(0.985);
+  }
+}

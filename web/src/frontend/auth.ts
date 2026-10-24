@@ -22,6 +22,14 @@ export type AuthResult = { ok: true; notice?: string } | { ok: false; error: str
 
 export const AUTH_CONNECTED = SUPABASE_CONFIGURED;
 
+/** Set on a successful sign-in; the workspace reads it once to play the welcome (components/WelcomeSplash). */
+export const WELCOME_KEY = "mantika.welcome";
+function markWelcome() {
+  try {
+    sessionStorage.setItem(WELCOME_KEY, "1");
+  } catch {}
+}
+
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const USERNAME = /^[a-z0-9_.]{3,20}$/i;
 
@@ -56,7 +64,10 @@ export async function signUp(input: SignUpInput): Promise<AuthResult> {
   const error = emailError(input.email) ?? usernameError(input.username) ?? passwordError(input.password, true);
   if (error) return { ok: false, error };
   const supabase = supabaseBrowser();
-  if (!supabase) return { ok: true };
+  if (!supabase) {
+    markWelcome();
+    return { ok: true };
+  }
   const { data, error: authError } = await supabase.auth.signUp({
     email: input.email.trim(),
     password: input.password,
@@ -65,22 +76,32 @@ export async function signUp(input: SignUpInput): Promise<AuthResult> {
   if (authError) return { ok: false, error: friendly(authError.message) };
   // Supabase hides existing emails behind an empty identities list instead of an error.
   if (data.user && data.user.identities?.length === 0) return { ok: false, error: "An account with this email already exists. Sign in instead." };
-  return data.session ? { ok: true } : { ok: true, notice: `Almost there. We sent a confirmation link to ${input.email.trim()}.` };
+  if (data.session) {
+    markWelcome();
+    return { ok: true };
+  }
+  return { ok: true, notice: `Almost there. We sent a confirmation link to ${input.email.trim()}.` };
 }
 
 export async function signIn(input: SignInInput): Promise<AuthResult> {
   const error = emailError(input.email) ?? passwordError(input.password, false);
   if (error) return { ok: false, error };
   const supabase = supabaseBrowser();
-  if (!supabase) return { ok: true };
-  const { error: authError } = await supabase.auth.signInWithPassword({ email: input.email.trim(), password: input.password });
-  return authError ? { ok: false, error: friendly(authError.message) } : { ok: true };
+  if (supabase) {
+    const { error: authError } = await supabase.auth.signInWithPassword({ email: input.email.trim(), password: input.password });
+    if (authError) return { ok: false, error: friendly(authError.message) };
+  }
+  markWelcome();
+  return { ok: true };
 }
 
 /** Redirects to Google; the browser comes back through /auth/callback. */
 export async function signInWithGoogle(): Promise<AuthResult> {
   const supabase = supabaseBrowser();
-  if (!supabase) return { ok: true };
+  if (!supabase) {
+    markWelcome();
+    return { ok: true };
+  }
   // Supabase answers a disabled provider with a raw JSON page; check first so the form can say so instead.
   try {
     const res = await fetch(`${SUPABASE_URL}/auth/v1/settings`, { headers: { apikey: SUPABASE_KEY } });
@@ -89,6 +110,8 @@ export async function signInWithGoogle(): Promise<AuthResult> {
   } catch {
     return { ok: false, error: friendly("network") };
   }
+  // Same tab comes back from Google, so sessionStorage survives the round trip.
+  markWelcome();
   const { error } = await supabase.auth.signInWithOAuth({ provider: "google", options: { redirectTo: callbackUrl() } });
   return error ? { ok: false, error: friendly(error.message) } : { ok: true, notice: "redirect" };
 }

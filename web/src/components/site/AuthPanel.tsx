@@ -3,7 +3,7 @@
 import { useEffect, useState, type FormEvent } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { ArrowRight, Cloud, Eye, EyeOff, Loader2, Lock, LogOut, Mail, User } from "@/components/icons";
+import { ArrowRight, Check, Cloud, Eye, EyeOff, Loader2, Lock, LogOut, Mail, User } from "@/components/icons";
 import { AUTH_CONNECTED, emailError, passwordError, signIn, signInWithGoogle, signOut, signUp, usernameError } from "@/frontend/auth";
 import { useCloud } from "@/vendor/sync";
 import { OllieStage } from "@/components/OllieStage";
@@ -116,6 +116,12 @@ function AuthForm() {
   const [show, setShow] = useState(false);
   const [touched, setTouched] = useState(false);
   const [busy, setBusy] = useState<"form" | "google" | null>(null);
+  const [done, setDone] = useState(false);
+  // A short "welcome" beat on the button, then the card lifts away into the workspace.
+  const enter = () => {
+    setDone(true);
+    setTimeout(() => router.push("/app"), 520);
+  };
   const [formError, setFormError] = useState<string | null>(null);
 
   const creating = mode === "signup";
@@ -143,7 +149,7 @@ function AuthForm() {
       setNotice(res.notice);
       return;
     }
-    router.push("/app");
+    enter();
   }
 
   async function google() {
@@ -151,7 +157,7 @@ function AuthForm() {
     const res = await signInWithGoogle();
     // With Supabase the browser is leaving for Google; keep the spinner until it does.
     if (res.ok && res.notice === "redirect") return;
-    if (res.ok) router.push("/app");
+    if (res.ok) enter();
     else {
       setBusy(null);
       setFormError(res.error);
@@ -173,7 +179,7 @@ function AuthForm() {
   }, []);
 
   return (
-    <div className="rounded-[var(--radius-l)] border border-line bg-surface p-6 shadow-card sm:p-7">
+    <div className={cx("rounded-[var(--radius-l)] border border-line bg-surface p-6 shadow-card sm:p-7", done && "auth-done")}>
       <div role="tablist" aria-label="Account" className="relative grid grid-cols-2 rounded-[var(--radius-s)] bg-canvas p-1">
         <span
           aria-hidden="true"
@@ -276,12 +282,15 @@ function AuthForm() {
         )}
         <button
           type="submit"
-          disabled={busy !== null}
-          className="group mt-4 flex min-h-12 w-full items-center justify-center gap-2 rounded-[var(--radius-s)] bg-green font-semibold text-white transition-colors hover:bg-forest disabled:opacity-60"
+          disabled={busy !== null || done}
+          className={cx(
+            "group mt-4 flex min-h-12 w-full items-center justify-center gap-2 rounded-[var(--radius-s)] bg-green font-semibold text-white transition-colors hover:bg-forest disabled:opacity-60",
+            done && "disabled:opacity-100"
+          )}
         >
-          {busy === "form" ? <Loader2 className="size-4 animate-spin" aria-hidden="true" /> : null}
+          {done ? <Check className="fade-in size-4" aria-hidden="true" /> : busy === "form" ? <Loader2 className="size-4 animate-spin" aria-hidden="true" /> : null}
           <span key={mode} className="auth-swap">
-            {creating ? "Create account" : "Sign in"}
+            {done ? "Welcome!" : creating ? "Create account" : "Sign in"}
           </span>
           <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" aria-hidden="true" />
         </button>
