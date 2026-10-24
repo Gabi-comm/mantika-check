@@ -1,11 +1,7 @@
+// converts the workspace to supabase rows and back
 import type { Batch, BatchEvent, ChangeReason, HeatSource, Profile, Setup, VendorState } from "./types";
 import type { OilType } from "@/lib/types";
 
-/**
- * Pure mapping between the on-device workspace and the Supabase tables
- * (profiles, batches, batch_events; see supabase/migrations). No network here.
- * Only the vendor's own records go to the cloud: user batches, plus demo batches that hold user events.
- */
 export interface BatchRow {
   id: string;
   label: string;
@@ -39,7 +35,6 @@ export interface CloudRows {
 const iso = (t: string) => new Date(t).toISOString();
 const isoOrNull = (t: string | null | undefined) => (t ? iso(t) : null);
 
-/** Batches that belong in the account, with demo events stripped out. */
 export function ownRecords(s: VendorState): Batch[] {
   return s.batches
     .map((b) => ({ ...b, events: b.events.filter((e) => e.origin === "user") }))
@@ -112,10 +107,6 @@ export function fromRows(rows: CloudRows): VendorState {
   };
 }
 
-/**
- * Sign-in merge: the account wins on conflicts; records made on this device before signing in are added.
- * Returns null when there is nothing of the vendor's own on either side (leave the device as it is).
- */
 export function mergeIntoAccount(remote: VendorState, local: VendorState): VendorState | null {
   const mine = ownRecords(local);
   if (!remote.batches.length && !mine.length && !remote.profile) return null;
@@ -140,7 +131,6 @@ export function mergeIntoAccount(remote: VendorState, local: VendorState): Vendo
   };
 }
 
-/** Stable per-row keys and fingerprints, so a push only sends rows that changed. */
 export function fingerprints(rows: CloudRows): Map<string, string> {
   const m = new Map<string, string>();
   m.set("profile", JSON.stringify(rows.profile));

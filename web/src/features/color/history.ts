@@ -1,4 +1,4 @@
-/** Saved color measurements (same storage key as the Vite analyzer, so earlier saves carry over). */
+// saved analyzer results
 export type ColorEntry = {
   id: string;
   date: string;

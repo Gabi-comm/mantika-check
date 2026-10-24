@@ -1,13 +1,13 @@
 "use client";
 
+// box for picking the area to measure
 import { useRef, useState } from "react";
 
-export type Roi = { x: number; y: number; w: number; h: number }; // percent of image
+export type Roi = { x: number; y: number; w: number; h: number };
 export const DEFAULT_ROI: Roi = { x: 30, y: 30, w: 40, h: 25 };
 const MIN = 8;
 const clamp = (v: number, lo: number, hi: number) => Math.min(Math.max(v, lo), Math.max(lo, hi));
 
-/** Pointer- and keyboard-operable measurement region (ported from the Vite analyzer). */
 export function RoiOverlay({ roi, onChange }: { roi: Roi; onChange: (r: Roi) => void }) {
   const ref = useRef<HTMLDivElement>(null);
   const [drag, setDrag] = useState<{ mode: "move" | "resize"; x: number; y: number; roi: Roi } | null>(null);

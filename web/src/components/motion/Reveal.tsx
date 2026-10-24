@@ -1,9 +1,9 @@
 "use client";
 
+// fade in on scroll
 import { useEffect, useRef, useState, type ElementType, type HTMLAttributes, type ReactNode } from "react";
 import { cx } from "@/frontend/format";
 
-/** Fades content up as it scrolls into view. Content stays visible without JS or with reduced motion. */
 export function Reveal({ children, className, delay = 0, as: As = "div", style, ...rest }: HTMLAttributes<HTMLElement> & { children: ReactNode; delay?: number; as?: ElementType }) {
   const ref = useRef<HTMLElement>(null);
   const [shown, setShown] = useState<boolean | undefined>(undefined);

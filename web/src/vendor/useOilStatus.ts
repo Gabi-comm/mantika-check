@@ -1,5 +1,6 @@
 "use client";
 
+// react hooks for the workspace data and the oil status
 import { useEffect, useMemo, useState, useSyncExternalStore } from "react";
 import type { AdviceResult, StatusResult, VendorState } from "./types";
 import { ACTIVE_ADAPTER, templateAdvice } from "./adapter";
@@ -19,14 +20,10 @@ export function useOnline() {
   return useSyncExternalStore(subscribeOnline, () => navigator.onLine, () => true);
 }
 
-/** Raw local records. `null` during server render and the hydration pass. */
 export function useVendorState(): VendorState | null {
   return useSyncExternalStore(vendorStore.subscribe, vendorStore.getSnapshot, vendorStore.getServerSnapshot);
 }
 
-/**
- * THE single entry point for monitoring status on every screen.
- */
 export function useOilStatus() {
   const state = useVendorState();
   const online = useOnline();
@@ -50,7 +47,6 @@ export function useOilStatus() {
     return () => {
       live = false;
     };
-    // `key` captures every input that changes the advice
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [key]);
 
@@ -62,7 +58,6 @@ export function useOilStatus() {
     batch,
     totals: batchTotals(batch),
     result,
-    /** Template text is shown immediately; the adapter result replaces it when ready. */
     advice: result ? (ready ? advice!.value : ({ advice: templateAdvice(result), delivery: "template" } satisfies AdviceResult)) : null,
     adviceLoading: !!result && !ready,
   };

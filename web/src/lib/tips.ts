@@ -1,3 +1,4 @@
+// tip list the advice can pick from
 export const TIP_IDS = ["filter_daily", "cover_overnight", "lower_heat", "top_up", "change_oil", "dont_top_up"] as const;
 
 export type TipId = (typeof TIP_IDS)[number];

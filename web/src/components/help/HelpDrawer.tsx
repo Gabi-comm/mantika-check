@@ -1,5 +1,6 @@
 "use client";
 
+// help sidebar
 import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import { CircleHelp, X, Compass, ChevronDown } from "@/components/icons";
@@ -25,7 +26,6 @@ export function HelpButton({ className, onOpen }: { className?: string; onOpen: 
   );
 }
 
-/** Right-hand sidebar explaining the current section, with an animated example and the other sections below. */
 export function HelpDrawer({ open, onClose }: { open: boolean; onClose: () => void }) {
   const path = usePathname() ?? "/app";
   const current = helpForPath(path);

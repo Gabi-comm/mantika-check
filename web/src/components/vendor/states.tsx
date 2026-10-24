@@ -1,5 +1,6 @@
 "use client";
 
+// loading and empty states
 import { useState } from "react";
 import { CircleCheck, Droplet } from "@/components/icons";
 import { copy } from "@/vendor/copy";

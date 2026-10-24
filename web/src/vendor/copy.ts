@@ -1,10 +1,7 @@
+// all ui text in one place
 import type { Action, ChangeReason, FoodId, Heat, HeatSource, OilType, Sign, StatusSource } from "./types";
 
 
-/**
- * Every user-facing string in the vendor workspace. English only.
- * Status labels are interface labels, not validated oil-safety assessments.
- */
 export const copy = {
   product: "MANTIKA CHECK",
   prototype: "Research prototype",

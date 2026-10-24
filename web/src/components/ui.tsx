@@ -1,3 +1,4 @@
+// buttons, panels, tags
 import Link from "next/link";
 import type { AnchorHTMLAttributes, ButtonHTMLAttributes, HTMLAttributes, ReactNode } from "react";
 import { cx } from "@/frontend/format";
@@ -33,7 +34,6 @@ export function LinkButton({
   return <Link href={href} className={btn(variant, size, className)} {...rest} />;
 }
 
-/** Bordered surface. Square-ish corners keep it instrument-like rather than bubbly. */
 export function Panel({ children, className, as: As = "section", ...rest }: HTMLAttributes<HTMLElement> & { as?: "section" | "div" | "article" | "aside" }) {
   return (
     <As className={cx("rounded-[var(--radius-m)] border border-line bg-surface", className)} {...rest}>
@@ -68,7 +68,6 @@ const tones: Record<Tone, string> = {
 };
 const DOT: Partial<Record<Tone, "keep" | "monitor" | "change_soon" | "change_now">> = { green: "keep", amber: "monitor", orange: "change_soon", red: "change_now" };
 
-/** Small label pill. Status tones lead with a mini Ollie so the label still reads without colour. */
 export function Tag({ children, tone = "neutral", className, title }: { children: ReactNode; tone?: Tone; className?: string; title?: string }) {
   return (
     <span

@@ -1,4 +1,4 @@
-/** Formatting pinned to one locale and time zone so server and client output match. */
+// date and number formatting
 const TZ = "Asia/Manila";
 const LOCALE = "en-PH";
 
@@ -11,7 +11,6 @@ export const fmtLitres = (n: number) => `${Number.isInteger(n) ? n : n.toFixed(2
 export const fmtHours = (n: number) => `${n} h`;
 export const fmtPhp = (n: number) => `PHP ${n.toLocaleString(LOCALE, { maximumFractionDigits: 2 })}`;
 
-/** Inclusive count of calendar days (Asia/Manila) from a to b. */
 export function daysBetween(a: string, b: string) {
   const k = (iso: string) => Date.parse(new Date(iso).toLocaleDateString("en-CA", { timeZone: TZ }) + "T00:00:00Z");
   return Math.max(1, Math.round((k(b) - k(a)) / 86_400_000) + 1);

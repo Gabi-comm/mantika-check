@@ -1,3 +1,4 @@
+// data-driven part: kinetic tpc model fitted on the frying-oil dataset
 import modelExport from "../data/model_export.json";
 import { heatToC } from "./inputs";
 import type { Heat, OilBatch, Session, TopUp } from "./types";

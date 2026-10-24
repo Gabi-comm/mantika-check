@@ -1,3 +1,4 @@
+// turns logged sessions into model inputs (hours, heat, oil stability)
 import type { Heat, OilType, Session } from "./types";
 
 // [S8][S9]

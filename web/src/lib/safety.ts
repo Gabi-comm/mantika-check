@@ -1,3 +1,4 @@
+// symbolic part: hard safety rules that override everything else
 import { TPC_LIMIT } from "./model";
 import type { Action, Sign } from "./types";
 

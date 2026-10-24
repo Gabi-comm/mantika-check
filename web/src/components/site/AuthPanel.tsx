@@ -1,5 +1,6 @@
 "use client";
 
+// sign in / create account card
 import { useEffect, useState, type FormEvent } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -69,7 +70,6 @@ function Field({
   );
 }
 
-/** Shown instead of the form when someone is already signed in. */
 function SignedIn({ name }: { name: string }) {
   const [busy, setBusy] = useState(false);
   return (
@@ -98,7 +98,6 @@ function SignedIn({ name }: { name: string }) {
   );
 }
 
-/** Sign-in and account creation through Supabase Auth (frontend/auth.ts); local-only when Supabase isn't configured. */
 export function AuthPanel() {
   const cloud = useCloud();
   const signedIn = cloud.email !== null;
@@ -117,7 +116,6 @@ function AuthForm() {
   const [touched, setTouched] = useState(false);
   const [busy, setBusy] = useState<"form" | "google" | null>(null);
   const [done, setDone] = useState(false);
-  // A short "welcome" beat on the button, then the card lifts away into the workspace.
   const enter = () => {
     setDone(true);
     setTimeout(() => router.push("/app"), 520);
@@ -155,7 +153,6 @@ function AuthForm() {
   async function google() {
     setBusy("google");
     const res = await signInWithGoogle();
-    // With Supabase the browser is leaving for Google; keep the spinner until it does.
     if (res.ok && res.notice === "redirect") return;
     if (res.ok) enter();
     else {
@@ -172,7 +169,6 @@ function AuthForm() {
   };
 
   useEffect(() => {
-    // /auth/callback sends people back here when a Google or email link fails.
     if (new URLSearchParams(window.location.search).get("auth") === "failed")
       // eslint-disable-next-line react-hooks/set-state-in-effect
       setFormError("That sign-in link didn't work or has expired. Please try again.");

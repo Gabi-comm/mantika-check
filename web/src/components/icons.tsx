@@ -1,13 +1,9 @@
+// icons drawn in ollie's rough ink style
 import { forwardRef, useId } from "react";
 import * as L from "lucide-react";
 import type { LucideIcon, LucideProps } from "lucide-react";
 import { cx } from "@/frontend/format";
 
-/**
- * Icon set drawn in Ollie's hand-inked style: chunky round strokes with the same rough edge as the mascot
- * (the shared `#ink-rough` filter from InkDefs). Line icons are lucide shapes run through that ink;
- * droplets are mini Ollies. Import icons from here, not from lucide-react.
- */
 export type IconProps = LucideProps;
 export type Icon = LucideIcon;
 
@@ -21,7 +17,6 @@ function ink(Base: LucideIcon, name: string): LucideIcon {
 
 const DROP = "M12 1.6C10.4 4.6 6.4 8.8 5 12.3 3.4 16.6 6.4 21.6 12 21.6S20.6 16.6 19 12.3C17.6 8.8 13.6 4.6 12 1.6Z";
 
-/** A mini Ollie: filled drop, eyes cut out so it reads on any background. */
 const OllieDrop = forwardRef<SVGSVGElement, LucideProps>(function OllieDrop({ className, size = 24, color = "currentColor", strokeWidth: _sw, absoluteStrokeWidth: _a, ...rest }, ref) {
   void _sw;
   void _a;
@@ -90,6 +85,9 @@ export const GitBranch = ink(L.GitBranch, "GitBranch");
 export const HeartPulse = ink(L.HeartPulse, "HeartPulse");
 export const History = ink(L.History, "History");
 export const Info = ink(L.Info, "Info");
+export const House = ink(L.House, "House");
+export const Sparkles = ink(L.Sparkles, "Sparkles");
+export const BookOpen = ink(L.BookOpen, "BookOpen");
 export const LayoutDashboard = ink(L.LayoutDashboard, "LayoutDashboard");
 export const Loader2 = ink(L.Loader2, "Loader2");
 export const Lock = ink(L.Lock, "Lock");
@@ -127,7 +125,6 @@ export const Wallet = ink(L.Wallet, "Wallet");
 export const WifiOff = ink(L.WifiOff, "WifiOff");
 export const X = ink(L.X, "X");
 
-/** The shared ink filter. Rendered once in the root layout. */
 export function InkDefs() {
   return (
     <svg aria-hidden="true" width="0" height="0" className="pointer-events-none absolute">

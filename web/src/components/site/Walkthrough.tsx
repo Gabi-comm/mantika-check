@@ -1,11 +1,11 @@
 "use client";
 
+// step by step walkthrough on the home page
 import { useRef, useState, type KeyboardEvent, type ReactNode } from "react";
 import { Check, TriangleAlert } from "@/components/icons";
 import { copy } from "@/vendor/copy";
 import { cx } from "@/frontend/format";
 
-/** Static, non-interactive replicas of each workspace screen (inert), driven by an accessible tab list. */
 function Seg({ items, on }: { items: string[]; on: number }) {
   return (
     <div className="grid gap-1.5" style={{ gridTemplateColumns: `repeat(${items.length}, minmax(0,1fr))` }}>

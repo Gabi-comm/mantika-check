@@ -1,5 +1,6 @@
 "use client";
 
+// keeps the signed-in user's data in sync with supabase
 import { useSyncExternalStore } from "react";
 import type { SupabaseClient } from "@supabase/supabase-js";
 import { supabaseBrowser } from "@/supabase/client";
@@ -7,11 +8,6 @@ import { SUPABASE_CONFIGURED } from "@/supabase/config";
 import { clearAll, hydrate, resetDemo, vendorStore } from "./store";
 import { fingerprints, fromRows, mergeIntoAccount, toRows, type BatchRow, type CloudRows, type EventRow, type ProfileRow } from "./cloudRows";
 
-/**
- * Mirrors the signed-in vendor's workspace to Supabase.
- * Sign-in pulls the account and merges it with records made on this device; every later change is pushed
- * (debounced, only rows that changed). Offline changes stay on the device and go up when the connection returns.
- */
 export type CloudStatus = "local" | "signed-out" | "loading" | "synced" | "saving" | "offline" | "error";
 export interface CloudState {
   status: CloudStatus;
@@ -80,7 +76,6 @@ async function push(sb: SupabaseClient) {
 
   set({ status: "saving" });
   try {
-    // Batches before events: events reference their batch.
     if (batches.length) {
       const { error } = await sb.from("batches").upsert(batches.map((b) => ({ ...b, user_id: uid })), { onConflict: "user_id,id" });
       if (error) throw error;
@@ -116,14 +111,12 @@ function schedulePush(delay = 700) {
   }, delay);
 }
 
-/** Starts the sync once per tab (AppShell mounts it). Returns a cleanup. */
 export function startCloudSync(): () => void {
   const sb = supabaseBrowser();
   if (!sb) return () => {};
   if (started++ > 0) return () => void started--;
 
   const { data } = sb.auth.onAuthStateChange((event, session) => {
-    // Supabase calls must not run inside this callback; defer them.
     setTimeout(() => {
       const uid = session?.user.id ?? null;
       if (!uid) {
@@ -132,7 +125,6 @@ export function startCloudSync(): () => void {
         ready = false;
         pushed = new Map();
         set({ status: "signed-out", email: null, username: null, lastSyncedAt: null });
-        // Do not leave a vendor's records on a shared phone after they sign out.
         if (wasSignedIn && event === "SIGNED_OUT") resetDemo();
         return;
       }
@@ -151,7 +143,6 @@ export function startCloudSync(): () => void {
   };
 }
 
-/** Deletes the vendor's batches and events in the account, then on this device. Profile row stays. */
 export async function clearEverywhere(): Promise<boolean> {
   const sb = supabaseBrowser();
   if (sb && userId) {

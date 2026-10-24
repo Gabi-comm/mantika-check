@@ -1,5 +1,6 @@
 "use client";
 
+// intro animation on the website
 import { useEffect, useState } from "react";
 import { Ollie } from "@/components/Ollie";
 import { Logo } from "@/components/Logo";
@@ -15,12 +16,10 @@ const GLOW: Record<Action, string> = {
   change_soon: "var(--ollie-worn)",
   change_now: "var(--ollie-spent)",
 };
-/** Scene timeline in ms. Keep `--intro-length` in globals.css in step with END. */
 const MOOD_AT = [1500, 2100, 2700, 3300];
 const BRAND_AT = 4100;
 const END = 5900;
 
-/** Short intro reel on every full load of the website: Ollie lands, runs through the four statuses, then the lockup. */
 export function Intro() {
   const [scene, setScene] = useState<Scene>("drop");
   const [mood, setMood] = useState(0);

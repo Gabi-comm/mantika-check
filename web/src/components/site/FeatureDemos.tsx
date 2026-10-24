@@ -1,10 +1,10 @@
+// small animated demos for the features page
 import type { CSSProperties, ReactNode } from "react";
 import { Check, Ban, TriangleAlert, Droplets, CircleCheck, Timer, RefreshCw, ClipboardCheck } from "@/components/icons";
 import { Ollie } from "@/components/Ollie";
 import { copy } from "@/vendor/copy";
 import type { Action } from "@/vendor/types";
 
-/** Looping, decorative mini-demos for the Features page. Pure CSS; frozen by prefers-reduced-motion. */
 const d = (s: number) => ({ "--d": `${s}s` }) as CSSProperties;
 
 function Frame({ children, label }: { children: ReactNode; label: string }) {

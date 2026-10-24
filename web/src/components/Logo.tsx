@@ -1,12 +1,8 @@
+// brand logo
 import { cx } from "@/frontend/format";
 
 const MIN_MARK = 24;
 
-/**
- * Approved brand mark (public/brand/mantika-check-mark*.svg) drawn inline, plus the HTML wordmark,
- * in the brand-board lockup proportions. Inline so the mark has no tile and follows the theme:
- * primary colours on light, reversed colours on dark.
- */
 export function Logo({ height = 32, reversed = false, className }: { height?: number; reversed?: boolean; className?: string }) {
   const h = Math.max(height, MIN_MARK);
   return (

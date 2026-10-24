@@ -1,3 +1,4 @@
+// fixed advice text used when the llm is off or fails
 import { isTipId, type TipId } from "./tips";
 import type { Action, Advice, OilStatus } from "./types";
 

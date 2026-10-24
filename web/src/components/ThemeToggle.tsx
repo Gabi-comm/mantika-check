@@ -1,5 +1,6 @@
 "use client";
 
+// dark / light switch
 import { flushSync } from "react-dom";
 import { Moon, Sun } from "@/components/icons";
 import { useSettings } from "@/frontend/settings";
@@ -9,7 +10,6 @@ export function ThemeToggle({ className }: { className?: string }) {
   const { settings, update } = useSettings();
   const dark = settings.theme === "dark";
 
-  // The new theme spreads out in a circle from the button; without View Transitions it switches instantly.
   function toggle(e: React.MouseEvent<HTMLButtonElement>) {
     const next = dark ? "light" : "dark";
     const html = document.documentElement;

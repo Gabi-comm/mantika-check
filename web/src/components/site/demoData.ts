@@ -1,8 +1,8 @@
+// demo numbers for the website
 import { demoState } from "@/vendor/seed";
 import { engineAdapter } from "@/vendor/adapter";
 import { activeBatchOf, batchTotals, hoursByDay, latestCheck, sortedEvents } from "@/vendor/selectors";
 
-/** Website previews render the same deterministic demo dataset the workspace starts with. */
 export function demoSnapshot() {
   const state = demoState();
   const batch = activeBatchOf(state)!;

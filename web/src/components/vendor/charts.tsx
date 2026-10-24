@@ -1,21 +1,16 @@
 "use client";
 
+// usage charts (hours per day, heat split, foods)
 import { useState } from "react";
 import type { FoodId, Heat } from "@/vendor/types";
 import { copy } from "@/vendor/copy";
 import { cx, fmtDayLabel } from "@/frontend/format";
 import { useCountUp, useInView } from "@/frontend/motion";
 
-/**
- * Small dependency-free SVG/CSS charts. Each one is drawn from real records (demo or user)
- * and ships a data table for screen readers and anyone who prefers numbers.
- * Bars grow in (transform only) when the chart scrolls into view; the hovered item lifts while the rest dim.
- */
 const HEAT_FILL: Record<Heat, string> = { low: "var(--heat-low)", medium: "var(--heat-medium)", high: "var(--heat-high)" };
 const HEATS: Heat[] = ["low", "medium", "high"];
 const GROW = "cubic-bezier(0.22, 1, 0.36, 1)";
 
-/** Counts up to `value`; whole numbers stay whole, others keep one decimal. */
 function Num({ value, run }: { value: number; run: boolean }) {
   const v = useCountUp(value, run);
   return <>{Number.isInteger(value) ? Math.round(v) : v.toFixed(1)}</>;

@@ -1,3 +1,4 @@
+// help text per section
 import type { ReactNode } from "react";
 import { BatchDemo, CheckDemo, HistoryDemo, LogDemo, StatusDemo, TopUpDemo } from "@/components/site/FeatureDemos";
 
@@ -11,7 +12,6 @@ export interface HelpEntry {
   demo?: ReactNode;
 }
 
-/** What each workspace section does. Shown in the help sidebar; the first five also drive the guided tour. */
 export const HELP: Record<HelpId, HelpEntry> = {
   dashboard: {
     id: "dashboard",
@@ -128,7 +128,6 @@ export function helpForPath(path: string): HelpEntry {
   return HELP.dashboard;
 }
 
-/** Guided-tour stops, in order. Settings and About & Limits are deliberately left out. */
 export const TOUR_STOPS: { id: HelpId; target: string }[] = [
   { id: "dashboard", target: "dashboard" },
   { id: "log", target: "log" },

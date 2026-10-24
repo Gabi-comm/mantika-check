@@ -1,10 +1,10 @@
 "use client";
 
+// scroll-in and count-up helpers for the charts
 import { useEffect, useRef, useState } from "react";
 
 const reduced = () => typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-/** True once the element has scrolled into view (immediately under reduced motion or without IntersectionObserver). */
 export function useInView<T extends Element>(margin = "0px 0px -10% 0px") {
   const ref = useRef<T>(null);
   const [shown, setShown] = useState(false);
@@ -29,7 +29,6 @@ export function useInView<T extends Element>(margin = "0px 0px -10% 0px") {
   return [ref, shown] as const;
 }
 
-/** Eases a number from its previous value to `target` (from 0 the first time `run` turns true). */
 export function useCountUp(target: number, run = true, ms = 700) {
   const [value, setValue] = useState(0);
   const from = useRef(0);

@@ -1,13 +1,9 @@
 "use client";
 
+// sign up / sign in / google / sign out
 import { supabaseBrowser } from "@/supabase/client";
 import { SUPABASE_CONFIGURED, SUPABASE_KEY, SUPABASE_URL } from "@/supabase/config";
 
-/**
- * Auth boundary. With Supabase configured (see supabase/config.ts) every call goes to Supabase Auth;
- * without it the calls only validate input and resolve, so the local demo keeps working.
- * Passwords are never stored or logged here.
- */
 export interface SignUpInput {
   email: string;
   username: string;
@@ -17,12 +13,10 @@ export interface SignInInput {
   email: string;
   password: string;
 }
-/** `notice` is set when the account needs one more step (e.g. confirming the email) before it can sign in. */
 export type AuthResult = { ok: true; notice?: string } | { ok: false; error: string };
 
 export const AUTH_CONNECTED = SUPABASE_CONFIGURED;
 
-/** Set on a successful sign-in; the workspace reads it once to play the welcome (components/WelcomeSplash). */
 export const WELCOME_KEY = "mantika.welcome";
 function markWelcome() {
   try {
@@ -74,7 +68,6 @@ export async function signUp(input: SignUpInput): Promise<AuthResult> {
     options: { data: { username: input.username.trim().toLowerCase() }, emailRedirectTo: callbackUrl() },
   });
   if (authError) return { ok: false, error: friendly(authError.message) };
-  // Supabase hides existing emails behind an empty identities list instead of an error.
   if (data.user && data.user.identities?.length === 0) return { ok: false, error: "An account with this email already exists. Sign in instead." };
   if (data.session) {
     markWelcome();
@@ -95,14 +88,12 @@ export async function signIn(input: SignInInput): Promise<AuthResult> {
   return { ok: true };
 }
 
-/** Redirects to Google; the browser comes back through /auth/callback. */
 export async function signInWithGoogle(): Promise<AuthResult> {
   const supabase = supabaseBrowser();
   if (!supabase) {
     markWelcome();
     return { ok: true };
   }
-  // Supabase answers a disabled provider with a raw JSON page; check first so the form can say so instead.
   try {
     const res = await fetch(`${SUPABASE_URL}/auth/v1/settings`, { headers: { apikey: SUPABASE_KEY } });
     const settings = (await res.json()) as { external?: { google?: boolean } };
@@ -110,7 +101,6 @@ export async function signInWithGoogle(): Promise<AuthResult> {
   } catch {
     return { ok: false, error: friendly("network") };
   }
-  // Same tab comes back from Google, so sessionStorage survives the round trip.
   markWelcome();
   const { error } = await supabase.auth.signInWithOAuth({ provider: "google", options: { redirectTo: callbackUrl() } });
   return error ? { ok: false, error: friendly(error.message) } : { ok: true, notice: "redirect" };

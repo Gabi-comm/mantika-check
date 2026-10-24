@@ -1,3 +1,4 @@
+// totals and per-day numbers from a batch
 import type { Batch, CheckEvent, FoodId, Heat, SessionEvent, VendorState } from "./types";
 
 export const activeBatchOf = (s: VendorState): Batch | null => s.batches.find((b) => b.id === s.activeBatchId) ?? null;
@@ -35,7 +36,6 @@ export function latestCheck(b: Batch | null): CheckEvent | null {
   return best;
 }
 
-/** Hours per calendar day (Asia/Manila), split by heat. Source for the usage chart. */
 export function hoursByDay(b: Batch | null) {
   const map = new Map<string, Record<Heat, number>>();
   for (const e of b?.events ?? []) {
@@ -56,7 +56,6 @@ export function sortedEvents(b: Batch) {
 
 export const sessionsOf = (b: Batch) => b.events.filter((e): e is SessionEvent => e.kind === "session");
 
-/** Distinct calendar days (Asia/Manila) with at least one logged session. */
 export function fryingDays(b: Batch | null) {
   return new Set((b?.events ?? []).filter((e) => e.kind === "session").map((e) => dayKey(e.at))).size;
 }

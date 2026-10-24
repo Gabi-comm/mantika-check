@@ -1,3 +1,4 @@
+// mamdani fuzzy inference (fuzzify, fire rules, defuzzify)
 export type Membership = (x: number) => number;
 
 export interface FuzzyVar {

@@ -1,6 +1,4 @@
--- Mantika Check: per-account workspace (profile, oil batches, batch events).
--- Every row belongs to one auth user; RLS limits each user to their own rows.
--- Tables are granted to `authenticated` explicitly (new public tables are not auto-exposed to the Data API).
+-- mantika check: each user's profile, batches and events (rls keeps users to their own rows)
 
 create schema if not exists private;
 revoke all on schema private from public, anon, authenticated;
@@ -62,8 +60,7 @@ create trigger batches_touch before update on public.batches for each row execut
 create trigger batch_events_touch before update on public.batch_events for each row execute function private.touch_updated_at();
 
 -- ---------- profile row on sign-up ----------
--- Runs as the table owner because the new user cannot insert yet. Lives in the unexposed `private` schema.
--- username comes from sign-up metadata (display only, never used for authorization); a taken name aborts sign-up.
+-- makes the profile row on sign-up; a taken username stops the sign-up
 create function private.handle_new_user() returns trigger
 language plpgsql security definer set search_path = '' as $$
 declare
@@ -104,7 +101,7 @@ create policy "events: update own" on public.batch_events for update to authenti
   using ((select auth.uid()) = user_id) with check ((select auth.uid()) = user_id);
 create policy "events: delete own" on public.batch_events for delete to authenticated using ((select auth.uid()) = user_id);
 
--- ---------- Data API grants (signed-in users only; anon gets nothing) ----------
+-- ---------- grants: signed-in users only ----------
 grant usage on schema public to authenticated;
 grant select, update (stall_name, setup, active_batch_id) on public.profiles to authenticated;
 grant select, insert, update, delete on public.batches to authenticated;

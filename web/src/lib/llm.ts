@@ -1,3 +1,4 @@
+// hugging face call for the advice text, falls back to the template
 import OpenAI from "openai";
 import { ADVICE_REPLY_JSON_SCHEMA, SYSTEM_RULES, buildFacts, validateReply } from "./advice";
 import { templateAdvice, tipsFor } from "./templates";

@@ -1,3 +1,4 @@
+// dashboard preview on the home page
 import { LayoutDashboard, Timer, ClipboardCheck, History, Settings, Eye } from "@/components/icons";
 import { copy } from "@/vendor/copy";
 import { fmtDate, fmtLitres } from "@/frontend/format";
@@ -15,13 +16,11 @@ function Annotation({ children, className }: { children: React.ReactNode; classN
   );
 }
 
-/** Layered product preview built from real UI components and the deterministic demo dataset. */
 export function HeroPreview() {
   const { batch, totals, days, check, events, result } = demoSnapshot();
   const a = result.status.action;
   return (
     <figure className="relative" aria-label="Preview of the MANTIKA CHECK dashboard using fictional demo data">
-      {/* main window */}
       <div className="relative z-10 overflow-hidden rounded-[var(--radius-l)] border border-line-strong/70 bg-surface shadow-[0_24px_60px_-28px_rgba(11,61,46,0.45)]">
         <div className="flex items-center justify-between border-b border-line bg-pale/70 px-4 py-2">
           <span className="font-mono text-[0.7rem] text-gray">mantika-check / dashboard</span>
@@ -84,7 +83,6 @@ export function HeroPreview() {
         </div>
       </div>
 
-      {/* layered cards (desktop) */}
       <div className="relative z-20 mt-4 grid gap-4 sm:grid-cols-2 lg:absolute lg:-bottom-14 lg:-left-16 lg:mt-0 lg:block lg:w-64">
         <div className="rounded-[var(--radius-m)] border border-line bg-surface p-4 shadow-[0_18px_40px_-24px_rgba(20,37,54,0.5)]">
           <p className="font-mono text-[0.66rem] uppercase tracking-[0.12em] text-teal">Latest quick check</p>

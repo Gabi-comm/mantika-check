@@ -1,9 +1,6 @@
 @import "tailwindcss";
 
-/* ------------------------------------------------------------------
-   Clear Lab design tokens. Palette is fixed by the brand guide;
-   change values here, never inline.
-   ------------------------------------------------------------------ */
+/* design tokens */
 :root {
   --forest: #0b3d2e;
   --green: #11634a;
@@ -17,7 +14,7 @@
   --line: #dbe4df;
   --line-strong: #b9c7c0;
 
-  /* status scale: each paired with an icon and a word, never colour alone */
+  /* status scale */
   --st-continue: #1f7a4d;
   --st-continue-bg: #e3f3ea;
   --st-monitor: #8a6200;
@@ -34,7 +31,7 @@
   --radius-l: 14px;
 }
 
-/* semantic surfaces: themed. forest, mint and white stay fixed for dark brand sections */
+/* semantic surfaces */
 :root {
   --surface: #ffffff;
   --night: #142536;
@@ -48,7 +45,7 @@
   color-scheme: light;
 }
 
-/* Ollie palette */
+/* ollie palette */
 :root {
   --ollie-fresh: #f4c64e;
   --ollie-used: #e9ae35;
@@ -161,7 +158,7 @@ p {
   border-radius: 4px;
 }
 
-/* scientific dot grid, used only behind hero and section openers */
+/* dot grid background */
 .dot-grid {
   background-color: var(--canvas);
   background-image: radial-gradient(circle at 1px 1px, color-mix(in srgb, var(--accent) 22%, transparent) 1px, transparent 0);
@@ -172,7 +169,7 @@ p {
   background-size: 22px 22px;
 }
 
-/* technical label: mono, uppercase, tracked */
+/* technical label */
 .eyebrow {
   font-family: var(--font-mono);
   font-size: 0.72rem;
@@ -220,10 +217,8 @@ p {
   padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 0.5rem);
 }
 
-/* ------------------------------------------------------------------
-   Motion. All of it is switched off by prefers-reduced-motion above.
-   ------------------------------------------------------------------ */
-/* Ollie: one motion per status (brand board "Ollie follows the batch"). */
+/* motion */
+/* ollie */
 .ollie-anim .ollie-pop,
 .ollie-anim .ollie-body,
 .ollie-anim .ollie-eyes,
@@ -247,7 +242,7 @@ p {
   transform-origin: 50% 0%;
 }
 
-/* keep: wide awake, little hops with a squash on landing, quick blinks */
+/* keep */
 .ollie-anim.ollie-keep .ollie-body {
   animation: ollie-hop 2.2s cubic-bezier(0.45, 0, 0.55, 1) infinite;
 }
@@ -261,7 +256,7 @@ p {
   animation: ollie-kick 2.2s ease-in-out infinite reverse;
 }
 
-/* monitor: leans side to side, eyes glance, brow lifts */
+/* monitor */
 .ollie-anim.ollie-monitor .ollie-body {
   animation: ollie-lean 4.8s ease-in-out infinite;
 }
@@ -273,7 +268,7 @@ p {
   animation: ollie-brow 4.8s ease-in-out infinite;
 }
 
-/* change soon: nervous tremble, eyes widen, knees knock, sweat forms and falls */
+/* change soon */
 .ollie-anim.ollie-change_soon .ollie-body {
   animation: ollie-tremble 0.9s linear infinite;
 }
@@ -291,7 +286,7 @@ p {
   animation: ollie-drip 1.8s ease-in infinite;
 }
 
-/* change now: slumped, slow heavy breaths, eyes droop, smoke curls up */
+/* change now */
 .ollie-anim.ollie-change_now .ollie-body {
   animation: ollie-breathe 3.8s ease-in-out infinite;
 }
@@ -479,7 +474,7 @@ p {
   }
 }
 
-/* scroll reveal: added by <Reveal>; content is visible without JS */
+/* scroll reveal */
 .reveal {
   transition:
     opacity 0.7s cubic-bezier(0.2, 0.7, 0.2, 1),
@@ -723,10 +718,7 @@ html:not([data-theme="dark"]) .theme-dark-only {
   animation: demo-tick 6s infinite both;
 }
 
-/* ------------------------------------------------------------------
-   Section changes. Route templates wrap each page in a ViewTransition;
-   the old page lifts away and the new one settles in.
-   ------------------------------------------------------------------ */
+/* section changes */
 html {
   scroll-behavior: smooth;
 }
@@ -759,7 +751,7 @@ html {
   }
 }
 
-/* Wordmark colours from the brand board: Forest on light, white beside the reversed mark. */
+/* wordmark colours from the brand board */
 .logo-word {
   color: #0b3d2e;
 }
@@ -767,7 +759,7 @@ html[data-theme="dark"] .logo-word {
   color: #fff;
 }
 
-/* Workspace sidebar: hidden on request, sliding the content over. */
+/* workspace sidebar */
 @media (min-width: 1024px) {
   .app-grid {
     display: grid;
@@ -789,7 +781,7 @@ html[data-theme="dark"] .logo-word {
   }
 }
 
-/* Brand mark colours (brand board): primary on light, reversed on dark. */
+/* brand mark colours */
 .logo-mark {
   --mark-1: #0b3d2e;
   --mark-2: #11634a;
@@ -804,7 +796,7 @@ html[data-theme="dark"] .logo-mark,
   --mark-sq: #fff;
 }
 
-/* Theme switch: the new theme spreads out in a circle from the toggle (ThemeToggle sets the origin). */
+/* theme switch */
 html.theme-switching::view-transition-old(root),
 html.theme-switching::view-transition-new(root) {
   animation: none;
@@ -822,7 +814,7 @@ html.theme-switching::view-transition-new(root) {
   }
 }
 
-/* Popups */
+/* popups */
 @keyframes dialog-in {
   from {
     opacity: 0;
@@ -833,7 +825,7 @@ html.theme-switching::view-transition-new(root) {
   animation: dialog-in 0.32s cubic-bezier(0.2, 0.8, 0.2, 1) both;
 }
 
-/* Sign in / create account: rows slide open, text crossfades. */
+/* sign in / create account */
 .collapse-y {
   display: grid;
   grid-template-rows: 0fr;
@@ -861,7 +853,7 @@ span.auth-swap {
   display: inline-block;
 }
 
-/* Intro reel */
+/* intro reel */
 .intro-glow {
   background: radial-gradient(42% 38% at 50% 42%, color-mix(in srgb, var(--glow) 22%, transparent), transparent 70%);
   transition: background 0.6s ease;
@@ -882,7 +874,7 @@ span.auth-swap {
   animation: intro-progress 5.9s linear both;
 }
 
-/* Horizontal swipe rows on phones */
+/* horizontal swipe rows on phones */
 .no-scrollbar {
   scrollbar-width: none;
 }
@@ -890,7 +882,7 @@ span.auth-swap {
   display: none;
 }
 
-/* Bottom sheet and notification */
+/* bottom sheet and notification */
 @keyframes sheet-in {
   from {
     transform: translateY(100%);
@@ -929,9 +921,7 @@ span.auth-swap {
   animation: toast-ring 1.6s 0.4s ease-in-out 2;
 }
 
-/* ------------------------------------------------------------------
-   Ollie's ink: icons and indicators share the mascot's rough edge.
-   ------------------------------------------------------------------ */
+/* ollie's ink */
 .ink {
   filter: url(#ink-rough);
 }
@@ -951,9 +941,7 @@ span.auth-swap {
   }
 }
 
-/* ------------------------------------------------------------------
-   Ollie's world (OllieStage + <Ollie scene>): glow, shadow, bubbles, gaze, lean, boop.
-   ------------------------------------------------------------------ */
+/* ollie's world */
 .ollie-stage {
   cursor: pointer;
   touch-action: manipulation;
@@ -1000,7 +988,7 @@ span.auth-swap {
   animation-delay: 2.8s;
   animation-duration: 4.6s;
 }
-/* tired oil bubbles slower and darker; fresh oil fizzes */
+/* tired oil bubbles slower and darker */
 .ollie-anim.ollie-change_now .ollie-bubble {
   animation-duration: 6s;
 }
@@ -1099,9 +1087,7 @@ span.auth-swap {
   }
 }
 
-/* ------------------------------------------------------------------
-   Charts: hover tooltip.
-   ------------------------------------------------------------------ */
+/* charts */
 .chart-tip {
   translate: -50% 0;
   animation: chart-tip 0.18s ease-out both;
@@ -1113,10 +1099,7 @@ span.auth-swap {
   }
 }
 
-/* ------------------------------------------------------------------
-   Sign-in → workspace. The card lifts away, Ollie greets (WelcomeSplash),
-   then the overlay opens like a lid while the workspace settles in.
-   ------------------------------------------------------------------ */
+/* sign-in → workspace */
 .auth-done {
   animation: auth-done 0.55s cubic-bezier(0.4, 0, 0.2, 1) 0.2s both;
 }

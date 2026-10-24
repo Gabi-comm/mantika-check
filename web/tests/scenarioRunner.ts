@@ -1,3 +1,4 @@
+// runs the scenario table through the engine
 import { getOilStatus } from "@/lib/engine";
 import { DEFAULT_FUZZY_PARAMS, type FuzzyParams } from "@/lib/rules";
 import type { Food, Heat, OilBatch, OilStatus, OilType, Session, Sign, TopUp } from "@/lib/types";

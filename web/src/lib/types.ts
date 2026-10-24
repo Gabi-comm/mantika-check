@@ -1,3 +1,4 @@
+// shared types between the engine and the ui
 export type Action = "keep" | "monitor" | "change_soon" | "change_now";
 export type Heat = "low" | "medium" | "high";
 // [S7]

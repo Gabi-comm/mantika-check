@@ -1,5 +1,6 @@
 "use client";
 
+// welcome screen right after login
 import { useEffect, useState } from "react";
 import { useCloud } from "@/vendor/sync";
 import { WELCOME_KEY } from "@/frontend/auth";
@@ -9,11 +10,6 @@ import { Check, Loader2 } from "./icons";
 const MIN_MS = 1500;
 const MAX_MS = 5000;
 
-/**
- * Bridges sign-in and the workspace: Ollie greets the vendor while their account loads,
- * then the overlay lifts away and the dashboard settles in underneath.
- * Shown once, right after a sign-in (flag set by frontend/auth.ts); a tap or any key skips it.
- */
 export function WelcomeSplash() {
   const cloud = useCloud();
   const [phase, setPhase] = useState<"off" | "in" | "out">("off");

@@ -1,3 +1,4 @@
+// main pipeline: inputs -> tpc estimate -> safety rules -> fuzzy -> action
 import { breadedShare, heatToC, lowerHeat, oilCox } from "./inputs";
 import { TPC_LIMIT, computeState, hoursUntil, isBeyondData } from "./model";
 import { DEFAULT_FUZZY_PARAMS, inferUrgency, urgencyToAction, type FuzzyParams } from "./rules";

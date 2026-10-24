@@ -1,3 +1,4 @@
+// sample statuses for tests and demos
 import { getOilStatus } from "./engine";
 import { templateAdvice } from "./templates";
 import type { Advice, Check, Food, Heat, OilBatch, OilStatus, VendorProfile } from "./types";

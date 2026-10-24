@@ -1,5 +1,6 @@
 "use client";
 
+// form inputs
 import { Check } from "@/components/icons";
 import type { ReactNode } from "react";
 import { cx } from "@/frontend/format";
@@ -19,7 +20,6 @@ export function Fieldset({ legend, hint, children, error }: { legend: string; hi
   );
 }
 
-/** Large preset buttons in a row. aria-pressed conveys selection to assistive tech. */
 export function Segmented<T extends string | number>({
   options,
   value,
@@ -176,7 +176,6 @@ export function TextField({
   );
 }
 
-/** Selection card for short option sets (oil type, reasons). */
 export function OptionCard({ on, onClick, title, sub }: { on: boolean; onClick: () => void; title: string; sub?: string }) {
   return (
     <button

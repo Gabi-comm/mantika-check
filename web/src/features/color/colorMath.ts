@@ -1,3 +1,4 @@
+// colour maths for the analyzer
 export type RGB = { r: number; g: number; b: number };
 export type HSV = { h: number; s: number; v: number };
 export type LAB = { l: number; a: number; b: number };
@@ -23,7 +24,6 @@ function srgbToLinear(c: number) {
   return cn <= 0.04045 ? cn / 12.92 : Math.pow((cn + 0.055) / 1.055, 2.4);
 }
 
-// D65 reference white, standard sRGB -> CIEXYZ -> CIELAB
 export function rgbToLab({ r, g, b }: RGB): LAB {
   const rl = srgbToLinear(r), gl = srgbToLinear(g), bl = srgbToLinear(b);
   const x = rl * 0.4124564 + gl * 0.3575761 + bl * 0.1804375;
@@ -62,7 +62,6 @@ export const REFERENCE_COLORS: ReferenceColor[] = [
   { id: "blue", label: "Blue band", hex: "#2C6DB5", rgb: { r: 44, g: 109, b: 181 } },
 ];
 
-/** Averages pixel colour in a canvas region. Client-side calculation only. */
 export function averageColorFromCanvas(
   ctx: CanvasRenderingContext2D,
   x: number,

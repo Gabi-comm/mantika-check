@@ -1,3 +1,4 @@
+// symbolic part: fuzzy membership sets and the rule base
 import { infer, trap, tri, type FuzzyVar, type InferResult, type Membership, type Rule } from "./fuzzy";
 import type { Action } from "./types";
 

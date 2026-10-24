@@ -1,5 +1,6 @@
 "use client";
 
+// theme setting
 import { createContext, useCallback, useContext, useEffect, useState, type ReactNode } from "react";
 import { SETTINGS_KEY } from "./boot";
 
@@ -33,7 +34,6 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
-    // Read after mount to avoid a hydration mismatch; the boot script has already applied attributes.
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setSettings(read());
     setReady(true);

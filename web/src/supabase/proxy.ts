@@ -1,8 +1,8 @@
+// refreshes the login cookie on each request
 import { NextResponse, type NextRequest } from "next/server";
 import { createServerClient } from "@supabase/ssr";
 import { SUPABASE_CONFIGURED, SUPABASE_KEY, SUPABASE_URL } from "./config";
 
-/** Refreshes the auth cookies on each request so server code always sees a valid session. */
 export async function updateSession(request: NextRequest) {
   let response = NextResponse.next({ request });
   if (!SUPABASE_CONFIGURED) return response;
@@ -19,7 +19,6 @@ export async function updateSession(request: NextRequest) {
     },
   });
 
-  // Must run before anything else touches the response; getClaims verifies the JWT.
   await supabase.auth.getClaims();
   return response;
 }

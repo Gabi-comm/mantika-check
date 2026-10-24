@@ -56,7 +56,6 @@ export default function DashboardPage() {
       <Flash />
 
       <div className="grid gap-5 xl:grid-cols-[minmax(0,1.65fr)_minmax(0,1fr)]">
-        {/* primary column */}
         <div className="min-w-0 space-y-5">
           <StatusPanel result={result} batchLabel={batch.label} />
           <div className="space-y-5 xl:hidden">
@@ -112,7 +111,6 @@ export default function DashboardPage() {
           </Panel>
         </div>
 
-        {/* secondary column */}
         <div className="min-w-0 space-y-5">
           <div className="hidden xl:block">
             <WhyPanel reasons={status.reasons} />
@@ -199,7 +197,6 @@ export default function DashboardPage() {
   );
 }
 
-/** Engine heat simulator for this batch. Never shown over a warning. */
 function HeatComparison({ result, batch }: { result: StatusResult; batch: Batch }) {
   const st = result.status;
   const blocked = !!st.hardRule || st.action === "change_now";

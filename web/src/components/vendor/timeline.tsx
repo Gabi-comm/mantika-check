@@ -1,3 +1,4 @@
+// batch event timeline
 import { Timer, Droplets, ClipboardCheck, RefreshCw, TriangleAlert } from "@/components/icons";
 import type { BatchEvent } from "@/vendor/types";
 import { copy } from "@/vendor/copy";
@@ -33,7 +34,6 @@ export function eventDetail(e: BatchEvent): string {
   }
 }
 
-/** Searchable text for history filtering. */
 export const eventText = (e: BatchEvent) => `${eventTitle(e)} ${eventDetail(e)}`.toLowerCase();
 
 const ICON = { session: Timer, topup: Droplets, check: ClipboardCheck, replaced: RefreshCw };

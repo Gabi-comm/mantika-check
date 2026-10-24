@@ -1,3 +1,4 @@
+// runs before every page to keep the session fresh
 import type { NextRequest } from "next/server";
 import { updateSession } from "@/supabase/proxy";
 

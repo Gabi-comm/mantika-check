@@ -1,5 +1,6 @@
 "use client";
 
+// layout for the log / check / top-up forms
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState, type ReactNode } from "react";
@@ -41,7 +42,6 @@ export function FormShell({ title, children, aside, requireBatch = true }: { tit
   );
 }
 
-/** Save then return to the dashboard with a confirmation; surface an error state if storage refused. */
 export function useSave() {
   const router = useRouter();
   const [failed, setFailed] = useState(false);
@@ -66,7 +66,6 @@ export function SaveError() {
   );
 }
 
-/** Sticky bottom action bar on phones so the primary button stays under the thumb. */
 export function SubmitBar({ children }: { children: ReactNode }) {
   return <div className="sticky bottom-20 z-20 -mx-4 mt-5 flex gap-2 border-t border-line bg-canvas/95 px-4 py-3 backdrop-blur sm:static sm:mx-0 sm:border-0 sm:bg-transparent sm:px-0 lg:bottom-0">{children}</div>;
 }

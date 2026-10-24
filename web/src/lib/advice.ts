@@ -1,3 +1,4 @@
+// facts and checks for the llm advice (reply must match the engine)
 import { z } from "zod";
 import { TPC_LIMIT } from "./model";
 import type { Action, OilStatus } from "./types";

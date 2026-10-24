@@ -1,3 +1,4 @@
+// heat simulator: how long the oil lasts and the cost at each heat
 import { heatToC } from "./inputs";
 import { MODEL, TPC_LIMIT, hoursUntil, isBeyondData } from "./model";
 import type { Heat } from "./types";

@@ -1,5 +1,6 @@
 "use client";
 
+// critical warning notification
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { BellRing, X } from "@/components/icons";
@@ -7,10 +8,6 @@ import { copy } from "@/vendor/copy";
 
 const DISMISS_KEY = "mantika.warning.dismissed";
 
-/**
- * Critical warning as a notification pinned to the top of the screen. It does not block the page;
- * closing it hides this warning for the rest of the visit, and a new warning shows again.
- */
 export function WarningDialog({ text }: { text: string }) {
   const [open, setOpen] = useState(false);
 
@@ -19,7 +16,6 @@ export function WarningDialog({ text }: { text: string }) {
     try {
       dismissed = sessionStorage.getItem(DISMISS_KEY) === text;
     } catch {}
-    // Read after mount: sessionStorage is not available during server rendering.
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setOpen(!dismissed);
   }, [text]);

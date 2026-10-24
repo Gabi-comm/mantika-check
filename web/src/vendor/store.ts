@@ -1,13 +1,10 @@
 "use client";
 
+// local storage for the workspace, seeds demo data on first visit
 import type { Batch, BatchEvent, ChangeReason, DemoScenario, Setup, VendorState } from "./types";
 import { demoState, emptyState } from "./seed";
 import { activeBatchOf } from "./selectors";
 
-/**
- * Persistence in this browser. First visit seeds the fictional demo dataset so the workspace is never blank.
- * When the vendor is signed in, vendor/sync.ts mirrors their own records to Supabase.
- */
 const KEY = "mantika.web.v2";
 
 let state: VendorState | null = null;
@@ -21,13 +18,11 @@ function load(): VendorState {
       if (parsed && parsed.version === 2) return { ...emptyState, ...parsed };
     }
   } catch {
-    /* fall through to seed */
   }
   const seeded = demoState();
   try {
     localStorage.setItem(KEY, JSON.stringify(seeded));
   } catch {
-    /* storage blocked: work in memory */
   }
   return seeded;
 }
@@ -62,7 +57,6 @@ export const vendorStore = {
     if (!state) state = load();
     return state;
   },
-  /** Server render and hydration pass: no data yet, the UI shows a skeleton. */
   getServerSnapshot(): VendorState | null {
     return null;
   },
@@ -133,7 +127,6 @@ export function replaceOil(reason: ChangeReason, newLitres: number, note?: strin
   });
 }
 
-/** Replaces everything on this device with one deterministic demo dataset. */
 export function loadDemoScenario(scenario: DemoScenario): boolean {
   return commit(demoState(scenario));
 }
@@ -142,7 +135,6 @@ export function resetDemo(): boolean {
   return commit(demoState("monitor"));
 }
 
-/** Keeps batches and events the user created; drops seeded ones. */
 export function removeDemoRecords(): boolean {
   const s = get();
   const batches = s.batches
@@ -159,7 +151,6 @@ export function removeDemoRecords(): boolean {
   });
 }
 
-/** Swaps in a whole workspace (used by the cloud sync after sign-in). */
 export function hydrate(next: VendorState): boolean {
   return commit(next);
 }

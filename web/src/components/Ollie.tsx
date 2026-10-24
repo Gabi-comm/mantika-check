@@ -1,14 +1,8 @@
+// ollie the mascot, changes with the oil status
 import { useId } from "react";
 import type { Action } from "@/vendor/types";
 import { cx } from "@/frontend/format";
 
-/**
- * Ollie, the oil-drop mascot. Colour, face and motion follow the batch status:
- * keep hops and blinks, monitor leans and glances, change soon trembles and sweats,
- * change now sags and breathes slowly under rising smoke. A status change pops the new look in.
- * `scene` adds the world around him: a glow in the batch colour, a ground shadow and oil bubbles rising.
- * Eyes and lean read --gx/--gy/--tilt from a parent (OllieStage sets them from the pointer).
- */
 const BODY: Record<Action, string> = {
   keep: "var(--ollie-fresh)",
   monitor: "var(--ollie-used)",
@@ -124,10 +118,6 @@ export function Ollie({
 
 const GLYPH_DROP = "M12 1.4C10.3 4.6 6.2 8.9 4.8 12.5 3.2 16.9 6.3 22 12 22S20.8 16.9 19.2 12.5C17.8 8.9 13.7 4.6 12 1.4Z";
 
-/**
- * Ollie as a status indicator: the drop and face without legs, in the batch colour for that status.
- * Sized by font size (1em) so it sits in text like an icon. Status words stay next to it; the face is a second cue.
- */
 export function StatusDrop({ state, className, title }: { state: Action; className?: string; title?: string }) {
   const eye = "var(--ollie-night)";
   return (
@@ -157,7 +147,6 @@ export function StatusDrop({ state, className, title }: { state: Action; classNa
   );
 }
 
-/** Plain drop, for bullets and small markers. */
 export function DropDot({ className, color = "currentColor" }: { className?: string; color?: string }) {
   return (
     <svg viewBox="0 0 24 24" className={cx("ink inline-block size-[0.8em] shrink-0", className)} aria-hidden="true">

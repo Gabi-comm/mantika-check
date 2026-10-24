@@ -1,3 +1,4 @@
+// status card, reasons, advice and forecast panels
 import { Info, Loader2, FileText } from "@/components/icons";
 import type { Action, AdviceResult, StatusResult } from "@/vendor/types";
 import { DATA_RANGE_HOURS } from "@/vendor/adapter";
@@ -11,7 +12,6 @@ const glyph = (state: Action) =>
   function StatusGlyph({ className }: { className?: string }) {
     return <StatusDrop state={state} className={className} />;
   };
-/** Status icons are tiny Ollies (face changes with the status), matching the mascot. */
 export const STATUS_ICON = { keep: glyph("keep"), monitor: glyph("monitor"), change_soon: glyph("change_soon"), change_now: glyph("change_now") } satisfies Record<Action, unknown>;
 export const STATUS_TONE = {
   keep: { text: "text-st-continue", bg: "bg-st-continue-bg", bar: "bg-st-continue", tag: "green" },
@@ -21,7 +21,6 @@ export const STATUS_TONE = {
 } as const;
 const ORDER: Action[] = ["keep", "monitor", "change_soon", "change_now"];
 
-/** Four-step scale drawn as an inked oil line; a mini Ollie rides the current step. Position, face and word carry meaning; colour is a fourth cue. */
 export function StatusScale({ action, compact }: { action: Action; compact?: boolean }) {
   const i = ORDER.indexOf(action);
   return (
@@ -106,7 +105,6 @@ export function AdvicePanel({ advice, loading, idx = "" }: { advice: AdviceResul
         {a ? (
           <>
             <p className="font-semibold text-ink">{a.headline}</p>
-            {/* `messageTaglish` is the engine field name; content rendered here is English. */}
             <p className="mt-1 text-[0.95rem] text-gray">{a.messageTaglish}</p>
             <ul className="mt-3 space-y-1.5">
               {a.tips.map((t) => (
@@ -140,7 +138,6 @@ export function AdvicePanel({ advice, loading, idx = "" }: { advice: AdviceResul
   );
 }
 
-/** Usage figures and forecast slots. Forecasts render only when the source can substantiate them. */
 export function ForecastPanel({ result }: { result: StatusResult }) {
   const st = result.status;
   const canForecast = !st.hardRule && result.validation !== "illustrative";

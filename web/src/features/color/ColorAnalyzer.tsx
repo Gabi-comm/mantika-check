@@ -1,5 +1,6 @@
 "use client";
 
+// experimental: estimate oil colour from a photo
 import { useEffect, useRef, useState } from "react";
 import { Upload, Camera, RotateCw, X, FlaskConical, Trash2, Save } from "@/components/icons";
 import { Button, Panel, PanelHead, PageHeader, Tag } from "@/components/ui";
@@ -32,7 +33,6 @@ export function ColorAnalyzer() {
 
   useEffect(() => () => void (src && URL.revokeObjectURL(src)), [src]);
 
-  // Draw the rotated bitmap itself so the region overlay matches the real pixel geometry.
   useEffect(() => {
     if (!src) return;
     let live = true;

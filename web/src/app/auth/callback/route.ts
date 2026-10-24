@@ -1,8 +1,8 @@
+// google login and email links come back here
 import { NextResponse, type NextRequest } from "next/server";
 import { supabaseServer } from "@/supabase/server";
 import { SUPABASE_CONFIGURED } from "@/supabase/config";
 
-/** Landing point for Google sign-in and email confirmation links (PKCE code exchange). */
 export async function GET(request: NextRequest) {
   const { searchParams, origin } = new URL(request.url);
   const code = searchParams.get("code");

@@ -7,7 +7,6 @@ import { bootScript } from "@/frontend/boot";
 import { InkDefs } from "@/components/icons";
 import { CloudSync } from "@/components/CloudSync";
 
-// Self-hosted (fontsource builds) so builds and offline use never depend on a font CDN.
 const jakarta = localFont({
   variable: "--font-jakarta",
   display: "swap",

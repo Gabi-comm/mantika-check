@@ -1,4 +1,5 @@
-export const MAX_FILE_BYTES = 10 * 1024 * 1024; // 10MB
+// image loading for the analyzer
+export const MAX_FILE_BYTES = 10 * 1024 * 1024;
 export const ACCEPTED_TYPES = ["image/jpeg", "image/png"];
 
 export function validateImageFile(file: File): string | null {
@@ -11,7 +12,6 @@ export function validateImageFile(file: File): string | null {
   return null;
 }
 
-/** Draws an image onto a canvas, applying 0/90/180/270deg rotation, and returns the canvas. */
 export function rotatedCanvas(img: HTMLImageElement, rotationDeg: number): HTMLCanvasElement {
   const canvas = document.createElement("canvas");
   const swap = rotationDeg === 90 || rotationDeg === 270;

@@ -1,5 +1,6 @@
 "use client";
 
+// first-time guided tour
 import { useCallback, useEffect, useLayoutEffect, useState } from "react";
 import { ArrowLeft, ArrowRight } from "@/components/icons";
 import { Ollie } from "@/components/Ollie";
@@ -37,7 +38,6 @@ function buildStops(): Stop[] {
   return [...stops, HELP_STOP].filter((s) => visible(s.target));
 }
 
-/** First-visit walkthrough of the workspace sections. Replay from Help or Settings. */
 export function Tour() {
   const [stops, setStops] = useState<Stop[]>([]);
   const [i, setI] = useState<number | null>(null);
@@ -50,7 +50,6 @@ export function Tour() {
     };
     const s = buildStops();
     if (s.length) return go(s);
-    // The sidebar may be sliding back in; measure again once it has.
     setTimeout(() => {
       const later = buildStops();
       if (later.length) go(later);

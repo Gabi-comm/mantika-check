@@ -65,7 +65,6 @@ function History() {
         <Panel className="px-6 py-12 text-center text-gray">{copy.history.empty}</Panel>
       ) : (
         <div className="grid gap-6 lg:grid-cols-[300px_minmax(0,1fr)]">
-          {/* batch list */}
           <nav aria-label="Batches" className="min-w-0">
             <ul className="no-scrollbar -mx-4 flex snap-x snap-mandatory scroll-px-4 gap-2 overflow-x-auto px-4 pb-1 sm:-mx-6 sm:scroll-px-6 sm:px-6 lg:mx-0 lg:flex-col lg:overflow-visible lg:px-0">
               <li className="shrink-0 snap-start">
@@ -118,7 +117,6 @@ function History() {
             </ul>
           </nav>
 
-          {/* events */}
           <section aria-labelledby="ev-h" className="min-w-0">
             <h2 id="ev-h" className="sr-only">
               Events

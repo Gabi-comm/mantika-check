@@ -24,7 +24,6 @@ export default function SetupPage() {
   const [date, setDate] = useState<string | null>(null);
   const save = useSave();
 
-  // Sensible defaults from the previous setup; user edits take precedence.
   const v = {
     stall: stall ?? (state?.profile?.origin === "user" ? state.profile.stallName : ""),
     oil: oil ?? prev?.oilType ?? null,

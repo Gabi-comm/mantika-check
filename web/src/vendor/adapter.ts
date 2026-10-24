@@ -1,3 +1,4 @@
+// runs the engine in the browser and fetches the advice
 import { getOilStatus } from "@/lib/engine";
 import { DATA_MAX_HOURS } from "@/lib/model";
 import { templateAdvice as engineTemplate } from "@/lib/templates";
@@ -5,19 +6,12 @@ import type { Check, OilBatch, OilStatus, Session, TopUp, VendorProfile } from "
 import type { Advice, AdviceResult, Batch, StatusResult, StatusSource } from "./types";
 import { latestCheck } from "./selectors";
 
-/**
- * Integration boundary for Gabriel's engine.
- *
- * Every screen gets status and advice through `useOilStatus()`, which calls ACTIVE_ADAPTER.
- * The engine runs in the browser; only advice wording goes to `/api/advice`.
- */
 export interface StatusAdapter {
   id: StatusSource;
   computeStatus(batch: Batch): StatusResult;
   getAdvice(result: StatusResult, ctx: { online: boolean }): Promise<AdviceResult>;
 }
 
-/** Upper end of logged hours covered by the reference frying data. */
 export const DATA_RANGE_HOURS = DATA_MAX_HOURS;
 
 const round1 = (x: number) => Math.round(x * 10) / 10;
@@ -62,7 +56,6 @@ function engineStatus(batch: Batch): StatusResult {
   return { source: "engine", validation: "model-estimate", status: forDisplay(status) };
 }
 
-/** Synchronous fallback used while advice loads, offline, or if the advice service fails. */
 export const templateAdvice = (r: StatusResult): Advice => engineTemplate(r.status);
 
 export const engineAdapter: StatusAdapter = {

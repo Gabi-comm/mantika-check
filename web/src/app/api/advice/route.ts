@@ -1,3 +1,4 @@
+// advice endpoint (llm wording only, the decision is already made)
 import { generateAdvice } from "@/lib/llm";
 import { OilStatusSchema } from "@/lib/schemas";
 

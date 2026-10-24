@@ -1,14 +1,7 @@
+// fake demo batches for each status
 import type { Batch, BatchEvent, DemoScenario, FoodId, Heat, Sign, VendorState } from "./types";
 
-/**
- * Deterministic demo datasets, one per monitoring scenario. Fictional stall, fixed dates
- * (Asia/Manila), no random values. Every total on screen is derived from these events, and the
- * status each dataset produces comes from the same engine used for user records (tests/seed.test.ts).
- *
- * Each dataset has one closed batch (in history) and one active batch that starts after it.
- * No laboratory values, no TPC readings, no field-study claims.
- */
-const END = "2026-10-22"; // last demo day
+const END = "2026-10-22";
 const DAY = 86_400_000;
 const dayStr = (offset: number) => new Date(Date.parse(`${END}T00:00:00Z`) - offset * DAY).toISOString().slice(0, 10);
 const at = (offset: number, time: string) => `${dayStr(offset)}T${time}:00+08:00`;
@@ -17,7 +10,6 @@ type Draft = BatchEvent extends infer E ? (E extends BatchEvent ? Omit<E, "id" |
 type S = [hours: number, heat: Heat, foods: FoodId[], tempC?: number];
 type Spec = {
   label: string;
-  /** sessions keyed by days before END (descending) */
   days: { off: number; s?: S; topup?: number; check?: { signs: Sign[]; filtered: boolean; covered: boolean } }[];
 };
 
@@ -42,9 +34,7 @@ function build(id: string, spec: Spec, oil: Batch["oilType"], volumeL: number, p
 
 const F = { b: "banana_cue", f: "fishball", l: "lumpia", c: "chicken_pork", x: "battered_breaded" } as const;
 
-/** Active-batch session plans. Statuses come from the engine (`@/lib/engine`); tests/seed.test.ts checks each one. */
 const ACTIVE: Record<DemoScenario, Spec> = {
-  // 2 days, 5 h -> Continue Monitoring
   keep: {
     label: "Batch 08",
     days: [
@@ -52,7 +42,6 @@ const ACTIVE: Record<DemoScenario, Spec> = {
       { off: 0, s: [2, "low", [F.b]], check: { signs: [], filtered: true, covered: true } },
     ],
   },
-  // 6 days, 15 h -> Monitor Closely
   monitor: {
     label: "Batch 08",
     days: [
@@ -64,7 +53,6 @@ const ACTIVE: Record<DemoScenario, Spec> = {
       { off: 0, s: [2, "medium", [F.f, F.x]], check: { signs: [], filtered: false, covered: true } },
     ],
   },
-  // 7 days, 18 h -> Replacement Recommended
   change_soon: {
     label: "Batch 08",
     days: [
@@ -77,7 +65,6 @@ const ACTIVE: Record<DemoScenario, Spec> = {
       { off: 0, s: [3, "high", [F.c, F.x]], check: { signs: [], filtered: false, covered: true } },
     ],
   },
-  // 9 days, 25 h -> Replace Oil (TPC past the 24% limit, no warning sign)
   change_now: {
     label: "Batch 08",
     days: [
@@ -92,7 +79,6 @@ const ACTIVE: Record<DemoScenario, Spec> = {
       { off: 0, s: [2, "high", [F.c, F.x]], check: { signs: [], filtered: false, covered: false } },
     ],
   },
-  // 4 days, 12 h, moderate usage, but the latest check reports smoke and dark oil -> FSSAI hard rule
   warning: {
     label: "Batch 08",
     days: [
@@ -104,9 +90,8 @@ const ACTIVE: Record<DemoScenario, Spec> = {
   },
 };
 
-/** The closed batch shown in history ends the day before the active batch starts. */
 function closedBefore(activeStartOff: number): Batch {
-  const o = activeStartOff + 1; // last day of the closed batch
+  const o = activeStartOff + 1;
   return build(
     "demo-batch-07",
     {
