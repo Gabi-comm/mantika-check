@@ -58,7 +58,7 @@ export function HomeContent() {
       <section className="dot-grid relative overflow-hidden border-b border-line" aria-labelledby="hero-h">
         <div aria-hidden="true" className="pointer-events-none absolute -top-32 -left-24 size-[28rem] rounded-full bg-[radial-gradient(circle,color-mix(in_srgb,var(--ollie-fresh)_22%,transparent),transparent_70%)]" />
         <Wrap className="relative grid gap-12 pt-12 pb-16 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.85fr)] lg:items-center lg:gap-16 lg:pt-20 lg:pb-24">
-          <div className="fade-up">
+          <div className="fade-up min-w-0">
             <h1 id="hero-h" className="text-[2.5rem] leading-[1.04] font-extrabold tracking-[-0.035em] text-ink sm:text-[3.4rem] xl:text-[3.9rem]">
               Every frying session.
               <span className="block text-accent">A clearer picture of your oil.</span>
@@ -83,7 +83,7 @@ export function HomeContent() {
               </LinkButton>
             </div>
           </div>
-          <div id="signin" className="fade-up scroll-mt-24" style={{ animationDelay: "120ms" }}>
+          <div id="signin" className="fade-up min-w-0 scroll-mt-24" style={{ animationDelay: "120ms" }}>
             <AuthPanel />
           </div>
         </Wrap>
