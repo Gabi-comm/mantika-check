@@ -1,7 +1,7 @@
 "use client";
 
 // ollie that follows the mouse and reacts when tapped
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import type { Action } from "@/vendor/types";
 import { cx } from "@/frontend/format";
 import { Ollie } from "./Ollie";
@@ -15,6 +15,7 @@ const SAYS: Record<Action, string> = {
 
 export function OllieStage({ state = "keep", size = 120, className, title, quip = true }: { state?: Action; size?: number; className?: string; title?: string; quip?: boolean }) {
   const ref = useRef<HTMLDivElement>(null);
+  const quipRef = useRef<HTMLSpanElement>(null);
   const [boop, setBoop] = useState(0);
 
   useEffect(() => {
@@ -53,6 +54,19 @@ export function OllieStage({ state = "keep", size = 120, className, title, quip 
     };
   }, []);
 
+  // keep the speech bubble on screen (ollies near the edge on phones)
+  useLayoutEffect(() => {
+    const q = quipRef.current;
+    const el = ref.current;
+    if (!q || !el) return;
+    const r = el.getBoundingClientRect();
+    const half = q.offsetWidth / 2;
+    const mid = r.left + r.width / 2;
+    const max = document.documentElement.clientWidth - 8;
+    const shift = mid + half > max ? max - (mid + half) : mid - half < 8 ? 8 - (mid - half) : 0;
+    q.style.marginLeft = `${shift}px`;
+  }, [boop]);
+
   useEffect(() => {
     if (!boop) return;
     const t = setTimeout(() => setBoop(0), 1800);
@@ -65,7 +79,7 @@ export function OllieStage({ state = "keep", size = 120, className, title, quip 
         <Ollie state={state} size={size} scene title={title} />
       </div>
       {quip && boop > 0 && (
-        <span key={`q${boop}`} role="status" className="ollie-quip pointer-events-none absolute -top-2 left-1/2 whitespace-nowrap rounded-full bg-surface px-3 py-1 text-[0.78rem] font-semibold text-ink shadow-card ring-1 ring-line">
+        <span key={`q${boop}`} ref={quipRef} role="status" className="ollie-quip pointer-events-none absolute -top-2 left-1/2 whitespace-nowrap rounded-full bg-surface px-3 py-1 text-[0.78rem] font-semibold text-ink shadow-card ring-1 ring-line">
           {SAYS[state]}
         </span>
       )}
