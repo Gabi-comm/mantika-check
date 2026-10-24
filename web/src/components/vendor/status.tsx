@@ -1,18 +1,13 @@
 // status card, reasons, advice and forecast panels
-import { Info, Loader2, FileText } from "@/components/icons";
+import { CircleCheck, Eye, Clock3, OctagonAlert, Info, Loader2, FileText } from "@/components/icons";
 import type { Action, AdviceResult, StatusResult } from "@/vendor/types";
 import { DATA_RANGE_HOURS } from "@/vendor/adapter";
 import { adviceCopy, copy, forecastCopy } from "@/vendor/copy";
 import { cx } from "@/frontend/format";
-import { DropDot, StatusDrop } from "@/components/Ollie";
 import { OllieStage } from "@/components/OllieStage";
 import { Panel, PanelHead, Tag } from "@/components/ui";
 
-const glyph = (state: Action) =>
-  function StatusGlyph({ className }: { className?: string }) {
-    return <StatusDrop state={state} className={className} />;
-  };
-export const STATUS_ICON = { keep: glyph("keep"), monitor: glyph("monitor"), change_soon: glyph("change_soon"), change_now: glyph("change_now") } satisfies Record<Action, unknown>;
+export const STATUS_ICON = { keep: CircleCheck, monitor: Eye, change_soon: Clock3, change_now: OctagonAlert } satisfies Record<Action, unknown>;
 export const STATUS_TONE = {
   keep: { text: "text-st-continue", bg: "bg-st-continue-bg", bar: "bg-st-continue", tag: "green" },
   monitor: { text: "text-st-monitor", bg: "bg-st-monitor-bg", bar: "bg-st-monitor", tag: "amber" },
@@ -24,10 +19,9 @@ const ORDER: Action[] = ["keep", "monitor", "change_soon", "change_now"];
 export function StatusScale({ action, compact }: { action: Action; compact?: boolean }) {
   const i = ORDER.indexOf(action);
   return (
-    <ol className={cx("grid grid-cols-4 gap-1.5", !compact && "pt-5")} aria-label={`Monitoring scale, step ${i + 1} of 4: ${copy.status[action]}`}>
+    <ol className="grid grid-cols-4 gap-1.5" aria-label={`Monitoring scale, step ${i + 1} of 4: ${copy.status[action]}`}>
       {ORDER.map((a, k) => (
-        <li key={a} className="relative min-w-0" aria-current={k === i ? "step" : undefined}>
-          {k === i && !compact && <StatusDrop state={action} className="scale-marker absolute -top-6 left-1/2 -ml-[0.75rem] text-[1.5rem]" />}
+        <li key={a} className="min-w-0" aria-current={k === i ? "step" : undefined}>
           <span className={cx("ink-bar block h-2 rounded-full", k <= i ? STATUS_TONE[action].bar : "bg-line")} />
           {!compact && <span className={cx("mt-1.5 hidden truncate sm:block text-[0.7rem] leading-tight", k === i ? "font-semibold text-ink" : "text-gray")}>{copy.status[a]}</span>}
         </li>
@@ -109,7 +103,7 @@ export function AdvicePanel({ advice, loading, idx = "" }: { advice: AdviceResul
             <ul className="mt-3 space-y-1.5">
               {a.tips.map((t) => (
                 <li key={t.id} className="flex gap-2 text-[0.95rem]">
-                  <DropDot className="mt-1.5 text-[0.8rem] text-teal" />
+                  <span className="mt-2 size-1.5 shrink-0 rounded-full bg-teal" aria-hidden="true" />
                   {t.text}
                 </li>
               ))}

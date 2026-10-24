@@ -921,19 +921,7 @@ span.auth-swap {
   animation: toast-ring 1.6s 0.4s ease-in-out 2;
 }
 
-/* ollie's ink filter rules live in InkDefs (icons.tsx), with firefox overrides */
-.scale-marker {
-  animation: marker-bob 2.4s ease-in-out infinite;
-}
-@keyframes marker-bob {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-2px);
-  }
-}
+/* chart ink filter rules live in InkDefs (icons.tsx), with firefox overrides */
 
 /* ollie's world */
 .ollie-stage {
