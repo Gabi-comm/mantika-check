@@ -7,11 +7,12 @@ import { Button, Panel, PanelHead, PageHeader, Tag } from "@/components/ui";
 import { InlineNote } from "@/components/vendor/status";
 import { fmtDateTime } from "@/frontend/format";
 import { RoiOverlay, DEFAULT_ROI, type Roi } from "./RoiOverlay";
-import { loadImage, rotatedCanvas, validateImageFile } from "./image";
+import { cameraErrorMessage, loadImage, rotatedCanvas, validateImageFile } from "./image";
 import { REFERENCE_COLORS, averageColorFromCanvas, labDistance, nearestReference, rgbToHex, rgbToHsv, rgbToLab, type LAB, type HSV, type RGB } from "./colorMath";
 import { loadColorHistory, removeColorEntry, saveColorEntry, type ColorEntry } from "./history";
 
 type Result = { rgb: RGB; hsv: HSV; lab: LAB; hex: string; nearest: string; crop: string };
+type CameraStatus = "requesting" | "live" | "captured" | "error";
 
 export function ColorAnalyzer() {
   const [src, setSrc] = useState<string | null>(null);
@@ -23,8 +24,15 @@ export function ColorAnalyzer() {
   const [label, setLabel] = useState("");
   const [saved, setSaved] = useState<string | null>(null);
   const [history, setHistory] = useState<ColorEntry[] | null>(null);
+  const [cameraOpen, setCameraOpen] = useState(false);
+  const [cameraStatus, setCameraStatus] = useState<CameraStatus>("requesting");
+  const [cameraMessage, setCameraMessage] = useState<string | null>(null);
+  const [captured, setCaptured] = useState<{ file: File; url: string } | null>(null);
   const fileRef = useRef<HTMLInputElement>(null);
   const camRef = useRef<HTMLInputElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const streamRef = useRef<MediaStream | null>(null);
+  const cameraRequestRef = useRef(0);
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect -- localStorage is only readable after mount
@@ -32,6 +40,40 @@ export function ColorAnalyzer() {
   }, []);
 
   useEffect(() => () => void (src && URL.revokeObjectURL(src)), [src]);
+
+  useEffect(() => () => void (captured && URL.revokeObjectURL(captured.url)), [captured]);
+
+  useEffect(
+    () => () => {
+      cameraRequestRef.current += 1;
+      streamRef.current?.getTracks().forEach((track) => track.stop());
+    },
+    [],
+  );
+
+  useEffect(() => {
+    if (!cameraOpen) return;
+    function dismissCamera() {
+      cameraRequestRef.current += 1;
+      streamRef.current?.getTracks().forEach((track) => track.stop());
+      streamRef.current = null;
+      setCameraOpen(false);
+      setCaptured(null);
+      setCameraMessage(null);
+    }
+    function leaveCamera() {
+      if (document.hidden) dismissCamera();
+    }
+    function onKeyDown(event: KeyboardEvent) {
+      if (event.key === "Escape") dismissCamera();
+    }
+    document.addEventListener("visibilitychange", leaveCamera);
+    document.addEventListener("keydown", onKeyDown);
+    return () => {
+      document.removeEventListener("visibilitychange", leaveCamera);
+      document.removeEventListener("keydown", onKeyDown);
+    };
+  }, [cameraOpen]);
 
   useEffect(() => {
     if (!src) return;
@@ -46,8 +88,7 @@ export function ColorAnalyzer() {
     };
   }, [src, rotation]);
 
-  function pick(files: FileList | null) {
-    const f = files?.[0];
+  function pick(f: File | null | undefined) {
     if (!f) return;
     const err = validateImageFile(f);
     if (err) return setError(err);
@@ -57,6 +98,106 @@ export function ColorAnalyzer() {
     setRoi(DEFAULT_ROI);
     setDisplay(null);
     setSrc(URL.createObjectURL(f));
+  }
+
+  function stopCamera() {
+    streamRef.current?.getTracks().forEach((track) => track.stop());
+    streamRef.current = null;
+    if (videoRef.current) videoRef.current.srcObject = null;
+  }
+
+  function closeCamera() {
+    cameraRequestRef.current += 1;
+    stopCamera();
+    setCameraOpen(false);
+    setCaptured(null);
+    setCameraMessage(null);
+  }
+
+  async function startCamera() {
+    cameraRequestRef.current += 1;
+    const request = cameraRequestRef.current;
+    stopCamera();
+    setCaptured(null);
+    setCameraMessage(null);
+    setCameraStatus("requesting");
+    setCameraOpen(true);
+
+    if (!window.isSecureContext) {
+      setCameraStatus("error");
+      setCameraMessage("Live camera access requires HTTPS. You can upload a photo instead.");
+      return;
+    }
+    if (!navigator.mediaDevices?.getUserMedia) {
+      setCameraStatus("error");
+      setCameraMessage("This browser does not support live camera access. You can upload a photo instead.");
+      return;
+    }
+
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: false, video: { facingMode: { ideal: "environment" } } });
+      if (request !== cameraRequestRef.current) {
+        stream.getTracks().forEach((track) => track.stop());
+        return;
+      }
+      streamRef.current = stream;
+      await new Promise(requestAnimationFrame);
+      if (request !== cameraRequestRef.current) {
+        stopCamera();
+        return;
+      }
+      const video = videoRef.current;
+      if (!video) throw new Error("Camera preview unavailable");
+      video.srcObject = stream;
+      await video.play();
+      setCameraStatus("live");
+    } catch (cameraError) {
+      stopCamera();
+      if (request !== cameraRequestRef.current) return;
+      setCameraStatus("error");
+      setCameraMessage(cameraErrorMessage(cameraError));
+    }
+  }
+
+  function capturePhoto() {
+    const video = videoRef.current;
+    if (!video?.videoWidth || !video.videoHeight) {
+      setCameraMessage("The camera is still loading. Wait a moment and try again.");
+      return;
+    }
+    const canvas = document.createElement("canvas");
+    const request = cameraRequestRef.current;
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+    canvas.getContext("2d")!.drawImage(video, 0, 0);
+    canvas.toBlob(
+      (blob) => {
+        if (request !== cameraRequestRef.current) return;
+        if (!blob) {
+          setCameraMessage("The photo could not be captured. Please try again.");
+          return;
+        }
+        const file = new File([blob], `mantika-camera-${Date.now()}.jpg`, { type: "image/jpeg" });
+        const validationError = validateImageFile(file);
+        if (validationError) {
+          setCameraMessage(validationError);
+          return;
+        }
+        stopCamera();
+        setCaptured({ file, url: URL.createObjectURL(file) });
+        setCameraStatus("captured");
+        setCameraMessage(null);
+      },
+      "image/jpeg",
+      0.9,
+    );
+  }
+
+  function useCapturedPhoto() {
+    if (!captured) return;
+    const file = captured.file;
+    closeCamera();
+    pick(file);
   }
 
   async function measure() {
@@ -137,7 +278,7 @@ export function ColorAnalyzer() {
                 onDragOver={(e) => e.preventDefault()}
                 onDrop={(e) => {
                   e.preventDefault();
-                  pick(e.dataTransfer.files);
+                  pick(e.dataTransfer.files[0]);
                 }}
               >
                 <p className="font-semibold text-ink">Drop a JPEG or PNG here</p>
@@ -146,12 +287,12 @@ export function ColorAnalyzer() {
                   <Button onClick={() => fileRef.current?.click()}>
                     <Upload className="size-4" aria-hidden="true" /> Upload photo
                   </Button>
-                  <Button variant="secondary" onClick={() => camRef.current?.click()}>
+                  <Button variant="secondary" onClick={() => void startCamera()}>
                     <Camera className="size-4" aria-hidden="true" /> Use camera
                   </Button>
                 </div>
-                <input ref={fileRef} type="file" accept="image/jpeg,image/png" className="sr-only" aria-label="Choose an image file" onChange={(e) => pick(e.target.files)} />
-                <input ref={camRef} type="file" accept="image/*" capture="environment" className="sr-only" aria-label="Take a photo" onChange={(e) => pick(e.target.files)} />
+                <input ref={fileRef} type="file" accept="image/jpeg,image/png" className="sr-only" aria-label="Choose an image file" onChange={(e) => pick(e.target.files?.[0])} />
+                <input ref={camRef} type="file" accept="image/*" capture="environment" className="sr-only" aria-label="Take a photo" onChange={(e) => pick(e.target.files?.[0])} />
               </div>
             ) : display ? (
               <>
@@ -234,6 +375,51 @@ export function ColorAnalyzer() {
           )}
         </Panel>
       </div>
+
+      {cameraOpen && (
+        <div className="fixed inset-0 z-[80] grid place-items-end bg-black/60 p-0 sm:place-items-center sm:p-5" role="dialog" aria-modal="true" aria-labelledby="camera-title">
+          <div className="w-full max-w-2xl rounded-t-[var(--radius-l)] border border-line bg-surface p-4 shadow-card sm:rounded-[var(--radius-l)] sm:p-5">
+            <div className="mb-4 flex items-center justify-between gap-3">
+              <div>
+                <p className="eyebrow">Live camera</p>
+                <h2 id="camera-title" className="font-display text-xl font-bold text-ink">Take a photo</h2>
+              </div>
+              <Button variant="ghost" className="min-h-12 min-w-12 px-0" onClick={closeCamera} aria-label="Close camera" autoFocus>
+                <X className="size-5" aria-hidden="true" />
+              </Button>
+            </div>
+
+            <div className="relative aspect-[3/4] max-h-[65vh] overflow-hidden rounded-[var(--radius-m)] bg-night sm:aspect-video">
+              {captured ? (
+                // eslint-disable-next-line @next/next/no-img-element -- temporary client-side camera capture
+                <img src={captured.url} alt="Captured photo preview" className="h-full w-full object-contain" />
+              ) : (
+                <video ref={videoRef} autoPlay playsInline muted className="h-full w-full object-contain" aria-label="Live camera preview" />
+              )}
+              {cameraStatus === "requesting" && <p className="absolute inset-0 grid place-items-center bg-night/70 px-6 text-center font-semibold text-white" role="status">Requesting camera permission…</p>}
+            </div>
+
+            {cameraMessage && <div className="mt-3"><InlineNote tone="error">{cameraMessage}</InlineNote></div>}
+
+            <div className="mt-4 grid gap-2 sm:flex sm:flex-wrap sm:justify-end">
+              {cameraStatus === "live" && <Button size="lg" onClick={capturePhoto}><Camera className="size-4" aria-hidden="true" /> Capture photo</Button>}
+              {cameraStatus === "captured" && (
+                <>
+                  <Button size="lg" variant="secondary" onClick={() => void startCamera()}>Retake</Button>
+                  <Button size="lg" onClick={useCapturedPhoto}>Use photo</Button>
+                </>
+              )}
+              {cameraStatus === "error" && (
+                <>
+                  <Button size="lg" variant="secondary" onClick={() => void startCamera()}>Try again</Button>
+                  <Button size="lg" onClick={() => { const input = camRef.current; closeCamera(); if (input) { input.value = ""; input.click(); } }}>Take photo instead</Button>
+                </>
+              )}
+              <Button size="lg" variant="ghost" onClick={closeCamera}>Cancel</Button>
+            </div>
+          </div>
+        </div>
+      )}
 
       <Panel aria-labelledby="ch-h">
         <PanelHead id="ch-h" title="Saved measurements" eyebrow="This device" />

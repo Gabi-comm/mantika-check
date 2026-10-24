@@ -12,6 +12,14 @@ export function validateImageFile(file: File): string | null {
   return null;
 }
 
+export function cameraErrorMessage(error: unknown): string {
+  const name = error && typeof error === "object" && "name" in error ? String(error.name) : "";
+  if (name === "NotAllowedError" || name === "SecurityError") return "Camera permission was denied. Allow camera access in your browser settings, or upload a photo instead.";
+  if (name === "NotFoundError" || name === "OverconstrainedError") return "No usable camera was found. You can upload a photo instead.";
+  if (name === "NotReadableError" || name === "AbortError") return "The camera is unavailable or already in use by another app. Close it there and try again.";
+  return "The camera could not be started. Check browser camera permissions, or upload a photo instead.";
+}
+
 export function rotatedCanvas(img: HTMLImageElement, rotationDeg: number): HTMLCanvasElement {
   const canvas = document.createElement("canvas");
   const swap = rotationDeg === 90 || rotationDeg === 270;
