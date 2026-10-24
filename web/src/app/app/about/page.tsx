@@ -6,7 +6,7 @@ export const metadata: Metadata = { title: "About & Limits" };
 
 const rows: { what: string; source: string; tone: "green" | "amber" | "neutral" | "outline"; detail: string }[] = [
   { what: "Sessions, top-ups, replacements", source: "Logged by you", tone: "green", detail: "Exactly what was entered. Totals are simple sums." },
-  { what: "Warning observations", source: "Reported by you", tone: "green", detail: "What you saw. Any reported warning sign triggers a critical warning (conservative prototype rule)." },
+  { what: "Warning observations", source: "Reported by you", tone: "green", detail: "What you saw. Any reported warning sign triggers a critical warning (conservative safety rule)." },
   { what: "Monitoring status", source: "Model estimate", tone: "amber", detail: "TPC model on logged hours, heat and top-ups, fuzzy rules for food and oil type, and safety rules; any reported sign triggers Replace Oil. Not validated at real stalls." },
   { what: "Heat simulator", source: "Model estimate", tone: "amber", detail: "Hours left and weekly peso savings at each heat level from the TPC model. Assumes daily frying at your average hours." },
   { what: "Guidance text", source: "Template", tone: "neutral", detail: "Fixed wording chosen by the status. It never decides the status." },
@@ -56,7 +56,7 @@ export default function AboutLimitsPage() {
 
       <Panel aria-labelledby="plan-h" className="p-5">
         <h2 id="plan-h" className="flex flex-wrap items-center gap-2 font-bold">
-          Status engine <Tag tone="amber">Research prototype, not validated at real stalls</Tag>
+          Status engine <Tag tone="amber">Not yet validated at real stalls</Tag>
         </h2>
         <ul className="mt-3 space-y-2 text-gray">
           <li>The engine estimates oil wear from published laboratory frying data (Li, 2020) using a kinetic model, and runs in your browser.</li>
@@ -72,7 +72,7 @@ export default function AboutLimitsPage() {
         <Panel className="p-5">
           <h2 className="font-bold">Not a laboratory instrument</h2>
           <p className="mt-2 text-gray">
-            MANTIKA CHECK is a research prototype. It does not measure oil chemistry, does not certify that oil is fit for use, and makes no regulatory claim.
+            MANTIKA CHECK does not measure oil chemistry, does not certify that oil is fit for use, and makes no regulatory claim.
             Your own senses come first: unusual smoke, persistent foaming, dark and murky or thick oil are reasons to replace it.
           </p>
         </Panel>

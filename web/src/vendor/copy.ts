@@ -1,11 +1,8 @@
 // all ui text in one place
 import type { Action, ChangeReason, FoodId, Heat, HeatSource, OilType, Sign, StatusSource } from "./types";
 
-
 export const copy = {
   product: "MANTIKA CHECK",
-  prototype: "Research prototype",
-  prototypeLong: "Research prototype. Statuses are estimates from logged usage and observations, not laboratory measurements.",
 
   status: {
     keep: "Continue Monitoring",
@@ -122,7 +119,7 @@ export const copy = {
     filtered: "Filtered today",
     covered: "Covered overnight",
     saved: "Check saved.",
-    signConfirm: "Saving with a warning sign selected raises a critical warning and recommends replacing the oil. This is a conservative prototype rule.",
+    signConfirm: "Saving with a warning sign selected raises a critical warning and recommends replacing the oil. This is a conservative safety rule.",
   },
   setup: {
     title: "Start a new oil batch",

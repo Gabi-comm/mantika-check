@@ -6,7 +6,7 @@ import { OllieStage } from "@/components/OllieStage";
 import { Reveal } from "@/components/motion/Reveal";
 
 const facts = [
-  ["Stage", "Research prototype (PJDSC 2026)"],
+  ["Stage", "PJDSC 2026 entry"],
   ["Platform", "Web, mobile-first"],
   ["Accounts", "Sign-in ready; accounts not connected yet"],
   ["Data storage", "On the user's device"],
@@ -107,12 +107,6 @@ export function AboutContent() {
             <ImpactList title="For vendors" items={vendors} ollie="keep" />
             <ImpactList title="For consumers" items={consumers} ollie="monitor" delay={120} />
           </div>
-          <Reveal className="mt-5 rounded-[var(--radius-l)] bg-forest p-6 text-white sm:p-8">
-            <p className="max-w-3xl text-[1.05rem] text-white/85">
-              The impact above is the goal, not a measured result. Mantika Check has not yet been tested at real stalls; a field study with test strips is the next step to show whether it changes how
-              often oil is replaced.
-            </p>
-          </Reveal>
         </section>
       </div>
     </>

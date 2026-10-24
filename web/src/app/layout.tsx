@@ -38,7 +38,7 @@ const mono = localFont({
 
 export const metadata: Metadata = {
   title: { default: "MANTIKA CHECK: Cooking-oil monitoring workspace", template: "%s | MANTIKA CHECK" },
-  description: "Track cooking-oil usage, record visible warning signs, and manage oil batches in one practical monitoring workspace. Research prototype.",
+  description: "Track cooking-oil usage, record visible warning signs, and manage oil batches in one practical monitoring workspace.",
   icons: { icon: "/favicon.svg" },
   manifest: "/manifest.webmanifest",
 };

@@ -180,7 +180,7 @@ export function MethodologyContent() {
           </Reveal>
           <ul className="space-y-4 text-white/85">
             <li>The TPC shown is a model estimate from logged hours and heat, not a measurement. Only a test strip or lab test measures TPC.</li>
-            <li>The model was fitted on lab frying data and has not been validated at real stalls; this is a research prototype.</li>
+            <li>The model was fitted on lab frying data and has not been validated at real stalls yet.</li>
             <li>The 25% TPC limit follows rules used in Thailand and India; no legal or regulatory claim is made for the Philippines.</li>
             <li>Hours-left forecasts and peso savings are estimates. No safety certification is offered.</li>
             <li>Photo color analysis is an isolated experiment and does not feed the status.</li>

@@ -76,7 +76,7 @@ const extras = [
 export function FeaturesContent() {
   return (
     <>
-      <PageIntro eyebrow="Features" title="A complete monitoring loop, from first pour to replacement." lead="Each feature below runs in the current prototype. Where a result is an estimate rather than a measurement, it says so.">
+      <PageIntro eyebrow="Features" title="A complete monitoring loop, from first pour to replacement." lead="Each feature below works today. Where a result is an estimate rather than a measurement, it says so.">
         <LinkButton href="/#signin" size="lg" className="mt-6">
           <LogIn className="size-4" aria-hidden="true" /> Sign in
         </LinkButton>

@@ -87,7 +87,7 @@ const STEPS: { id: string; tab: string; title: string; body: string; points: str
     id: "check",
     tab: "Check",
     title: "Record what you notice",
-    body: "Four large tiles cover the visible signs vendors already rely on. Any reported sign raises a critical warning immediately, as a conservative prototype rule.",
+    body: "Four large tiles cover the visible signs vendors already rely on. Any reported sign raises a critical warning immediately, as a conservative safety rule.",
     points: ["Smoke, foaming, dark oil, thickness", "Filtered and covered toggles", "An empty check is never read as an all-clear"],
     screen: (
       <Screen title={copy.check.title}>

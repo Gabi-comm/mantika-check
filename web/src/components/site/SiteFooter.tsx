@@ -16,7 +16,7 @@ export function SiteFooter() {
       <div className="mx-auto flex max-w-[1240px] flex-col gap-4 px-4 py-6 sm:px-6 md:flex-row md:items-center md:justify-between">
         <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
           <Logo height={26} />
-          <span className="font-mono text-[0.7rem] text-gray">© 2026 · Research prototype · Estimates, not lab tests</span>
+          <span className="font-mono text-[0.7rem] text-gray">© 2026 · Estimates, not lab tests</span>
         </div>
         <nav aria-label="Footer">
           <ul className="flex flex-wrap gap-x-5 gap-y-1">

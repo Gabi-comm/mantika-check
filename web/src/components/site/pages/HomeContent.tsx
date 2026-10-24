@@ -223,7 +223,7 @@ export function HomeContent() {
                 { k: "Observed", tag: "Reported by vendor", tone: "green" as const, d: "Smoke, foaming, dark and murky oil, thickness, exactly as recorded." },
                 { k: "Logged", tag: "Recorded usage", tone: "green" as const, d: "Hours, heat levels, food categories, top-ups and replacements." },
                 { k: "Estimated", tag: "Model estimate", tone: "amber" as const, d: "Status and TPC range from the engine: a kinetic model fitted to lab frying data, plus fuzzy and safety rules." },
-                { k: "Measured", tag: "Not available", tone: "outline" as const, d: "Laboratory or test-strip TPC. Not produced by this prototype." },
+                { k: "Measured", tag: "Not available", tone: "outline" as const, d: "Laboratory or test-strip TPC. Not produced by Mantika Check." },
               ].map((l, i) => (
                 <Reveal as="li" key={l.k} delay={i * 70} className="flex gap-4 rounded-[var(--radius-m)] border border-line bg-canvas p-4">
                   <span className="font-mono text-[0.75rem] text-teal">L{i + 1}</span>
@@ -267,7 +267,7 @@ export function HomeContent() {
               <span className="text-accent">07</span> / Honest limits
             </p>
             <h2 id="lim-h" className="mt-3 text-[1.9rem] font-extrabold text-ink sm:text-[2.3rem]">
-              What this prototype does not claim.
+              What Mantika Check does not claim.
             </h2>
             <Link href="/methodology" className="mt-6 inline-flex min-h-11 items-center gap-1.5 font-semibold text-accent">
               <FlaskConical className="size-4" aria-hidden="true" /> Read how it works <ArrowRight className="size-4" aria-hidden="true" />
