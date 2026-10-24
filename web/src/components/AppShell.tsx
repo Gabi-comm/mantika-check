@@ -3,25 +3,14 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useState, type ReactNode } from "react";
-import {
-  LayoutDashboard,
-  Timer,
-  ClipboardCheck,
-  History,
-  Settings,
-  Info,
-  ScanLine,
-  ArrowUpRight,
-  WifiOff,
-  CircleHelp,
-  PanelLeftClose,
-  PanelLeftOpen,
-} from "lucide-react";
+import { LayoutDashboard, Timer, ClipboardCheck, History, Settings, Info, ScanLine, ArrowUpRight, WifiOff, CircleHelp, PanelLeftClose, PanelLeftOpen } from "@/components/icons";
 import { ThemeToggle } from "./ThemeToggle";
 import { HelpButton, HelpDrawer } from "./help/HelpDrawer";
 import { Tour } from "./help/Tour";
 import { TOUR_EVENT } from "./help/tourEvents";
 import { Logo } from "./Logo";
+import { MobileNav } from "./MobileNav";
+import { CloudBadge } from "./CloudBadge";
 import { Tag } from "./ui";
 import { cx } from "@/frontend/format";
 import { SIDEBAR_KEY } from "@/frontend/boot";
@@ -44,14 +33,6 @@ const secondary = [
     tag: "Experimental",
   },
 ];
-const tabs = [
-  { href: "/app", label: "Dashboard", icon: LayoutDashboard },
-  { href: "/app/check", label: "Check", icon: ClipboardCheck },
-  { href: "/app/log", label: "Log", icon: Timer, primary: true },
-  { href: "/app/history", label: "History", icon: History },
-  { href: "/app/settings", label: "Settings", icon: Settings },
-];
-
 const TOUR_TARGET: Record<string, string> = {
   "/app": "dashboard",
   "/app/log": "log",
@@ -60,8 +41,7 @@ const TOUR_TARGET: Record<string, string> = {
   "/app/experimental/color": "color",
 };
 
-const isActive = (path: string, href: string) =>
-  href === "/app" ? path === "/app" : path.startsWith(href);
+const isActive = (path: string, href: string) => (href === "/app" ? path === "/app" : path.startsWith(href));
 
 export function AppShell({ children }: { children: ReactNode }) {
   const path = usePathname() ?? "/app";
@@ -91,25 +71,14 @@ export function AppShell({ children }: { children: ReactNode }) {
 
   return (
     <div className="app-grid min-h-dvh bg-canvas">
-      <a
-        href="#main"
-        className="sr-only-focusable fixed top-2 left-2 z-50 rounded bg-forest px-3 py-2 text-white"
-      >
+      <a href="#main" className="sr-only-focusable fixed top-2 left-2 z-50 rounded bg-forest px-3 py-2 text-white">
         Skip to content
       </a>
 
-      <aside
-        className="app-sidebar sticky top-0 hidden h-dvh overflow-hidden border-r border-line bg-surface lg:block"
-        aria-label="Workspace"
-        inert={!sidebar}
-      >
+      <aside className="app-sidebar sticky top-0 hidden h-dvh overflow-hidden border-r border-line bg-surface lg:block" aria-label="Workspace" inert={!sidebar}>
         <div className="flex h-full w-[248px] flex-col">
           <div className="flex min-h-16 items-center justify-between gap-1 pr-2.5">
-            <Link
-              href="/"
-              className="flex min-h-16 items-center pl-5"
-              aria-label="MANTIKA CHECK home"
-            >
+            <Link href="/" className="flex min-h-16 items-center pl-5" aria-label="MANTIKA CHECK home">
               <Logo height={30} />
             </Link>
             <button
@@ -122,10 +91,7 @@ export function AppShell({ children }: { children: ReactNode }) {
               <PanelLeftClose className="size-[1.15rem]" aria-hidden="true" />
             </button>
           </div>
-          <nav
-            className="flex-1 overflow-y-auto px-3 py-2"
-            aria-label="Workspace navigation"
-          >
+          <nav className="flex-1 overflow-y-auto px-3 py-2" aria-label="Workspace navigation">
             <ul className="space-y-0.5">
               {primary.map(({ href, label, icon: Icon }) => {
                 const on = isActive(path, href);
@@ -137,9 +103,7 @@ export function AppShell({ children }: { children: ReactNode }) {
                       aria-current={on ? "page" : undefined}
                       className={cx(
                         "flex min-h-11 items-center gap-3 rounded-[var(--radius-s)] px-3 text-[0.94rem] font-medium transition-colors",
-                        on
-                          ? "bg-tint text-heading"
-                          : "text-ink/80 hover:bg-pale hover:text-ink",
+                        on ? "bg-tint text-heading" : "text-ink/80 hover:bg-pale hover:text-ink"
                       )}
                     >
                       <Icon className="size-[1.15rem]" aria-hidden="true" />
@@ -149,9 +113,7 @@ export function AppShell({ children }: { children: ReactNode }) {
                 );
               })}
             </ul>
-            <p className="mt-6 mb-1.5 px-3 font-mono text-[0.68rem] uppercase tracking-[0.14em] text-gray">
-              Reference
-            </p>
+            <p className="mt-6 mb-1.5 px-3 font-mono text-[0.68rem] uppercase tracking-[0.14em] text-gray">Reference</p>
             <ul className="space-y-0.5">
               {secondary.map(({ href, label, icon: Icon, tag }) => {
                 const on = isActive(path, href);
@@ -163,9 +125,7 @@ export function AppShell({ children }: { children: ReactNode }) {
                       aria-current={on ? "page" : undefined}
                       className={cx(
                         "flex min-h-11 items-center gap-3 rounded-[var(--radius-s)] px-3 text-[0.92rem] transition-colors",
-                        on
-                          ? "bg-tint text-heading"
-                          : "text-ink/75 hover:bg-pale",
+                        on ? "bg-tint text-heading" : "text-ink/75 hover:bg-pale"
                       )}
                     >
                       <Icon className="size-[1.1rem]" aria-hidden="true" />
@@ -177,26 +137,19 @@ export function AppShell({ children }: { children: ReactNode }) {
               })}
             </ul>
           </nav>
-          <Link
-            href="/"
-            className="flex min-h-12 items-center gap-2 border-t border-line px-5 text-[0.88rem] text-gray hover:text-accent"
-          >
-            <ArrowUpRight className="size-4" aria-hidden="true" /> Back to
-            website
+          <Link href="/" className="flex min-h-12 items-center gap-2 border-t border-line px-5 text-[0.88rem] text-gray hover:text-accent">
+            <ArrowUpRight className="size-4" aria-hidden="true" /> Back to website
           </Link>
         </div>
       </aside>
 
       <div className="min-w-0">
         <header className="sticky top-0 z-30 flex h-14 items-center justify-between border-b border-line bg-surface/95 px-4 backdrop-blur lg:hidden">
-          <Link
-            href="/"
-            aria-label="MANTIKA CHECK home"
-            className="flex min-h-11 items-center"
-          >
+          <Link href="/" aria-label="MANTIKA CHECK home" className="flex min-h-11 items-center">
             <Logo height={30} />
           </Link>
           <div className="flex items-center gap-2">
+            <CloudBadge />
             <ThemeToggle />
             <button
               type="button"
@@ -212,14 +165,8 @@ export function AppShell({ children }: { children: ReactNode }) {
         </header>
 
         {!online && (
-          <div
-            role="status"
-            className="flex items-center gap-2 border-b border-st-monitor/30 bg-st-monitor-bg px-4 py-2 text-[0.88rem] text-ink lg:px-8"
-          >
-            <WifiOff
-              className="size-4 shrink-0 text-st-monitor"
-              aria-hidden="true"
-            />
+          <div role="status" className="flex items-center gap-2 border-b border-st-monitor/30 bg-st-monitor-bg px-4 py-2 text-[0.88rem] text-ink lg:px-8">
+            <WifiOff className="size-4 shrink-0 text-st-monitor" aria-hidden="true" />
             {copy.states.offline}
           </div>
         )}
@@ -238,15 +185,13 @@ export function AppShell({ children }: { children: ReactNode }) {
             </button>
           )}
           <div className="ml-auto flex items-center gap-2">
+            <CloudBadge />
             <ThemeToggle />
             <HelpButton onOpen={() => setHelp(true)} />
           </div>
         </div>
 
-        <main
-          id="main"
-          className="mx-auto w-full max-w-[1320px] px-4 pt-5 pb-28 sm:px-6 lg:px-8 lg:pt-2 lg:pb-12"
-        >
+        <main id="main" className="mx-auto w-full max-w-[1320px] px-4 pt-5 pb-28 sm:px-6 lg:px-8 lg:pt-2 lg:pb-12">
           {children}
         </main>
       </div>
@@ -254,45 +199,7 @@ export function AppShell({ children }: { children: ReactNode }) {
       <HelpDrawer open={help} onClose={() => setHelp(false)} />
       <Tour />
 
-      <nav
-        className="pb-safe fixed inset-x-0 bottom-0 z-40 border-t border-line bg-surface lg:hidden"
-        aria-label="Workspace navigation"
-      >
-        <ul className="mx-auto grid max-w-lg grid-cols-5">
-          {tabs.map(({ href, label, icon: Icon, primary: p }) => {
-            const on = isActive(path, href);
-            return (
-              <li key={href} className="flex justify-center">
-                <Link
-                  href={href}
-                  data-tour={TOUR_TARGET[href]}
-                  aria-current={on ? "page" : undefined}
-                  className={cx(
-                    "flex min-h-14 w-full flex-col items-center justify-center gap-0.5 text-[0.7rem] font-medium",
-                    on ? "text-heading" : "text-gray",
-                  )}
-                >
-                  {p ? (
-                    <span
-                      className={cx(
-                        "-mt-5 grid size-13 place-items-center rounded-full border-4 border-surface text-white shadow-md",
-                        on ? "bg-forest" : "bg-green",
-                      )}
-                    >
-                      <Icon className="size-6" aria-hidden="true" />
-                    </span>
-                  ) : (
-                    <Icon className="size-[1.35rem]" aria-hidden="true" />
-                  )}
-                  <span className={cx(on && !p && "font-semibold")}>
-                    {label}
-                  </span>
-                </Link>
-              </li>
-            );
-          })}
-        </ul>
-      </nav>
+      <MobileNav path={path} />
     </div>
   );
 }

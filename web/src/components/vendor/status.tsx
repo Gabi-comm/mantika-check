@@ -1,12 +1,18 @@
-import { CircleCheck, Eye, Clock3, OctagonAlert, TriangleAlert, Info, Loader2, FileText } from "lucide-react";
+import { Info, Loader2, FileText } from "@/components/icons";
 import type { Action, AdviceResult, StatusResult } from "@/vendor/types";
 import { DATA_RANGE_HOURS } from "@/vendor/adapter";
 import { adviceCopy, copy, forecastCopy } from "@/vendor/copy";
 import { cx } from "@/frontend/format";
-import { Ollie } from "@/components/Ollie";
+import { DropDot, StatusDrop } from "@/components/Ollie";
+import { OllieStage } from "@/components/OllieStage";
 import { Panel, PanelHead, Tag } from "@/components/ui";
 
-export const STATUS_ICON = { keep: CircleCheck, monitor: Eye, change_soon: Clock3, change_now: OctagonAlert } satisfies Record<Action, unknown>;
+const glyph = (state: Action) =>
+  function StatusGlyph({ className }: { className?: string }) {
+    return <StatusDrop state={state} className={className} />;
+  };
+/** Status icons are tiny Ollies (face changes with the status), matching the mascot. */
+export const STATUS_ICON = { keep: glyph("keep"), monitor: glyph("monitor"), change_soon: glyph("change_soon"), change_now: glyph("change_now") } satisfies Record<Action, unknown>;
 export const STATUS_TONE = {
   keep: { text: "text-st-continue", bg: "bg-st-continue-bg", bar: "bg-st-continue", tag: "green" },
   monitor: { text: "text-st-monitor", bg: "bg-st-monitor-bg", bar: "bg-st-monitor", tag: "amber" },
@@ -15,33 +21,15 @@ export const STATUS_TONE = {
 } as const;
 const ORDER: Action[] = ["keep", "monitor", "change_soon", "change_now"];
 
-/** Critical warnings always render above every other block and cannot be dismissed. */
-export function WarningBanner({ text }: { text: string }) {
-  return (
-    <div role="alert" className="relative overflow-hidden rounded-[var(--radius-m)] border-2 border-st-replace bg-critical text-white">
-      <div className="flex gap-4 p-4 sm:p-5">
-        <span className="grid size-11 shrink-0 place-items-center rounded-[var(--radius-s)] bg-white/12">
-          <TriangleAlert className="size-6" aria-hidden="true" />
-        </span>
-        <div className="min-w-0">
-          <p className="font-mono text-[0.7rem] uppercase tracking-[0.14em] text-white/75">Override · reported observation</p>
-          <p className="mt-0.5 font-display text-lg font-bold">{copy.warning.title}</p>
-          <p className="mt-1 text-white/90">{text}</p>
-          <p className="mt-2 text-[0.82rem] text-white/70">{copy.warning.footer}</p>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-/** Four-step scale with the current state marked. Position, icon and word carry meaning; colour is a fourth cue. */
+/** Four-step scale drawn as an inked oil line; a mini Ollie rides the current step. Position, face and word carry meaning; colour is a fourth cue. */
 export function StatusScale({ action, compact }: { action: Action; compact?: boolean }) {
   const i = ORDER.indexOf(action);
   return (
-    <ol className="grid grid-cols-4 gap-1" aria-label={`Monitoring scale, step ${i + 1} of 4: ${copy.status[action]}`}>
+    <ol className={cx("grid grid-cols-4 gap-1.5", !compact && "pt-5")} aria-label={`Monitoring scale, step ${i + 1} of 4: ${copy.status[action]}`}>
       {ORDER.map((a, k) => (
-        <li key={a} className="min-w-0" aria-current={k === i ? "step" : undefined}>
-          <span className={cx("block h-1.5 rounded-full", k <= i ? STATUS_TONE[action].bar : "bg-line")} />
+        <li key={a} className="relative min-w-0" aria-current={k === i ? "step" : undefined}>
+          {k === i && !compact && <StatusDrop state={action} className="scale-marker absolute -top-6 left-1/2 -ml-[0.75rem] text-[1.5rem]" />}
+          <span className={cx("ink-bar block h-2 rounded-full", k <= i ? STATUS_TONE[action].bar : "bg-line")} />
           {!compact && <span className={cx("mt-1.5 hidden truncate sm:block text-[0.7rem] leading-tight", k === i ? "font-semibold text-ink" : "text-gray")}>{copy.status[a]}</span>}
         </li>
       ))}
@@ -56,8 +44,8 @@ export function StatusPanel({ result, batchLabel }: { result: StatusResult; batc
   return (
     <Panel aria-labelledby="status-word" className={cx("overflow-hidden", hardRule && "border-st-replace")}>
       <div className={cx("flex items-start gap-4 p-5", tone.bg)}>
-        <span className="grid size-20 shrink-0 place-items-center rounded-[var(--radius-m)] bg-ollie-night">
-          <Ollie state={action} size={44} title={`Ollie: ${copy.status[action]}`} />
+        <span className="grid size-20 shrink-0 place-items-center overflow-hidden rounded-[var(--radius-m)] bg-ollie-night">
+          <OllieStage state={action} size={44} quip={false} title={`Ollie: ${copy.status[action]}`} />
         </span>
         <div className="min-w-0 flex-1">
           <p className="eyebrow flex items-center gap-1.5">
@@ -123,7 +111,7 @@ export function AdvicePanel({ advice, loading, idx = "" }: { advice: AdviceResul
             <ul className="mt-3 space-y-1.5">
               {a.tips.map((t) => (
                 <li key={t.id} className="flex gap-2 text-[0.95rem]">
-                  <span className="mt-2 size-1.5 shrink-0 rounded-full bg-teal" aria-hidden="true" />
+                  <DropDot className="mt-1.5 text-[0.8rem] text-teal" />
                   {t.text}
                 </li>
               ))}

@@ -34,7 +34,6 @@ export const copy = {
   warning: {
     title: "Critical warning recorded",
     body: (signs: string) => `You reported: ${signs}. Replace the oil before the next session, regardless of any other indicator.`,
-    footer: "FSSAI guidance: smoke, thick foam, dark and murky, or thickened oil means the oil should be discarded. Based on your observation, not a chemical measurement.",
   },
 
   why: "Why this status?",
@@ -175,7 +174,6 @@ export const copy = {
   heatCompare: {
     title: "Heat simulator",
     lead: "Model estimate of how long this oil lasts at each heat level, and what frying at a lower heat saves.",
-    note: "Estimates from the TPC model (lab frying data). Savings assume you fry every day at your average logged hours. Never overrides a recorded warning.",
     noPrice: "Add an oil price per liter in Setup to see peso savings.",
     savedWeek: "saved per week",
     extraWeek: "extra cost per week",

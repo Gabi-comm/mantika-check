@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, Timer, ClipboardCheck, Droplets, RefreshCw, ShieldAlert, LogIn, FlaskConical, Users, Utensils, Thermometer } from "lucide-react";
+import { ArrowRight, Timer, ClipboardCheck, Droplets, RefreshCw, ShieldAlert, LogIn, FlaskConical, Users, Utensils, Thermometer } from "@/components/icons";
 import { LinkButton, Tag } from "@/components/ui";
 import { HeroPreview } from "@/components/site/HeroPreview";
 import { Walkthrough } from "@/components/site/Walkthrough";
@@ -7,7 +7,7 @@ import { AuthPanel } from "@/components/site/AuthPanel";
 import { demoSnapshot } from "@/components/site/demoData";
 import { FoodBars, HeatLegend, HeatSplit, UsageChart } from "@/components/vendor/charts";
 import { StatusScale } from "@/components/vendor/status";
-import { Ollie } from "@/components/Ollie";
+import { OllieStage } from "@/components/OllieStage";
 import { Reveal } from "@/components/motion/Reveal";
 import { copy } from "@/vendor/copy";
 import { fmtDate, fmtLitres } from "@/frontend/format";
@@ -72,7 +72,7 @@ export default function HomePage() {
             <div className="mt-8 flex items-end gap-3 sm:gap-5" aria-label="Ollie, the mascot, in the four oil states">
               {OLLIE_STATES.map(({ a }, i) => (
                 <div key={a} className="fade-up flex flex-col items-center gap-2" style={{ animationDelay: `${150 + i * 120}ms` }}>
-                  <Ollie state={a} size={i === 0 ? 64 : 52} title={copy.status[a]} />
+                  <OllieStage state={a} size={i === 0 ? 64 : 52} title={copy.status[a]} />
                   <span className="font-mono text-[0.62rem] uppercase tracking-[0.1em] text-gray">{copy.status[a]}</span>
                 </div>
               ))}
@@ -139,7 +139,7 @@ export default function HomePage() {
             {OLLIE_STATES.map(({ a, d, tone }, i) => (
               <Reveal as="li" key={a} delay={i * 90} className="lift flex flex-col rounded-[var(--radius-l)] border border-line bg-surface p-6">
                 <div className="grid h-44 place-items-center">
-                  <Ollie state={a} size={96} />
+                  <OllieStage state={a} size={96} />
                 </div>
                 <Tag tone={tone} className="w-fit">
                   {copy.status[a]}
@@ -247,7 +247,7 @@ export default function HomePage() {
             </ol>
             <Reveal className="rounded-[var(--radius-l)] border border-line bg-canvas p-6">
               <div className="flex items-center gap-4">
-                <Ollie state={result.status.action} size={64} />
+                <OllieStage state={result.status.action} size={64} />
                 <div>
                   <p className="text-[0.8rem] text-gray">Demo batch today</p>
                   <p className="font-display text-[1.3rem] font-extrabold text-ink">{copy.status[result.status.action]}</p>

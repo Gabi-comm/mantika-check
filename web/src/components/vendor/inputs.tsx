@@ -1,6 +1,6 @@
 "use client";
 
-import { Check } from "lucide-react";
+import { Check } from "@/components/icons";
 import type { ReactNode } from "react";
 import { cx } from "@/frontend/format";
 
@@ -65,7 +65,7 @@ export function ChipToggle({ on, onClick, children }: { on: boolean; onClick: ()
       aria-pressed={on}
       onClick={onClick}
       className={cx(
-        "inline-flex min-h-12 items-center gap-1.5 rounded-full border px-4 text-[0.92rem] font-medium transition-colors",
+        "inline-flex min-h-12 shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full border px-4 text-[0.92rem] font-medium transition-colors",
         on ? "border-green bg-tint text-heading" : "border-line-strong bg-surface text-ink hover:border-green"
       )}
     >

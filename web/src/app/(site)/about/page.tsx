@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import { Wallet, Clock, Repeat, HeartPulse, Eye, Store, LogIn } from "lucide-react";
+import { Wallet, Clock, Repeat, HeartPulse, Eye, Store, LogIn } from "@/components/icons";
 import { PageIntro } from "@/components/site/PageIntro";
 import { LinkButton } from "@/components/ui";
-import { Ollie } from "@/components/Ollie";
+import { OllieStage } from "@/components/OllieStage";
 import { Reveal } from "@/components/motion/Reveal";
 
 export const metadata: Metadata = { title: "About" };
@@ -32,7 +32,7 @@ function ImpactList({ title, items, ollie, delay = 0 }: { title: string; items: 
   return (
     <Reveal delay={delay} className="rounded-[var(--radius-l)] border border-line bg-surface p-6 sm:p-8">
       <div className="flex items-center gap-4">
-        <Ollie state={ollie} size={52} />
+        <OllieStage state={ollie} size={52} />
         <h3 className="text-[1.4rem] font-extrabold text-ink">{title}</h3>
       </div>
       <ul className="mt-6 space-y-5">

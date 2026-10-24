@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
-import { ShieldAlert, ChevronDown, ClipboardList, Calculator, Scale, Thermometer, GitBranch, ShieldCheck, Droplet } from "lucide-react";
+import { ShieldAlert, ChevronDown, ClipboardList, Calculator, Scale, Thermometer, GitBranch, ShieldCheck, Droplet } from "@/components/icons";
 import { PageIntro } from "@/components/site/PageIntro";
 import { Tag } from "@/components/ui";
 import { Ollie } from "@/components/Ollie";

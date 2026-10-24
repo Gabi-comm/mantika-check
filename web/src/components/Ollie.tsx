@@ -6,6 +6,8 @@ import { cx } from "@/frontend/format";
  * Ollie, the oil-drop mascot. Colour, face and motion follow the batch status:
  * keep hops and blinks, monitor leans and glances, change soon trembles and sweats,
  * change now sags and breathes slowly under rising smoke. A status change pops the new look in.
+ * `scene` adds the world around him: a glow in the batch colour, a ground shadow and oil bubbles rising.
+ * Eyes and lean read --gx/--gy/--tilt from a parent (OllieStage sets them from the pointer).
  */
 const BODY: Record<Action, string> = {
   keep: "var(--ollie-fresh)",
@@ -20,12 +22,14 @@ export function Ollie({
   state = "keep",
   size = 120,
   animated = true,
+  scene = false,
   className,
   title,
 }: {
   state?: Action;
   size?: number;
   animated?: boolean;
+  scene?: boolean;
   className?: string;
   title?: string;
 }) {
@@ -46,8 +50,28 @@ export function Ollie({
           <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="3" />
           <feDisplacementMap in="SourceGraphic" scale="2.2" />
         </filter>
+        {scene && (
+          <radialGradient id={`glow-${id}`}>
+            <stop offset="0%" stopColor={BODY[state]} stopOpacity="0.38" />
+            <stop offset="100%" stopColor={BODY[state]} stopOpacity="0" />
+          </radialGradient>
+        )}
       </defs>
 
+      {scene && (
+        <g aria-hidden="true">
+          <ellipse className="ollie-glow" cx="50" cy="66" rx="70" ry="66" fill={`url(#glow-${id})`} />
+          <ellipse className="ollie-shadow" cx="50" cy="127" rx="26" ry="4.5" fill="#000" opacity="0.3" />
+          <g fill={BODY[state]} filter={`url(#rough-${id})`}>
+            <circle className="ollie-bubble" cx="8" cy="104" r="3.4" />
+            <circle className="ollie-bubble ollie-bubble-b" cx="94" cy="96" r="2.6" />
+            <circle className="ollie-bubble ollie-bubble-c" cx="18" cy="70" r="2" />
+            <circle className="ollie-bubble ollie-bubble-d" cx="88" cy="58" r="1.8" />
+          </g>
+        </g>
+      )}
+
+      <g className="ollie-tilt">
       <g key={state} className="ollie-pop">
         <g className="ollie-body" filter={`url(#rough-${id})`}>
           <g stroke={BODY[state]} strokeWidth="5" strokeLinecap="round" fill="none">
@@ -65,6 +89,7 @@ export function Ollie({
           </g>
           <path d={DROP} fill={BODY[state]} />
 
+          <g className="ollie-gaze">
           <g fill="var(--ollie-night)" stroke="var(--ollie-night)" className="ollie-eyes">
             {state === "change_now" ? (
               <g fill="none" strokeWidth="3.2" strokeLinecap="round">
@@ -79,6 +104,7 @@ export function Ollie({
             )}
           </g>
           {state === "monitor" && <path className="ollie-brow" d="M54 56 Q62 52 69 57" fill="none" stroke="var(--ollie-night)" strokeWidth="3" strokeLinecap="round" />}
+          </g>
         </g>
 
         {state === "change_soon" && (
@@ -91,6 +117,51 @@ export function Ollie({
           </g>
         )}
       </g>
+      </g>
+    </svg>
+  );
+}
+
+const GLYPH_DROP = "M12 1.4C10.3 4.6 6.2 8.9 4.8 12.5 3.2 16.9 6.3 22 12 22S20.8 16.9 19.2 12.5C17.8 8.9 13.7 4.6 12 1.4Z";
+
+/**
+ * Ollie as a status indicator: the drop and face without legs, in the batch colour for that status.
+ * Sized by font size (1em) so it sits in text like an icon. Status words stay next to it; the face is a second cue.
+ */
+export function StatusDrop({ state, className, title }: { state: Action; className?: string; title?: string }) {
+  const eye = "var(--ollie-night)";
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      className={cx("ink inline-block size-[1em] shrink-0 overflow-visible", className)}
+      role={title ? "img" : undefined}
+      aria-label={title}
+      aria-hidden={title ? undefined : true}
+    >
+      <path d={GLYPH_DROP} fill={BODY[state]} />
+      {state === "change_now" ? (
+        <g fill="none" stroke={eye} strokeWidth="1.7" strokeLinecap="round">
+          <path d="M7.4 14.2q1.6 1.3 3.2 0" />
+          <path d="M13.4 15.2q1.6 1.3 3.2 0" />
+        </g>
+      ) : (
+        <g fill={eye}>
+          <circle cx="9" cy="14" r={state === "change_soon" ? 1.9 : 1.6} />
+          <circle cx="15" cy="15" r={state === "change_soon" ? 1.9 : 1.6} />
+        </g>
+      )}
+      {state === "monitor" && <path d="M13.2 11.6q2-1.1 3.8.2" fill="none" stroke={eye} strokeWidth="1.4" strokeLinecap="round" />}
+      {state === "change_soon" && <path d="M21.6 3.6c-.9 1.5-1.5 2.3-1.5 3.1a1.5 1.5 0 0 0 3 0c0-.8-.6-1.6-1.5-3.1Z" fill="var(--ollie-sweat)" />}
+      {state === "change_now" && <path d="M19 6c-1-1 1-2 0-3s1-2 0-3" fill="none" stroke="var(--gray)" strokeWidth="1.3" strokeLinecap="round" />}
+    </svg>
+  );
+}
+
+/** Plain drop, for bullets and small markers. */
+export function DropDot({ className, color = "currentColor" }: { className?: string; color?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" className={cx("ink inline-block size-[0.8em] shrink-0", className)} aria-hidden="true">
+      <path d={GLYPH_DROP} fill={color} />
     </svg>
   );
 }

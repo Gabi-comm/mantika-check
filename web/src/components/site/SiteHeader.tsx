@@ -3,7 +3,8 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-import { Menu, X, LogIn } from "lucide-react";
+import { Menu, X, LogIn, ArrowRight } from "@/components/icons";
+import { useCloud } from "@/vendor/sync";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { Logo } from "@/components/Logo";
 import { btn } from "@/components/ui";
@@ -19,6 +20,7 @@ const links = [
 export function SiteHeader() {
   const path = usePathname();
   const [open, setOpen] = useState(false);
+  const signedIn = useCloud().email !== null;
 
   return (
     <header className="sticky top-0 z-40 border-b border-line bg-surface/92 backdrop-blur">
@@ -50,9 +52,15 @@ export function SiteHeader() {
         <div className="flex items-center gap-2">
           <ThemeToggle />
           <span className="hidden sm:block">
-            <Link href="/#signin" className={btn("primary", "md")}>
-              <LogIn className="size-4" aria-hidden="true" /> Sign in
-            </Link>
+            {signedIn ? (
+              <Link href="/app" className={btn("primary", "md")}>
+                Workspace <ArrowRight className="size-4" aria-hidden="true" />
+              </Link>
+            ) : (
+              <Link href="/#signin" className={btn("primary", "md")}>
+                <LogIn className="size-4" aria-hidden="true" /> Sign in
+              </Link>
+            )}
           </span>
           <button
             type="button"
@@ -77,8 +85,16 @@ export function SiteHeader() {
               </li>
             ))}
           </ul>
-          <Link href="/#signin" onClick={() => setOpen(false)} className={btn("primary", "lg", "mt-4 w-full")}>
-            <LogIn className="size-4" aria-hidden="true" /> Sign in
+          <Link href={signedIn ? "/app" : "/#signin"} onClick={() => setOpen(false)} className={btn("primary", "lg", "mt-4 w-full")}>
+            {signedIn ? (
+              <>
+                Workspace <ArrowRight className="size-4" aria-hidden="true" />
+              </>
+            ) : (
+              <>
+                <LogIn className="size-4" aria-hidden="true" /> Sign in
+              </>
+            )}
           </Link>
         </nav>
       )}

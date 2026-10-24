@@ -1,4 +1,4 @@
-import { Timer, Droplets, ClipboardCheck, RefreshCw, TriangleAlert } from "lucide-react";
+import { Timer, Droplets, ClipboardCheck, RefreshCw, TriangleAlert } from "@/components/icons";
 import type { BatchEvent } from "@/vendor/types";
 import { copy } from "@/vendor/copy";
 import { cx, fmtDate, fmtLitres, fmtTime } from "@/frontend/format";

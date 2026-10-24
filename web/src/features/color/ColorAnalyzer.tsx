@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { Upload, Camera, RotateCw, X, FlaskConical, Trash2, Save } from "lucide-react";
+import { Upload, Camera, RotateCw, X, FlaskConical, Trash2, Save } from "@/components/icons";
 import { Button, Panel, PanelHead, PageHeader, Tag } from "@/components/ui";
 import { InlineNote } from "@/components/vendor/status";
 import { fmtDateTime } from "@/frontend/format";

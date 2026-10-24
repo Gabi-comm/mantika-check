@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState, type KeyboardEvent, type ReactNode } from "react";
-import { Check, TriangleAlert } from "lucide-react";
+import { Check, TriangleAlert } from "@/components/icons";
 import { copy } from "@/vendor/copy";
 import { cx } from "@/frontend/format";
 

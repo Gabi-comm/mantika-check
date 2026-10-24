@@ -2,7 +2,7 @@
 
 import { Suspense, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
-import { Search, X } from "lucide-react";
+import { Search, X } from "@/components/icons";
 import type { Batch, BatchEvent } from "@/vendor/types";
 import { copy } from "@/vendor/copy";
 import { batchTotals, dayKey } from "@/vendor/selectors";
@@ -67,8 +67,8 @@ function History() {
         <div className="grid gap-6 lg:grid-cols-[300px_minmax(0,1fr)]">
           {/* batch list */}
           <nav aria-label="Batches" className="min-w-0">
-            <ul className="flex gap-2 overflow-x-auto pb-1 lg:flex-col lg:overflow-visible">
-              <li className="shrink-0">
+            <ul className="no-scrollbar -mx-4 flex snap-x snap-mandatory scroll-px-4 gap-2 overflow-x-auto px-4 pb-1 sm:-mx-6 sm:scroll-px-6 sm:px-6 lg:mx-0 lg:flex-col lg:overflow-visible lg:px-0">
+              <li className="shrink-0 snap-start">
                 <button
                   type="button"
                   aria-pressed={selected === "all"}
@@ -83,7 +83,7 @@ function History() {
                 const on = selected === b.id;
                 const active = b.id === state.activeBatchId;
                 return (
-                  <li key={b.id} className="w-64 shrink-0 lg:w-auto">
+                  <li key={b.id} className="w-[15.5rem] shrink-0 snap-start lg:w-auto">
                     <button
                       type="button"
                       aria-pressed={on}
@@ -135,7 +135,7 @@ function History() {
                   className="h-12 w-full rounded-[var(--radius-s)] border border-line-strong bg-surface pr-3 pl-9"
                 />
               </label>
-              <div className="flex flex-wrap gap-2" role="group" aria-label="Event types">
+              <div className="no-scrollbar -mx-4 flex gap-2 overflow-x-auto px-4 sm:mx-0 sm:flex-wrap sm:overflow-visible sm:px-0" role="group" aria-label="Event types">
                 {KINDS.map(({ k, label }) => (
                   <ChipToggle key={k} on={kinds.includes(k)} onClick={() => setKinds((v) => (v.includes(k) ? v.filter((x) => x !== k) : [...v, k]))}>
                     {label}

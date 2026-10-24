@@ -4,6 +4,8 @@ import "@/styles/globals.css";
 import { SettingsProvider } from "@/frontend/settings";
 import { Intro } from "@/components/motion/Intro";
 import { bootScript } from "@/frontend/boot";
+import { InkDefs } from "@/components/icons";
+import { CloudSync } from "@/components/CloudSync";
 
 // Self-hosted (fontsource builds) so builds and offline use never depend on a font CDN.
 const jakarta = localFont({
@@ -51,6 +53,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <script dangerouslySetInnerHTML={{ __html: bootScript }} />
       </head>
       <body>
+        <InkDefs />
+        <CloudSync />
         <SettingsProvider>
           <Intro />
           {children}

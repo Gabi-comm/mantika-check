@@ -1,4 +1,4 @@
-import { LayoutDashboard, Timer, ClipboardCheck, History, Settings, Eye } from "lucide-react";
+import { LayoutDashboard, Timer, ClipboardCheck, History, Settings, Eye } from "@/components/icons";
 import { copy } from "@/vendor/copy";
 import { fmtDate, fmtLitres } from "@/frontend/format";
 import { StatusScale } from "@/components/vendor/status";

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { AnchorHTMLAttributes, ButtonHTMLAttributes, HTMLAttributes, ReactNode } from "react";
 import { cx } from "@/frontend/format";
+import { StatusDrop } from "./Ollie";
 
 type Variant = "primary" | "secondary" | "ghost" | "danger" | "inverse";
 type Size = "md" | "lg";
@@ -65,9 +66,9 @@ const tones: Record<Tone, string> = {
   ink: "bg-night text-white ring-transparent",
   outline: "text-gray ring-line-strong",
 };
-const DOT: ReadonlySet<Tone> = new Set(["green", "amber", "orange", "red"]);
+const DOT: Partial<Record<Tone, "keep" | "monitor" | "change_soon" | "change_now">> = { green: "keep", amber: "monitor", orange: "change_soon", red: "change_now" };
 
-/** Small label pill. Status tones lead with a dot so the label still reads without colour. */
+/** Small label pill. Status tones lead with a mini Ollie so the label still reads without colour. */
 export function Tag({ children, tone = "neutral", className, title }: { children: ReactNode; tone?: Tone; className?: string; title?: string }) {
   return (
     <span
@@ -78,7 +79,7 @@ export function Tag({ children, tone = "neutral", className, title }: { children
         className
       )}
     >
-      {DOT.has(tone) && <span className="size-1.5 shrink-0 rounded-full bg-current" aria-hidden="true" />}
+      {DOT[tone] && <StatusDrop state={DOT[tone]} className="-ml-0.5 text-[0.95rem]" />}
       {children}
     </span>
   );

@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
-import { CircleHelp, X, Compass, ChevronDown } from "lucide-react";
+import { CircleHelp, X, Compass, ChevronDown } from "@/components/icons";
 import { Ollie } from "@/components/Ollie";
 import { cx } from "@/frontend/format";
 import { HELP, helpForPath, type HelpId } from "./content";

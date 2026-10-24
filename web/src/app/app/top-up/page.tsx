@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Ban } from "lucide-react";
+import { Ban } from "@/components/icons";
 import { copy, TOPUP_PRESETS } from "@/vendor/copy";
 import { addEvent } from "@/vendor/store";
 import { useOilStatus } from "@/vendor/useOilStatus";

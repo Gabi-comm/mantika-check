@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Timer, ClipboardCheck, Droplets, RefreshCw, Ban, ArrowRight, Eye } from "lucide-react";
+import { Timer, ClipboardCheck, Droplets, RefreshCw, Ban, ArrowRight, Eye } from "@/components/icons";
 import { useOilStatus } from "@/vendor/useOilStatus";
 import { copy } from "@/vendor/copy";
 import { heatSimulation } from "@/lib/simulator";
@@ -9,7 +9,8 @@ import { hoursByDay, latestCheck, sessionsOf, sortedEvents } from "@/vendor/sele
 import type { Batch, StatusResult } from "@/vendor/types";
 import { daysBetween, fmtDate, fmtDateTime, fmtLitres, fmtPhp, cx } from "@/frontend/format";
 import { LinkButton, Metric, Panel, PanelHead, Tag } from "@/components/ui";
-import { AdvicePanel, ForecastPanel, StatusPanel, WarningBanner, WhyPanel } from "@/components/vendor/status";
+import { AdvicePanel, ForecastPanel, StatusPanel, WhyPanel } from "@/components/vendor/status";
+import { WarningDialog } from "@/components/vendor/WarningDialog";
 import { FoodBars, HeatLegend, HeatSplit, UsageChart } from "@/components/vendor/charts";
 import { Timeline } from "@/components/vendor/timeline";
 import { Flash, NoBatch, WorkspaceSkeleton } from "@/components/vendor/states";
@@ -28,7 +29,7 @@ export default function DashboardPage() {
 
   return (
     <div className="space-y-5">
-      {status.hardRule && <WarningBanner text={status.hardRule} />}
+      {status.hardRule && <WarningDialog text={status.hardRule} />}
 
       <header className="flex flex-wrap items-end justify-between gap-4">
         <div className="min-w-0">
@@ -242,7 +243,6 @@ function HeatComparison({ result, batch }: { result: StatusResult; batch: Batch 
             {batch.pricePerL === undefined && <p className="text-[0.85rem] text-gray">{copy.heatCompare.noPrice}</p>}
           </>
         )}
-        <p className="text-[0.78rem] text-gray">{copy.heatCompare.note}</p>
       </div>
     </Panel>
   );

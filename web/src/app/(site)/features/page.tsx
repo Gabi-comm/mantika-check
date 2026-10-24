@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
-import { LogIn, Settings, ScanLine, WifiOff, Moon, Compass } from "lucide-react";
+import { LogIn, Settings, ScanLine, WifiOff, Moon, Compass } from "@/components/icons";
 import { LinkButton, Tag } from "@/components/ui";
 import { PageIntro } from "@/components/site/PageIntro";
 import { Reveal } from "@/components/motion/Reveal";

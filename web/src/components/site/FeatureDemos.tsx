@@ -1,5 +1,5 @@
 import type { CSSProperties, ReactNode } from "react";
-import { Check, Ban, TriangleAlert, Droplets, CircleCheck, Timer, RefreshCw, ClipboardCheck } from "lucide-react";
+import { Check, Ban, TriangleAlert, Droplets, CircleCheck, Timer, RefreshCw, ClipboardCheck } from "@/components/icons";
 import { Ollie } from "@/components/Ollie";
 import { copy } from "@/vendor/copy";
 import type { Action } from "@/vendor/types";
@@ -97,7 +97,7 @@ export function StatusDemo() {
       <div className="relative grid h-44 place-items-center">
         {states.map((a, i) => (
           <div key={a} className="demo-cycle absolute inset-0 flex flex-col items-center justify-center gap-3" style={d(i * 2)}>
-            <Ollie state={a} size={74} />
+            <Ollie state={a} size={74} scene />
             <span className="font-display text-[1rem] font-extrabold text-ink">{copy.status[a]}</span>
           </div>
         ))}

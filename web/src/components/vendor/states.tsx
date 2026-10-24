@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { CircleCheck, Droplet } from "lucide-react";
+import { CircleCheck, Droplet } from "@/components/icons";
 import { copy } from "@/vendor/copy";
 import { takeFlash } from "@/vendor/flash";
 import { LinkButton, Panel } from "@/components/ui";

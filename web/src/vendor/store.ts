@@ -5,8 +5,8 @@ import { demoState, emptyState } from "./seed";
 import { activeBatchOf } from "./selectors";
 
 /**
- * Local-only persistence (this browser). No server, no account.
- * First visit seeds the fictional demo dataset so the workspace is never blank.
+ * Persistence in this browser. First visit seeds the fictional demo dataset so the workspace is never blank.
+ * When the vendor is signed in, vendor/sync.ts mirrors their own records to Supabase.
  */
 const KEY = "mantika.web.v2";
 
@@ -157,6 +157,11 @@ export function removeDemoRecords(): boolean {
     activeBatchId: activeStillThere ? s.activeBatchId : null,
     demoScenario: null,
   });
+}
+
+/** Swaps in a whole workspace (used by the cloud sync after sign-in). */
+export function hydrate(next: VendorState): boolean {
+  return commit(next);
 }
 
 export function clearAll(): boolean {

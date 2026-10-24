@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useLayoutEffect, useState } from "react";
-import { ArrowLeft, ArrowRight } from "lucide-react";
+import { ArrowLeft, ArrowRight } from "@/components/icons";
 import { Ollie } from "@/components/Ollie";
 import { cx } from "@/frontend/format";
 import type { Action } from "@/vendor/types";

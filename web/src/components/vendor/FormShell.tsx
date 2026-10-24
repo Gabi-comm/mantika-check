@@ -3,18 +3,19 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState, type ReactNode } from "react";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft } from "@/components/icons";
 import { copy } from "@/vendor/copy";
 import { setFlash } from "@/vendor/flash";
 import { useOilStatus } from "@/vendor/useOilStatus";
-import { InlineNote, WarningBanner } from "./status";
+import { InlineNote } from "./status";
+import { WarningDialog } from "./WarningDialog";
 import { NoBatch, WorkspaceSkeleton } from "./states";
 
 export function FormShell({ title, children, aside, requireBatch = true }: { title: string; lead?: string; children: ReactNode; aside?: ReactNode; requireBatch?: boolean }) {
   const { hydrated, batch, result, state } = useOilStatus();
   return (
     <div className="space-y-5">
-      {result?.status.hardRule && <WarningBanner text={result.status.hardRule} />}
+      {result?.status.hardRule && <WarningDialog text={result.status.hardRule} />}
       <Link href="/app" className="inline-flex min-h-11 items-center gap-1.5 text-[0.9rem] font-medium text-accent">
         <ArrowLeft className="size-4" aria-hidden="true" /> {copy.actions.back}
       </Link>

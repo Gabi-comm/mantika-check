@@ -803,3 +803,298 @@ html[data-theme="dark"] .logo-mark,
   --mark-3: #9fd8b8;
   --mark-sq: #fff;
 }
+
+/* Theme switch: the new theme spreads out in a circle from the toggle (ThemeToggle sets the origin). */
+html.theme-switching::view-transition-old(root),
+html.theme-switching::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+html.theme-switching::view-transition-new(root) {
+  animation: theme-reveal 0.62s cubic-bezier(0.4, 0, 0.2, 1);
+}
+@keyframes theme-reveal {
+  from {
+    clip-path: circle(0 at var(--theme-x, 50%) var(--theme-y, 0));
+  }
+  to {
+    clip-path: circle(var(--theme-r, 150%) at var(--theme-x, 50%) var(--theme-y, 0));
+  }
+}
+
+/* Popups */
+@keyframes dialog-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.96);
+  }
+}
+.dialog-in {
+  animation: dialog-in 0.32s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+/* Sign in / create account: rows slide open, text crossfades. */
+.collapse-y {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transition:
+    grid-template-rows 0.34s cubic-bezier(0.2, 0.8, 0.2, 1),
+    opacity 0.22s ease;
+}
+.collapse-y.is-open {
+  grid-template-rows: 1fr;
+  opacity: 1;
+}
+@keyframes auth-swap {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+    filter: blur(2px);
+  }
+}
+.auth-swap {
+  display: block;
+  animation: auth-swap 0.32s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+span.auth-swap {
+  display: inline-block;
+}
+
+/* Intro reel */
+.intro-glow {
+  background: radial-gradient(42% 38% at 50% 42%, color-mix(in srgb, var(--glow) 22%, transparent), transparent 70%);
+  transition: background 0.6s ease;
+}
+.intro-chip {
+  animation: dialog-in 0.36s cubic-bezier(0.3, 1.5, 0.5, 1) both;
+}
+@keyframes intro-progress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+.intro-progress {
+  transform-origin: left;
+  animation: intro-progress 5.9s linear both;
+}
+
+/* Horizontal swipe rows on phones */
+.no-scrollbar {
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Bottom sheet and notification */
+@keyframes sheet-in {
+  from {
+    transform: translateY(100%);
+  }
+}
+.sheet-in {
+  animation: sheet-in 0.34s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+@keyframes toast-in {
+  from {
+    opacity: 0;
+    transform: translateY(-16px) scale(0.98);
+  }
+}
+.toast-in {
+  animation: toast-in 0.4s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+@keyframes toast-ring {
+  0%,
+  100% {
+    transform: rotate(0);
+  }
+  10%,
+  30% {
+    transform: rotate(-12deg);
+  }
+  20%,
+  40% {
+    transform: rotate(12deg);
+  }
+  50% {
+    transform: rotate(0);
+  }
+}
+.toast-ring {
+  animation: toast-ring 1.6s 0.4s ease-in-out 2;
+}
+
+/* ------------------------------------------------------------------
+   Ollie's ink: icons and indicators share the mascot's rough edge.
+   ------------------------------------------------------------------ */
+.ink {
+  filter: url(#ink-rough);
+}
+.ink-bar {
+  filter: url(#ink-rough-lg);
+}
+.scale-marker {
+  animation: marker-bob 2.4s ease-in-out infinite;
+}
+@keyframes marker-bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-2px);
+  }
+}
+
+/* ------------------------------------------------------------------
+   Ollie's world (OllieStage + <Ollie scene>): glow, shadow, bubbles, gaze, lean, boop.
+   ------------------------------------------------------------------ */
+.ollie-stage {
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+.ollie-gaze {
+  transform: translate(var(--gx, 0px), var(--gy, 0px));
+  transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.3, 1);
+}
+.ollie-tilt {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  transform: rotate(var(--tilt, 0deg));
+  transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.3, 1);
+}
+.ollie-anim .ollie-glow {
+  transform-box: fill-box;
+  transform-origin: 50% 50%;
+  animation: ollie-glow 4s ease-in-out infinite;
+}
+.ollie-anim .ollie-shadow {
+  transform-box: fill-box;
+  transform-origin: 50% 50%;
+}
+.ollie-anim.ollie-keep .ollie-shadow {
+  animation: ollie-shadow-hop 2.2s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+}
+.ollie-anim.ollie-change_now .ollie-shadow {
+  animation: ollie-shadow-breathe 3.8s ease-in-out infinite;
+}
+.ollie-anim .ollie-bubble {
+  transform-box: fill-box;
+  transform-origin: 50% 50%;
+  animation: ollie-bubble 3.6s ease-in infinite;
+}
+.ollie-anim .ollie-bubble-b {
+  animation-delay: 1.1s;
+  animation-duration: 4.2s;
+}
+.ollie-anim .ollie-bubble-c {
+  animation-delay: 2s;
+}
+.ollie-anim .ollie-bubble-d {
+  animation-delay: 2.8s;
+  animation-duration: 4.6s;
+}
+/* tired oil bubbles slower and darker; fresh oil fizzes */
+.ollie-anim.ollie-change_now .ollie-bubble {
+  animation-duration: 6s;
+}
+.ollie-anim.ollie-keep .ollie-bubble {
+  animation-duration: 2.8s;
+}
+.ollie-booped .ollie-pop {
+  animation: ollie-boop 0.7s cubic-bezier(0.3, 1.5, 0.5, 1) both;
+}
+.ollie-quip {
+  translate: -50% -100%;
+  animation: ollie-quip 1.8s ease-out both;
+}
+
+@keyframes ollie-glow {
+  0%,
+  100% {
+    transform: scale(0.92);
+    opacity: 0.75;
+  }
+  50% {
+    transform: scale(1.04);
+    opacity: 1;
+  }
+}
+@keyframes ollie-shadow-hop {
+  0%,
+  55%,
+  100% {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+  62% {
+    transform: scaleX(1.1);
+  }
+  75% {
+    transform: scaleX(0.78);
+    opacity: 0.6;
+  }
+  88% {
+    transform: scaleX(1.06);
+  }
+}
+@keyframes ollie-shadow-breathe {
+  0%,
+  100% {
+    transform: scaleX(1.08);
+  }
+  50% {
+    transform: scaleX(1.18);
+  }
+}
+@keyframes ollie-bubble {
+  0% {
+    transform: translateY(0) scale(0.4);
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.9;
+  }
+  100% {
+    transform: translateY(-46px) scale(1.05);
+    opacity: 0;
+  }
+}
+@keyframes ollie-boop {
+  0% {
+    transform: none;
+  }
+  18% {
+    transform: scale(1.18, 0.78);
+  }
+  45% {
+    transform: translateY(-16px) scale(0.92, 1.1) rotate(-4deg);
+  }
+  70% {
+    transform: translateY(0) scale(1.08, 0.94);
+  }
+  100% {
+    transform: none;
+  }
+}
+@keyframes ollie-quip {
+  0% {
+    opacity: 0;
+    transform: translateY(6px) scale(0.9);
+  }
+  15%,
+  80% {
+    opacity: 1;
+    transform: none;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+}
