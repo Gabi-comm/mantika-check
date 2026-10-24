@@ -1,6 +1,6 @@
 // features page content
 import type { ReactNode } from "react";
-import { LayoutDashboard, LogIn, Settings, ScanLine, WifiOff, Moon, Compass } from "@/components/icons";
+import { LogIn, Settings, ScanLine, WifiOff, Moon, Compass } from "@/components/icons";
 import { LinkButton, Tag } from "@/components/ui";
 import { PageIntro } from "@/components/site/PageIntro";
 import { Reveal } from "@/components/motion/Reveal";
@@ -73,12 +73,12 @@ const extras = [
   { icon: ScanLine, t: "Color analyzer", d: "Average color of a photo region. Experimental and never used for the status." },
 ];
 
-export function FeaturesContent({ inApp = false }: { inApp?: boolean }) {
+export function FeaturesContent() {
   return (
     <>
       <PageIntro eyebrow="Features" title="A complete monitoring loop, from first pour to replacement." lead="Each feature below runs in the current prototype. Where a result is an estimate rather than a measurement, it says so.">
-        <LinkButton href={inApp ? "/app" : "/#signin"} size="lg" className="mt-6">
-          {inApp ? <LayoutDashboard className="size-4" aria-hidden="true" /> : <LogIn className="size-4" aria-hidden="true" />} {inApp ? "Open dashboard" : "Sign in"}
+        <LinkButton href="/#signin" size="lg" className="mt-6">
+          <LogIn className="size-4" aria-hidden="true" /> Sign in
         </LinkButton>
       </PageIntro>
 

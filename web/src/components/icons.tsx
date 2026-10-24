@@ -85,9 +85,6 @@ export const GitBranch = ink(L.GitBranch, "GitBranch");
 export const HeartPulse = ink(L.HeartPulse, "HeartPulse");
 export const History = ink(L.History, "History");
 export const Info = ink(L.Info, "Info");
-export const House = ink(L.House, "House");
-export const Sparkles = ink(L.Sparkles, "Sparkles");
-export const BookOpen = ink(L.BookOpen, "BookOpen");
 export const LayoutDashboard = ink(L.LayoutDashboard, "LayoutDashboard");
 export const Loader2 = ink(L.Loader2, "Loader2");
 export const Lock = ink(L.Lock, "Lock");
@@ -128,6 +125,11 @@ export const X = ink(L.X, "X");
 export function InkDefs() {
   return (
     <svg aria-hidden="true" width="0" height="0" className="pointer-events-none absolute">
+      {/* firefox draws the same noise much weaker, so it gets its own tuned filters (the -ff ones) */}
+      <style>
+        {".ink{filter:url(#ink-rough)}.ink-bar{filter:url(#ink-rough-lg)}" +
+          "@supports (-moz-appearance:none){.ink{filter:url(#ink-rough-ff)}.ink-bar{filter:url(#ink-rough-lg-ff)}.ollie-rough{filter:url(#ollie-rough-ff)}}"}
+      </style>
       <filter id="ink-rough" x="-15%" y="-15%" width="130%" height="130%">
         <feTurbulence type="fractalNoise" baseFrequency="0.22" numOctaves="2" seed="3" />
         <feDisplacementMap in="SourceGraphic" scale="1.6" />
@@ -135,6 +137,18 @@ export function InkDefs() {
       <filter id="ink-rough-lg" x="-5%" y="-30%" width="110%" height="160%">
         <feTurbulence type="fractalNoise" baseFrequency="0.07 0.12" numOctaves="1" seed="7" />
         <feDisplacementMap in="SourceGraphic" scale="3" />
+      </filter>
+      <filter id="ink-rough-ff" x="-15%" y="-15%" width="130%" height="130%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.11" numOctaves="2" seed="3" />
+        <feDisplacementMap in="SourceGraphic" scale="6" />
+      </filter>
+      <filter id="ink-rough-lg-ff" x="-5%" y="-30%" width="110%" height="160%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.035 0.06" numOctaves="1" seed="7" />
+        <feDisplacementMap in="SourceGraphic" scale="12" />
+      </filter>
+      <filter id="ollie-rough-ff" x="-10%" y="-10%" width="120%" height="120%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.45" numOctaves="2" seed="3" />
+        <feDisplacementMap in="SourceGraphic" scale="6" />
       </filter>
     </svg>
   );

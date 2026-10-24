@@ -1,7 +1,6 @@
-// home page content (website and workspace)
+// home page content
 import Link from "next/link";
-import { ArrowRight, LayoutDashboard, Timer, ClipboardCheck, Droplets, RefreshCw, ShieldAlert, LogIn, FlaskConical, Users, Utensils, Thermometer } from "@/components/icons";
-import { inAppHref } from "./links";
+import { ArrowRight, Timer, ClipboardCheck, Droplets, RefreshCw, ShieldAlert, LogIn, FlaskConical, Users, Utensils, Thermometer } from "@/components/icons";
 import { LinkButton, Tag } from "@/components/ui";
 import { HeroPreview } from "@/components/site/HeroPreview";
 import { Walkthrough } from "@/components/site/Walkthrough";
@@ -39,8 +38,7 @@ const OLLIE_STATES: { a: Action; d: string; tone: "green" | "amber" | "orange" |
   { a: "change_now", d: "Dark, smoking oil. Ollie has slumped down, worn out.", tone: "red" },
 ];
 
-export function HomeContent({ inApp = false }: { inApp?: boolean }) {
-  const to = (href: string) => (inApp ? inAppHref(href) : href);
+export function HomeContent() {
   const { batch, totals, days, result } = demoSnapshot();
   const steps = [
     { icon: Droplets, t: "Start a batch", d: "Oil type, volume and heat source. Once per pan of oil." },
@@ -59,7 +57,7 @@ export function HomeContent({ inApp = false }: { inApp?: boolean }) {
     <>
       <section className="dot-grid relative overflow-hidden border-b border-line" aria-labelledby="hero-h">
         <div aria-hidden="true" className="pointer-events-none absolute -top-32 -left-24 size-[28rem] rounded-full bg-[radial-gradient(circle,color-mix(in_srgb,var(--ollie-fresh)_22%,transparent),transparent_70%)]" />
-        <Wrap className={`relative grid gap-12 pt-12 pb-16 lg:items-center lg:gap-16 lg:pt-20 lg:pb-24 ${inApp ? "" : "lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.85fr)]"}`}>
+        <Wrap className="relative grid gap-12 pt-12 pb-16 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.85fr)] lg:items-center lg:gap-16 lg:pt-20 lg:pb-24">
           <div className="fade-up">
             <p className="eyebrow inline-flex items-center gap-2 rounded-[4px] border border-line bg-surface px-2 py-1">
               <span className="size-1.5 animate-pulse rounded-full bg-green" aria-hidden="true" /> Cooking-oil monitoring · Research prototype
@@ -80,25 +78,17 @@ export function HomeContent({ inApp = false }: { inApp?: boolean }) {
               ))}
             </div>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              {inApp ? (
-                <LinkButton href="/app" size="lg">
-                <LayoutDashboard className="size-4" aria-hidden="true" /> Open dashboard
+              <LinkButton href="#signin" size="lg" className="lg:hidden">
+                <LogIn className="size-4" aria-hidden="true" /> Sign in
               </LinkButton>
-              ) : (
-                <LinkButton href="#signin" size="lg" className="lg:hidden">
-                  <LogIn className="size-4" aria-hidden="true" /> Sign in
-                </LinkButton>
-              )}
-              <LinkButton href={to("/methodology")} size="lg" variant="secondary">
+              <LinkButton href="/methodology" size="lg" variant="secondary">
                 Explore the Method <ArrowRight className="size-4" aria-hidden="true" />
               </LinkButton>
             </div>
           </div>
-          {!inApp && (
-            <div id="signin" className="fade-up scroll-mt-24" style={{ animationDelay: "120ms" }}>
-              <AuthPanel />
-            </div>
-          )}
+          <div id="signin" className="fade-up scroll-mt-24" style={{ animationDelay: "120ms" }}>
+            <AuthPanel />
+          </div>
         </Wrap>
       </section>
 
@@ -220,15 +210,9 @@ export function HomeContent({ inApp = false }: { inApp?: boolean }) {
             </div>
           </div>
           <div className="mt-8">
-            {inApp ? (
-              <LinkButton href="/app" variant="inverse" size="lg">
-                <LayoutDashboard className="size-4" aria-hidden="true" /> Open your dashboard
-              </LinkButton>
-            ) : (
-              <LinkButton href="#signin" variant="inverse" size="lg">
-                <LogIn className="size-4" aria-hidden="true" /> Sign in to open yours
-              </LinkButton>
-            )}
+            <LinkButton href="#signin" variant="inverse" size="lg">
+              <LogIn className="size-4" aria-hidden="true" /> Sign in to open yours
+            </LinkButton>
           </div>
         </Wrap>
       </section>
@@ -288,7 +272,7 @@ export function HomeContent({ inApp = false }: { inApp?: boolean }) {
             <h2 id="lim-h" className="mt-3 text-[1.9rem] font-extrabold text-ink sm:text-[2.3rem]">
               What this prototype does not claim.
             </h2>
-            <Link href={to("/methodology")} className="mt-6 inline-flex min-h-11 items-center gap-1.5 font-semibold text-accent">
+            <Link href="/methodology" className="mt-6 inline-flex min-h-11 items-center gap-1.5 font-semibold text-accent">
               <FlaskConical className="size-4" aria-hidden="true" /> Read how it works <ArrowRight className="size-4" aria-hidden="true" />
             </Link>
           </Reveal>

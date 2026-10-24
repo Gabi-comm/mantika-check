@@ -921,13 +921,7 @@ span.auth-swap {
   animation: toast-ring 1.6s 0.4s ease-in-out 2;
 }
 
-/* ollie's ink */
-.ink {
-  filter: url(#ink-rough);
-}
-.ink-bar {
-  filter: url(#ink-rough-lg);
-}
+/* ollie's ink filter rules live in InkDefs (icons.tsx), with firefox overrides */
 .scale-marker {
   animation: marker-bob 2.4s ease-in-out infinite;
 }

@@ -4,7 +4,7 @@
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useCallback, useEffect, useRef, useState, type ReactNode } from "react";
-import { LayoutDashboard, Timer, ClipboardCheck, History, Settings, Info, ScanLine, WifiOff, CircleHelp, PanelLeftClose, PanelLeftOpen, House, Sparkles, BookOpen, Users } from "@/components/icons";
+import { LayoutDashboard, Timer, ClipboardCheck, History, Settings, Info, ScanLine, WifiOff, CircleHelp, PanelLeftClose, PanelLeftOpen } from "@/components/icons";
 import { ThemeToggle } from "./ThemeToggle";
 import { HelpButton, HelpDrawer } from "./help/HelpDrawer";
 import { Tour } from "./help/Tour";
@@ -33,12 +33,6 @@ const secondary = [
     icon: ScanLine,
     tag: "Experimental",
   },
-];
-const website = [
-  { href: "/app/overview", label: "Overview", icon: House },
-  { href: "/app/features", label: "Features", icon: Sparkles },
-  { href: "/app/methodology", label: "Methodology", icon: BookOpen },
-  { href: "/app/about-project", label: "About", icon: Users },
 ];
 const TOUR_TARGET: Record<string, string> = {
   "/app": "dashboard",
@@ -152,38 +146,8 @@ export function AppShell({ children }: { children: ReactNode }) {
                 );
               })}
             </ul>
-            <p className="mt-6 mb-1.5 px-3 font-mono text-[0.68rem] uppercase tracking-[0.14em] text-gray">Website</p>
-            <ul className="space-y-0.5">
-              {website.map(({ href, label, icon: Icon }) => {
-                const on = isActive(path, href);
-                return (
-                  <li key={href}>
-                    <Link
-                      href={href}
-                      aria-current={on ? "page" : undefined}
-                      className={cx(
-                        "flex min-h-11 items-center gap-3 rounded-[var(--radius-s)] px-3 text-[0.92rem] transition-colors",
-                        on ? "bg-tint text-heading" : "text-ink/75 hover:bg-pale hover:text-ink"
-                      )}
-                    >
-                      <Icon className="size-[1.1rem]" aria-hidden="true" />
-                      {label}
-                    </Link>
-                  </li>
-                );
-              })}
-            </ul>
           </nav>
-          <div className="space-y-0.5 border-t border-line px-3 py-2">
-            <button
-              type="button"
-              data-tour="help"
-              onClick={() => setHelp(true)}
-              aria-haspopup="dialog"
-              className="flex min-h-11 w-full items-center gap-3 rounded-[var(--radius-s)] px-3 text-[0.94rem] font-medium text-ink/80 transition-colors hover:bg-pale hover:text-ink"
-            >
-              <CircleHelp className="size-[1.15rem]" aria-hidden="true" /> Help
-            </button>
+          <div className="border-t border-line px-3 py-2">
             <Link
               href="/app/settings"
               aria-current={isActive(path, "/app/settings") ? "page" : undefined}
@@ -240,7 +204,7 @@ export function AppShell({ children }: { children: ReactNode }) {
           )}
           <div className="ml-auto flex items-center gap-2">
             <ThemeToggle />
-            {!sidebar && <HelpButton onOpen={() => setHelp(true)} />}
+            <HelpButton onOpen={() => setHelp(true)} />
           </div>
         </div>
 

@@ -3,7 +3,7 @@
 // bottom bar and sheets on phones
 import Link from "next/link";
 import { useEffect, useState, type ReactNode } from "react";
-import { BookOpen, ChevronRight, House, Sparkles, Users, ClipboardCheck, Compass, Droplets, History, Info, LayoutDashboard, MoreHorizontal, Plus, RefreshCw, ScanLine, Settings, Timer, X } from "@/components/icons";
+import { ArrowUpRight, ChevronRight, ClipboardCheck, Compass, Droplets, History, Info, LayoutDashboard, MoreHorizontal, Plus, RefreshCw, ScanLine, Settings, Timer, X } from "@/components/icons";
 import { cx } from "@/frontend/format";
 import { copy } from "@/vendor/copy";
 import { startTour } from "./help/tourEvents";
@@ -20,10 +20,7 @@ const MORE = [
   { href: "/app/settings", label: copy.nav.settings, icon: Settings },
   { href: "/app/about", label: copy.nav.about, icon: Info },
   { href: "/app/experimental/color", label: copy.nav.experimental, icon: ScanLine },
-  { href: "/app/overview", label: "Overview", icon: House },
-  { href: "/app/features", label: "Features", icon: Sparkles },
-  { href: "/app/methodology", label: "Methodology", icon: BookOpen },
-  { href: "/app/about-project", label: "About", icon: Users },
+  { href: "/", label: "Back to website", icon: ArrowUpRight },
 ];
 
 const isActive = (path: string, href: string) => (href === "/app" ? path === "/app" : path === href || path.startsWith(`${href}/`));

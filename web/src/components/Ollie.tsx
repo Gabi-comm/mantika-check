@@ -56,7 +56,7 @@ export function Ollie({
         <g aria-hidden="true">
           <ellipse className="ollie-glow" cx="50" cy="66" rx="70" ry="66" fill={`url(#glow-${id})`} />
           <ellipse className="ollie-shadow" cx="50" cy="127" rx="26" ry="4.5" fill="#000" opacity="0.3" />
-          <g fill={BODY[state]} filter={`url(#rough-${id})`}>
+          <g className="ollie-rough" fill={BODY[state]} filter={`url(#rough-${id})`}>
             <circle className="ollie-bubble" cx="8" cy="104" r="3.4" />
             <circle className="ollie-bubble ollie-bubble-b" cx="94" cy="96" r="2.6" />
             <circle className="ollie-bubble ollie-bubble-c" cx="18" cy="70" r="2" />
@@ -67,7 +67,7 @@ export function Ollie({
 
       <g className="ollie-tilt">
       <g key={state} className="ollie-pop">
-        <g className="ollie-body" filter={`url(#rough-${id})`}>
+        <g className="ollie-body ollie-rough" filter={`url(#rough-${id})`}>
           <g stroke={BODY[state]} strokeWidth="5" strokeLinecap="round" fill="none">
             {slumped ? (
               <>

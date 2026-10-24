@@ -1,7 +1,6 @@
 // about page content
-import { LayoutDashboard, Wallet, Clock, Repeat, HeartPulse, Eye, Store, LogIn } from "@/components/icons";
+import { Wallet, Clock, Repeat, HeartPulse, Eye, Store, LogIn } from "@/components/icons";
 import { PageIntro } from "@/components/site/PageIntro";
-import { inAppHref } from "./links";
 import { LinkButton } from "@/components/ui";
 import { OllieStage } from "@/components/OllieStage";
 import { Reveal } from "@/components/motion/Reveal";
@@ -51,8 +50,7 @@ function ImpactList({ title, items, ollie, delay = 0 }: { title: string; items: 
   );
 }
 
-export function AboutContent({ inApp = false }: { inApp?: boolean }) {
-  const to = (href: string) => (inApp ? inAppHref(href) : href);
+export function AboutContent() {
   return (
     <>
       <PageIntro
@@ -75,10 +73,10 @@ export function AboutContent({ inApp = false }: { inApp?: boolean }) {
               transparency, not a laboratory verdict.
             </p>
             <div className="flex flex-wrap gap-3 pt-2">
-              <LinkButton href={inApp ? "/app" : "/#signin"} size="lg">
-                {inApp ? <LayoutDashboard className="size-4" aria-hidden="true" /> : <LogIn className="size-4" aria-hidden="true" />} {inApp ? "Open dashboard" : "Sign in"}
+              <LinkButton href="/#signin" size="lg">
+                <LogIn className="size-4" aria-hidden="true" /> Sign in
               </LinkButton>
-              <LinkButton href={to("/methodology")} size="lg" variant="secondary">
+              <LinkButton href="/methodology" size="lg" variant="secondary">
                 Explore the Method
               </LinkButton>
             </div>
